@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = .new(products_param)
+    @product = Product.new(products_param)
     if @product.save
       flash[:status] = :success
       flash[:result_text] = "Successfully added #{@product.product_name} to inventory"

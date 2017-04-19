@@ -1,7 +1,13 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'csv'
+media_file = Rails.root.join('db', 'seeds.csv')
+
+50.times do
+  username =   Faker::Color.color_name + "_" + Faker::Hipster.word
+  Merchant.create!(merchant_name: Faker::Name.first_name, merchant_email: Faker::Name.last_name, username: username )
+end
+
+CSV.foreach(media_file, headers: true, header_converters: :symbol, converters: :all) do |row|
+  data = Hash[row.headers.zip(row.fields)]
+  puts data
+  Product.create!(data)
+end

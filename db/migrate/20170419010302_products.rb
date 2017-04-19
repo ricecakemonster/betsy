@@ -7,6 +7,7 @@ class Products < ActiveRecord::Migration[5.0]
       t.string :photo_url
       t.integer :stock
       t.string :product_description
+      t.string :category
     end
   end
 end

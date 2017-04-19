@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20170419015611) do
     t.string  "photo_url"
     t.integer "stock"
     t.string  "product_description"
+    t.string  "category"
     t.index ["merchant_id"], name: "index_products_on_merchant_id", using: :btree
   end
 

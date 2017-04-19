@@ -1,5 +1,6 @@
 class MerchantsController < ApplicationController
   def index
+    @merchants = Merchant.all
   end
 
   def show
@@ -13,7 +14,7 @@ class MerchantsController < ApplicationController
     @merchant = Merchant.create(merchant_params)
     if @merchant.id != nil
       flash[:success] = "Success, your merchant account is created!"
-      redirect_to root_path
+      redirect_to merchants_path
     else
       flash[:failure] = "Sorry, your account was created unsuccessfully. Please try again."
       render :new, status: :bad_request

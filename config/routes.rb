@@ -25,21 +25,6 @@ Rails.application.routes.draw do
 
   get 'orders/update'
 
-  get 'orders/destroy'
-
-  get 'merchants/index'
-
-  get 'merchants/show'
-
-  get 'merchants/new'
-
-  get 'merchants/create'
-
-  get 'merchants/edit'
-
-  get 'merchants/update'
-
-  get 'merchants/destroy'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: "products#index"

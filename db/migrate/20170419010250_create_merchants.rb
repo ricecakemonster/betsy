@@ -4,6 +4,7 @@ class CreateMerchants < ActiveRecord::Migration[5.0]
       t.string :merchant_name
       t.string :merchant_email
       t.string :username
+      t.timestamps
     end
   end
 end

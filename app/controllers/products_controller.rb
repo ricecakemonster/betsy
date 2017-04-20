@@ -10,8 +10,31 @@ class ProductsController < ApplicationController
   def new
   end
 
+  rider = Rider.find(params[:rider_id])
+  trip_info = {
+    rider_id: rider.id,
+    driver_id: 2,
+    date: "Right freaking now",
+    rating: trip_params[:rating],
+    cost: rand(1.0..50.0)
+  }
+
+  @trip = rider.trips.build(trip_info)
+  if @trip.save
+    redirect_to trip_path(@trip.id)
+    # else
+    render :new
+  end
+
   def create
-    @product = Product.new(products_param)
+    merchant = Merchant.find(params[:merchant_id])
+    @product = {
+      merchant_id :merchant_id
+      :
+
+
+
+    }
     if @product.save
       flash[:status] = :success
       flash[:result_text] = "Successfully added #{@product.product_name} to inventory"

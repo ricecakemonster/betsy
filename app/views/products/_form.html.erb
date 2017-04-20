@@ -1,0 +1,23 @@
+<section>
+  <%= form_for @product do |f| %>
+    <%= f.hidden_field :category, value: @product.category %>
+
+    <%= f.label :product_name%>
+    <%= f.string :product_name %>
+
+    <%= f.label :price %>
+    <%= f.float :price%>
+
+    <%= f.label :photo_url %>
+    <%= f.text_area :photo_url %>
+
+    <%= f.label :stock %>
+    <%= f.integer :stock %>
+
+    <%= f.label :category %>
+    <%= f.string :category %>
+
+
+    <%= f.submit class: "button" %>
+  <% end %>
+</section>

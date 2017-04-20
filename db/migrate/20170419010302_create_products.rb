@@ -7,7 +7,7 @@ class CreateProducts < ActiveRecord::Migration[5.0]
       t.string :photo_url
       t.integer :stock
       t.string :product_description
-      t.string :category
+      t.timestamps
     end
   end
 end

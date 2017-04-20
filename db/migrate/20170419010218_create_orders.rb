@@ -7,6 +7,8 @@ class CreateOrders < ActiveRecord::Migration[5.0]
       t.string :order_email
       t.string :mailing_address
       t.string :cc_expiry
+      t.integer :buyer_id
+      t.timestamps
     end
   end
 end

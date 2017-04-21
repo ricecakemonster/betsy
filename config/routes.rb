@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     resources :products, except: [:index, :show]
   end
   resources :orders
+  patch '/orders/:id/purchase', to: 'orders#purchase', as: 'purchase'
   resources :reviews
   resources :products, only: [:index, :show]
+
+
 end

@@ -6,10 +6,16 @@ Rails.application.routes.draw do
   resources :merchants do
     resources :products, except: [:index, :show]
   end
-  resources :orders
-  patch '/orders/:id/purchase', to: 'orders#purchase', as: 'purchase'
-  resources :reviews
+
   resources :products, only: [:index, :show]
+  resources :products do
+    get 'orders/new', to: 'orders#new'
+  end
+  resources :orders, except: [:new]
+  patch '/orders/:id/purchase', to: 'orders#purchase', as: 'purchase'
+  get '/orders/:id/payment', to: 'orders#payment', as: 'payment'
+  resources :reviews
+
 
 
 end

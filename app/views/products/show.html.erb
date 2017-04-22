@@ -1,2 +1,5 @@
 <h1>Products#show</h1>
+<% @product = Product.find_by(id: params[:id]) %>
+<%= link_to "Add to the cart", product_orders_new_path(params[:id]) %>
+<%= @product.product_name %>
 <p>Find me in app/views/products/show.html.erb</p>

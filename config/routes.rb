@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get 'orders/new', to: 'orders#new'
   end
   resources :orders, except: [:new]
+  post '/products/:id/add_to_cart', to: 'orders#add_to_cart', as: 'add_to_cart'
   patch '/orders/:id/purchase', to: 'orders#purchase', as: 'purchase'
   get '/orders/:id/payment', to: 'orders#payment', as: 'payment'
   resources :reviews

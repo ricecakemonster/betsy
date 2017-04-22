@@ -1,5 +1,15 @@
 <h1>Products#show</h1>
 <% @product = Product.find_by(id: params[:id]) %>
-<%= link_to "Add to the cart", product_orders_new_path(params[:id]) %>
+hello
+
+
+
+<%= form_for @orderproduct, url: add_to_cart_path(params[:id]) do |t| %>
+Qty: <%= t.number_field :quantity%>
+<%= t.hidden_field :product_id, value: params[:id] %>
+<%= t.submit "Add to Cart" %>
+<% end %>
+
+
+<%#= link_to "Add to the cart", product_orders_new_path(params[:id]) %>
 <%= @product.product_name %>
-<p>Find me in app/views/products/show.html.erb</p>

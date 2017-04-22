@@ -9,8 +9,27 @@ class OrdersController < ApplicationController
 
   def new
     @product = Product.find_by(id: params[:product_id])
-    @order = Order.create
+    @order = Order.find_by(id: @@orderproduct.order_id)
+    @total = 0
+    @order.products.each do |product|
+      @total += product.price
+    end
+    return @total
+
   end
+
+  def update
+
+  end
+
+  def add_to_cart
+    @order = Order.create
+
+    @@orderproduct = Orderproduct.create(orderproduct_params)
+
+    redirect_to product_orders_new_path(product_id: params[:id])
+  end
+
 
   def create #coming from product side
     @order = Order.create
@@ -69,6 +88,6 @@ def order_params
 end
 
 def orderproduct_params
-  return params.require(:orderproduct).permit(:product_id, @order_id, :quantity)
+  return params.require(:orderproduct).permit(:quantity, :product_id).merge(order_id: @order.id)
 end
 end

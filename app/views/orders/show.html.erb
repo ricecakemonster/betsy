@@ -1,7 +1,8 @@
 <h1>Cart</h1>
-<% orderproducts = Orderproduct.where(order_id: params[:id]) %>
 <ul>
-<% orderproducts.each do |orderproduct| %>
-<li><%= Product.find_by(id: orderproduct[:product_id]).product_name %></li>
-<% end %>
+<li><%= product_names = Product.where(id: session[:product_id]).map{|p| p[:product_name]} %>
+ :: unit price :<%= prices = Product.where(id: session[:product_id]).map{|p| p[:price]}  %>
+<%= session[:quantities] %></li>
+<li><%=  %></li>
+<%  %>
 </ul>

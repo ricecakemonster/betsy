@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-
+  before_action :require_login, only: [:new, :edit, :update, :destroy]
 
   def index
     @products = Product.all

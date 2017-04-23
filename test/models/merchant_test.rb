@@ -4,7 +4,8 @@ describe Merchant do
 
   describe "relationships" do
     it "can have many products" do
-
+      merchant = merchants(:a)
+      merchant.products.count.must_equal 2
     end
   end
 

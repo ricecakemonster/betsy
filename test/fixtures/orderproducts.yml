@@ -4,8 +4,22 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
+# one:
+# order: one
+# product: apple
+# quantity: 1
 #
-two: {}
-# column: value
+# two:
+# order: one
+# product: dragonfruit
+# quantity: 2
+#
+# three:
+# order: two
+# product: pear
+# quantity: 2
+#
+# three:
+# order: two
+# product: apple
+# quantity: 2

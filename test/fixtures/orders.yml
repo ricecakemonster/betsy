@@ -4,8 +4,29 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
+# one:
+# status: pending
+# cc_num:
+# cc_name:
+# order_email:
+# mailing_address:
+# cc_expiry:
+# buyer_id:
 #
-two: {}
-# column: value
+# two:
+# status: completed
+# cc_num:
+# cc_name:
+# order_email:
+# mailing_address:
+# cc_expiry:
+# buyer_id:
+#
+# three:
+# status: completed
+# cc_num:
+# cc_name:
+# order_email:
+# mailing_address:
+# cc_expiry:
+# buyer_id:

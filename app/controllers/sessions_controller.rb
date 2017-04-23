@@ -1,11 +1,10 @@
 class SessionsController < ApplicationController
-  def create
+  def login
     auth_hash = request.env['omniauth.auth']
     merchant = Merchant.from_github(auth_hash)
 
     merchant = Merchant.find_by(oauth_provider: params[:provider], oauth_uid: auth_hash["uid"])
     if merchant.nil?
-      # Don't know this merchant, build a new merchant
       merchant = Merchant.from_github(auth_hash)
       if merchant.save
         session[:user_id] = merchant.id
@@ -18,8 +17,14 @@ class SessionsController < ApplicationController
       end
     else
       session[:user_id] = merchant.id
-      flash[:result_text] = "Welcome back, #{merchant.merchant_name}!"
     end
+    redirect_to root_path
+  end
+
+  def logout
+    session[:user_id] = nil
+    flash[:status] = :success
+    flash[:result_text] = "Successfully logged out"
     redirect_to root_path
   end
 end

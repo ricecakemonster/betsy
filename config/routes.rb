@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :reviews
   resources :products, only: [:index, :show]
 
-  get "/auth/:provider/callback", to: "sessions#create"
-  # post '/login', to: 'sessions#create'
+  get "/auth/:provider/callback", to: "sessions#login"
+  post '/login', to: 'sessions#login'
+  post '/logout', to: 'sessions#logout', as: 'logout'
 end

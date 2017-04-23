@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170423212855) do
+ActiveRecord::Schema.define(version: 20170423235825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,13 +35,6 @@ ActiveRecord::Schema.define(version: 20170423212855) do
     t.string "username"
     t.string "oauth_uid"
     t.string "oauth_provider"
-  end
-
-  create_table "merchants_orders", id: false, force: :cascade do |t|
-    t.integer "merchant_id", null: false
-    t.integer "order_id",    null: false
-    t.index ["merchant_id"], name: "index_merchants_orders_on_merchant_id", using: :btree
-    t.index ["order_id"], name: "index_merchants_orders_on_order_id", using: :btree
   end
 
   create_table "orderproducts", force: :cascade do |t|

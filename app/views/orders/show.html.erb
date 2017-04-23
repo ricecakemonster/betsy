@@ -1,9 +1,9 @@
 <h1>Cart</h1>
 <ul>
-<li><%= @product_names %>
- , unit price :<%= @prices %>, qty :
-<%= session[:quantities] %></li>
-<li><%=  %></li>
-ok!
-<%  %>
+  <% @product_names.length.times do |n| %>
+  <li><%= @product_names[n] %>, unit price : $<%= @prices[n] %>, qty :<%= session[:quantities][n] %></li>
+  <% n += 1 %>
+  <% end %>
+
+  <li><h2>Subtotal: $<%= '%.02f' % @subtotal %></h2></li>
 </ul>

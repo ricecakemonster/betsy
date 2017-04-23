@@ -7,10 +7,16 @@ class OrdersController < ApplicationController
   def show
     @product_names = []
     @prices = []
+    @subtotal = 0
     session[:product_id].each do |product_id|
       @product_names << Product.find_by(id: product_id)[:product_name]
-      @prices << Product.find_by(id: product_id)[:price]
+      price = Product.find_by(id: product_id)[:price]
+      @prices << price
     end
+    @prices.zip(session[:quantities]).each do |price, quantity|
+      @subtotal += price * quantity
+    end
+
   end
 
   def new

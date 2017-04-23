@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   def require_login
     lookup_user
     if @current_user.nil?
-      flash[:result_text] = "You need to be logged to see that page"
+      flash[:result_text] = "You need to be a merchant to see that page"
       redirect_to root_path
     end
   end

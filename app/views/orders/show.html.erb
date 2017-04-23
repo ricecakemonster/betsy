@@ -1,8 +1,9 @@
 <h1>Cart</h1>
 <ul>
-<li><%= product_names = Product.where(id: session[:product_id]).map{|p| p[:product_name]} %>
- :: unit price :<%= prices = Product.where(id: session[:product_id]).map{|p| p[:price]}  %>
+<li><%= @product_names %>
+ , unit price :<%= @prices %>, qty :
 <%= session[:quantities] %></li>
 <li><%=  %></li>
+ok!
 <%  %>
 </ul>

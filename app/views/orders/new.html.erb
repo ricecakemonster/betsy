@@ -1,15 +1,7 @@
 <h2><%= @product.product_name%> is added to Cart!</h2>
 
-<% @subtotal = 0 %>
-<% prices = Product.where(id: session[:product_id]).map{|p| p[:price]} %>
-<% prices.zip(session[:quantities]).each do |price, quantity| %>
-  <% @subtotal += price * quantity%>
-  <% price %>
-  <%# raise %>
-  <%#  return @subtotal %>
-<% end %>
-<h3>$<%= @subtotal %> </h3>
-<%= prices %>
-<%= session[:quantities] %>
+<h3>$<%= '%.02f' % @subtotal %> </h3>
+Working great!
+
 <%= link_to "Shop More", products_path %>
 <%= link_to "Cart", order_path(@order.id) %>

@@ -5,15 +5,23 @@ class OrdersController < ApplicationController
   end
 
   def show
-
+    @product_names = []
+    @prices = []
+    session[:product_id].each do |product_id|
+      @product_names << Product.find_by(id: product_id)[:product_name]
+      @prices << Product.find_by(id: product_id)[:price]
+    end
   end
 
   def new
     @product = Product.find_by(id: params[:product_id])
-    @order = Order.find_by(id: @@orderproduct.order_id)
-    @total = 0
-    @price = @product.price * @@orderproduct.quantity
+    @order = Order.find_by(id: session[:order_id])
 
+    @subtotal = 0
+    prices = Product.where(id: session[:product_id]).map{|p| p[:price]}
+    prices.zip(session[:quantities]).each do |price, quantity|
+      @subtotal += price * quantity
+    end
 
 
   end
@@ -34,9 +42,9 @@ class OrdersController < ApplicationController
       session[:quantities] ||= []
 
     end
-    @@orderproduct = Orderproduct.create(orderproduct_params)
+    @orderproduct = Orderproduct.create(orderproduct_params)
     session[:product_id] << Product.find_by(id: params[:id]).id
-    session[:quantities] << @@orderproduct.quantity
+    session[:quantities] << @orderproduct.quantity
 
     redirect_to product_orders_new_path(product_id: params[:id])
   end

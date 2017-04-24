@@ -8,14 +8,17 @@ class OrdersController < ApplicationController
     @product_names = []
     @prices = []
     @subtotal = 0
-    session[:product_id].each do |product_id|
+    session[:product_ids].each do |product_id|
       @product_names << Product.find_by(id: product_id)[:product_name]
       price = Product.find_by(id: product_id)[:price]
       @prices << price
     end
-    @prices.zip(session[:quantities]).each do |price, quantity|
+    quantities = Orderproduct.where(id: session[:orderproduct_ids]).map{|o| o[:quantity]}
+
+    @prices.zip(quantities).each do |price, quantity|
       @subtotal += price * quantity
     end
+
 
 
   end
@@ -25,8 +28,10 @@ class OrdersController < ApplicationController
     @order = Order.find_by(id: session[:order_id])
 
     @subtotal = 0
-    prices = Product.where(id: session[:product_id]).map{|p| p[:price]}
-    prices.zip(session[:quantities]).each do |price, quantity|
+    prices = Product.where(id: session[:product_ids]).map{|p| p[:price]}
+    quantities = Orderproduct.where(id: session[:orderproduct_ids]).map{|o| o[:quantity]}
+
+    prices.zip(quantities).each do |price, quantity|
       @subtotal += price * quantity
     end
 
@@ -39,21 +44,21 @@ class OrdersController < ApplicationController
 
   def add_to_cart
 
-    if session[:product_id]
+    if session[:product_ids]
       @order = Order.find_by(id: session[:order_id])
 
     else
       @order = Order.create
       session[:order_id] = @order.id
-      session[:product_id] ||= []
-      session[:quantities] ||= []
-
+      session[:product_ids] ||= []
+      session[:orderproduct_ids] ||= []
+      session[:order_ids] ||= []
 
     end
     @orderproduct = Orderproduct.create(orderproduct_params)
-    session[:product_id] << Product.find_by(id: params[:id]).id
-    session[:quantities] << @orderproduct.quantity
-
+    session[:product_ids] << Product.find_by(id: params[:id]).id
+    session[:orderproduct_ids] << @orderproduct.id
+    session[:order_ids] << @order.id
     redirect_to product_orders_new_path(product_id: params[:id])
   end
 

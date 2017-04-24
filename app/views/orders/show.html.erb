@@ -10,20 +10,26 @@
     </tr>
   </thead>
   <tbody>
-
-    <% session[:quantities].each do |n| %>
+    <% n = 0 %>
+    <% @product_names.length.times do |n| %>
     <tr>
       <td><%= @product_names[n] %></td>
       <td>$<%= @prices[n] %></td>
       <td>
+        <% @order = Order.find_by(id: session[:order_ids][n]) %>
+        <% @orderproduct = Orderproduct.find_by(id: session[:orderproduct_ids][n]) %>
 
-        OrderProduct Qty: <%= session[:quantities][n] %>
+
         <%= form_for @orderproduct, url: update_quantity_path(id: params[:id]) do |f| %>
-          <%= f.number_field :quantity, min: 1, placeholder: session[:quantities][n]%>
+          <%= f.number_field :quantity, min: 1, placeholder: @orderproduct.quantity%>
 
-          <%= f.submit "Update"%>
-          <%#= number_field_tag :quantity, session[:quantities][n], min: 1 %>
+          <%= f.submit "Update", class: 'button'%>
         <% end %>
+
+        <%= button_to "Delete", delete_orderproduct_path(@order.id), method: :delete,
+          data: {confirm: "Are you sure to delete ?"}, class: "alert button" %>
+
+
       </td>
 
 <%#= number_field_tag 'quantity', 1, min: 1 %>

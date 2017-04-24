@@ -54,8 +54,8 @@ class ProductsController < ApplicationController
     review_info = {
       product_id: product.id,
       rating: review_params[:rating]
-      # nickname: review_params[:nickname]
-      # review_description: review_params[:review_description]
+      nickname: review_params[:nickname]
+      review_description: review_params[:review_description]
     }
     @review = product.reviews.build(review_info)
     if @review.save

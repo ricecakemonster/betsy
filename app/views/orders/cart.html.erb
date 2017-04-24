@@ -1,0 +1,5 @@
+<% order = Order.find_by(id: params[:id]) %>
+<% order.products.each do |product| %>
+<%= product.id %>
+<% end %>
+<%= order.products %>

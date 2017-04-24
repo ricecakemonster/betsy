@@ -29,13 +29,14 @@ class ProductsController < ApplicationController
 
   def create
     merchant = Merchant.find(params[:merchant_id])
-    @product = {
-      merchant_id :merchant_id
-      :
-
-
-
-    }
+    @product = Product.new(product_params, merchant_id: :merchant_id)
+    # {
+    #   merchant_id :merchant_id
+    #   :
+    #
+    #
+    #
+    # }
     if @product.save
       flash[:status] = :success
       flash[:result_text] = "Successfully added #{@product.product_name} to inventory"
@@ -55,5 +56,10 @@ class ProductsController < ApplicationController
   end
 
   def destroy
+  end
+
+private
+  def product_params
+    params.require(:product).permit(:product_name, :price, :merchant_id, :photo_url, :stock, :product_description)
   end
 end

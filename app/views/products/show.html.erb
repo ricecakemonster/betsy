@@ -30,11 +30,18 @@ Description (Optional)
 <%= t.submit "Leave Review" %>
 <% end %>
 
-<ul>
-<% @review_list.each do |r| %>
-<li><%= "Customer Name: #{r.nickname}" %>
-  <%= "Rating: #{r.rating}" %>
-  <%= "Description: #{r.review_description}" %>
-</li>
-<% end %>
-</ul>
+
+<table style="width:50%">
+  <tr>
+    <th>Customer Name</th>
+    <th>Rating</th>
+    <th>Description</th>
+  </tr>
+    <% @review_list.each do |r| %>
+  <tr>
+    <td><%= "#{r.nickname}" %></td>
+    <td><%= "#{r.rating}" %></td>
+    <td><%= "#{r.review_description}" %></td>
+  </tr>
+  <% end %>
+</table>

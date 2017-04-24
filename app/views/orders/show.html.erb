@@ -11,21 +11,19 @@
   </thead>
   <tbody>
 
-    <% @product_names.length.times do |n| %>
+    <% session[:quantities].each do |n| %>
     <tr>
       <td><%= @product_names[n] %></td>
       <td>$<%= @prices[n] %></td>
       <td>
-        Order ID: <%= session[:order_ids][n] %>,
-        <% @orderproduct = Orderproduct.find_by(order_id: session[:order_ids]) %>
-<% raise %>
-        <%OrderProduct ID: <%= @orderproduct.id %>
-        <%#= form_for @orderproduct, url: update_quantity_path(id: params[:id]) do |f| %>
-          <%#= f.number_field :quantity, min: 1, placeholder: @orderproduct[:quantity]%>
 
-          <%#= f.submit "Update"%>
-          <%= number_field_tag :quantity, @orderproduct[:quantity], min: 1 %>
-        <%# end %>
+        OrderProduct Qty: <%= session[:quantities][n] %>
+        <%= form_for @orderproduct, url: update_quantity_path(id: params[:id]) do |f| %>
+          <%= f.number_field :quantity, min: 1, placeholder: session[:quantities][n]%>
+
+          <%= f.submit "Update"%>
+          <%#= number_field_tag :quantity, session[:quantities][n], min: 1 %>
+        <% end %>
       </td>
 
 <%#= number_field_tag 'quantity', 1, min: 1 %>

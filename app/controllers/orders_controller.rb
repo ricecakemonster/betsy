@@ -47,13 +47,13 @@ class OrdersController < ApplicationController
       session[:order_id] = @order.id
       session[:product_id] ||= []
       session[:quantities] ||= []
-      session[:order_ids] ||= []
+
 
     end
     @orderproduct = Orderproduct.create(orderproduct_params)
     session[:product_id] << Product.find_by(id: params[:id]).id
     session[:quantities] << @orderproduct.quantity
-    session[:order_ids] << session[:order_id]
+
     redirect_to product_orders_new_path(product_id: params[:id])
   end
 

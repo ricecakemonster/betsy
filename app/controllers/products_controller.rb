@@ -8,7 +8,8 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find_by(id: params[:id])
     @orderproduct = Orderproduct.new
-
+    @review = Review.new
+    @review_list = Review.where(product_id: params[:id])
   end
 
   def new
@@ -45,27 +46,28 @@ class ProductsController < ApplicationController
   def destroy
   end
 
-  # def review_new
-  #   @review = Review.new(params[:id])
-  # end
-
-  def review_create
-    product = Product.find(params[:product_id])
+  def review
+    flash[:status] = :failure
+    product = Product.find_by(id: params[:id])
     review_info = {
       product_id: product.id,
-      rating: review_params[:rating]
-      nickname: review_params[:nickname]
+      rating: review_params[:rating],
+      nickname: review_params[:nickname],
       review_description: review_params[:review_description]
     }
-    @review = product.reviews.build(review_info)
+    @review = Review.new(review_info)
     if @review.save
+      flash[:status] = :success
+      flash[:result_text] = "Successfully reviewed!"
       redirect_to product_path(product.id)
     else
+      flash[:result_text] = "Could not review"
+      flash[:messages] = review.errors.messages
       render :new
     end
   end
 
-private
+  private
   def product_params
     params.require(:product).permit(:product_name, :price, :merchant_id, :photo_url, :stock, :product_description)
   end

@@ -2,5 +2,5 @@
 <% if @current_user.id == @merchant.id %>
 <%= render partial: "form" %>
 <% else %>
-<%=flash[:result_text] = "Sorry, you can only edit your own account." %>
+<%=flash[:failure] = "Sorry, you can only edit your own account." %>
 <% end %>

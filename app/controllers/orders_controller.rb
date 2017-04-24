@@ -5,15 +5,17 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @product_names = []
-    @prices = []
+    @order = Order.find(session[:order_id])
+
+    @product = Product.find_by(id: params[:product_id])
+    @order = Order.find_by(id: session[:order_id])
+    quantities = @order.orderproducts.map{|orderproduct| orderproduct[:quantity]}
+
     @subtotal = 0
-    session[:product_ids].each do |product_id|
-      @product_names << Product.find_by(id: product_id)[:product_name]
-      price = Product.find_by(id: product_id)[:price]
-      @prices << price
+    @prices = []
+    @order.orderproducts.each do |orderproduct|
+      @prices << Product.find_by(id: orderproduct.product_id).price
     end
-    quantities = Orderproduct.where(id: session[:orderproduct_ids]).map{|o| o[:quantity]}
 
     @prices.zip(quantities).each do |price, quantity|
       @subtotal += price * quantity
@@ -24,17 +26,25 @@ class OrdersController < ApplicationController
   end
 
   def new
+    @order = Order.find(session[:order_id])
     @product = Product.find_by(id: params[:product_id])
     @order = Order.find_by(id: session[:order_id])
+    quantities = @order.orderproducts.map{|orderproduct| orderproduct[:quantity]}
 
     @subtotal = 0
-    prices = Product.where(id: session[:product_ids]).map{|p| p[:price]}
-    quantities = Orderproduct.where(id: session[:orderproduct_ids]).map{|o| o[:quantity]}
+    @prices = []
+    @order.orderproducts.each do |orderproduct|
+      @prices << Product.find_by(id: orderproduct.product_id).price
 
-    prices.zip(quantities).each do |price, quantity|
-      @subtotal += price * quantity
     end
 
+
+    #prices = Product.where(id: session[:product_ids]).map{|p| p[:price]}
+    #quantities = Orderproduct.where(id: session[:orderproduct_ids]).map{|o| o[:quantity]}
+
+    @prices.zip(quantities).each do |price, quantity|
+      @subtotal += price * quantity
+    end
 
   end
 
@@ -44,21 +54,16 @@ class OrdersController < ApplicationController
 
   def add_to_cart
 
-    if session[:product_ids]
+    if session[:order_id]
       @order = Order.find_by(id: session[:order_id])
 
     else
       @order = Order.create
       session[:order_id] = @order.id
-      session[:product_ids] ||= []
-      session[:orderproduct_ids] ||= []
-      session[:order_ids] ||= []
+
 
     end
     @orderproduct = Orderproduct.create(orderproduct_params)
-    session[:product_ids] << Product.find_by(id: params[:id]).id
-    session[:orderproduct_ids] << @orderproduct.id
-    session[:order_ids] << @order.id
     redirect_to product_orders_new_path(product_id: params[:id])
   end
 
@@ -80,7 +85,9 @@ class OrdersController < ApplicationController
   end
 
 
+  def destroy_orderproduct
 
+  end
 
 
 

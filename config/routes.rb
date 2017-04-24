@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   patch '/orders/:id/update_qty', to: 'orders#update_qty', as: 'update_quantity'
   patch '/orders/:id/purchase', to: 'orders#purchase', as: 'purchase'
   get '/orders/:id/payment', to: 'orders#payment', as: 'payment'
-  delete '/orders/:id/orderproduct', to: 'orders#destroy_orderproduct', as: 'delete_orderproduct'
+  delete '/orders/:order_id/orderproduct/:orderproduct_id', to: 'orders#destroy_orderproduct', as: 'delete_orderproduct'
 
   resources :reviews
 

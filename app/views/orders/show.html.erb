@@ -10,33 +10,29 @@
     </tr>
   </thead>
   <tbody>
-    <% n = 0 %>
-    <% @product_names.length.times do |n| %>
+
+    <% @order.orderproducts.each do |orderproduct| %>
+    <% product = Product.find_by(id: orderproduct.product_id)%>
+
     <tr>
-      <td><%= @product_names[n] %></td>
-      <td>$<%= @prices[n] %></td>
+      <td><%= product.product_name %>  <%= image_tag(product.photo_url)%></td>
+
+      <td>$<%= product.price %></td>
       <td>
-        <% @order = Order.find_by(id: session[:order_ids][n]) %>
-        <% @orderproduct = Orderproduct.find_by(id: session[:orderproduct_ids][n]) %>
 
 
-        <%= form_for @orderproduct, url: update_quantity_path(id: params[:id]) do |f| %>
-          <%= f.number_field :quantity, min: 1, placeholder: @orderproduct.quantity%>
+        <%= form_for orderproduct, url: update_quantity_path(id: params[:id]) do |f| %>
+          <%= f.number_field :quantity, min: 1, placeholder: orderproduct.quantity%>
 
           <%= f.submit "Update", class: 'button'%>
         <% end %>
 
-        <%= button_to "Delete", delete_orderproduct_path(@order.id), method: :delete,
+        <%= button_to "Delete", delete_orderproduct_path(params[:id], orderproduct.id), method: :delete,
           data: {confirm: "Are you sure to delete ?"}, class: "alert button" %>
 
 
       </td>
-
-<%#= number_field_tag 'quantity', 1, min: 1 %>
-
-
     </tr>
-  <% n += 1 %>
   <% end %>
 
   </tbody>

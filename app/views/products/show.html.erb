@@ -1,3 +1,4 @@
+
 <article>
   <h3><%= @product.product_name %></h3>
   <%= image_tag(@product.photo_url) %>
@@ -10,3 +11,14 @@
     <%= link_to "Back to all products", products_path %>
   </section>
 </article>
+
+
+<%# @product = Product.find_by(id: params[:id]) %>
+
+
+
+<%= form_for @orderproduct, url: add_to_cart_path(params[:id]) do |t| %>
+Qty: <%= t.number_field :quantity, value: 1, min: 1%>
+<%= t.hidden_field :product_id, value: params[:id] %>
+<%= t.submit "Add to Cart" %>
+<% end %>

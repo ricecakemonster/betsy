@@ -1,2 +1,6 @@
 <h1>Merchants#edit</h1>
-<p>Find me in app/views/merchants/edit.html.erb</p>
+<% if @current_user.id == @merchant.id %>
+<%= render partial: "form" %>
+<% else %>
+<%=flash[:result_text] = "Sorry, you can only edit your own account." %>
+<% end %>

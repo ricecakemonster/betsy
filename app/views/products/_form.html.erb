@@ -1,6 +1,6 @@
 <section>
   <%= form_for @product do |f| %>
-    <%= f.hidden_field :category, value: @product.category %>
+    <%= f.hidden_field :merchant_id, value: @merchant.id %>
 
     <%= f.label :product_name%>
     <%= f.string :product_name %>

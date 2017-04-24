@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @products = Product.find_by(id: params[:id])
+    @product = Product.find_by(id: params[:id])
   end
 
   def new
@@ -33,9 +33,6 @@ class ProductsController < ApplicationController
     # {
     #   merchant_id :merchant_id
     #   :
-    #
-    #
-    #
     # }
     if @product.save
       flash[:status] = :success

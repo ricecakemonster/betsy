@@ -1,7 +1,7 @@
 <h2><%= @product.product_name%> is added to Cart!</h2>
 
 <h3>$<%= '%.02f' % @subtotal %> </h3>
-Working great!
+
 
 <%= link_to "Shop More", products_path %>
 <%= link_to "Cart", order_path(@order.id) %>

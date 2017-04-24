@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
       @subtotal += price * quantity
     end
 
+
   end
 
   def new
@@ -46,22 +47,47 @@ class OrdersController < ApplicationController
       session[:order_id] = @order.id
       session[:product_id] ||= []
       session[:quantities] ||= []
+      session[:order_ids] ||= []
 
     end
     @orderproduct = Orderproduct.create(orderproduct_params)
     session[:product_id] << Product.find_by(id: params[:id]).id
     session[:quantities] << @orderproduct.quantity
-
+    session[:order_ids] << session[:order_id]
     redirect_to product_orders_new_path(product_id: params[:id])
   end
 
 
   def create #coming from product side
-    @order = Order.create
-    @orderproduct = Orderproduct.create(order_id: @order.id, product_id: params[:product_id])
-    flash[:result_text] = "Successfully created a Cart"
+    @order = Order.new
+    if @order.save
+      flash[:result_text] = "Successfully created a Cart"
+      flash[:status] = :success
+      @orderproduct = Orderproduct.create(order_id: @order.id, product_id: params[:product_id])
+      redirect_to cart_path(@order.id)
+    else
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Could not create a Cart"
+      flash.now[:messages] = @order.errors.messages
+      render :new, status: :bad_request
+    end
 
-    redirect_to cart_path(@order.id)
+  end
+
+
+
+
+
+
+
+  def update_qty
+    @orderproduct = Orderproduct.find_by(order_id: params[:id])
+    @orderproduct.update(orderproduct_params)
+    render 'orders/show'
+  end
+
+
+
     # flash[:result_text] = "Continue shopping?"
     #  if @answer = "yes"
     #    redirect_to root_path
@@ -92,7 +118,7 @@ class OrdersController < ApplicationController
     #
     #
     #
-  end
+
   #
   #   def edit
   #   end

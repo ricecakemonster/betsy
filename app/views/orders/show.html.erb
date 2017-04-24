@@ -1,9 +1,40 @@
 <h1>Cart</h1>
-<ul>
-  <% @product_names.length.times do |n| %>
-  <li><%= @product_names[n] %>, unit price : $<%= @prices[n] %>, qty :<%= session[:quantities][n] %></li>
+<%= session[:order_ids] %>
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Unit Price</th>
+      <th>Quantity</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% @product_names.length.times do |n| %>
+    <tr>
+      <td><%= @product_names[n] %></td>
+      <td>$<%= @prices[n] %></td>
+      <td>
+        Order ID: <%= session[:order_ids][n] %>,
+        <% @orderproduct = Orderproduct.find_by(order_id: session[:order_ids]) %>
+<% raise %>
+        <%OrderProduct ID: <%= @orderproduct.id %>
+        <%#= form_for @orderproduct, url: update_quantity_path(id: params[:id]) do |f| %>
+          <%#= f.number_field :quantity, min: 1, placeholder: @orderproduct[:quantity]%>
+
+          <%#= f.submit "Update"%>
+          <%= number_field_tag :quantity, @orderproduct[:quantity], min: 1 %>
+        <%# end %>
+      </td>
+
+<%#= number_field_tag 'quantity', 1, min: 1 %>
+
+
+    </tr>
   <% n += 1 %>
   <% end %>
 
+  </tbody>
   <li><h2>Subtotal: $<%= '%.02f' % @subtotal %></h2></li>
-</ul>
+</table>

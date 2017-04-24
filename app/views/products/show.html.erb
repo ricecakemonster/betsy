@@ -4,7 +4,8 @@
 
 
 <%= form_for @orderproduct, url: add_to_cart_path(params[:id]) do |t| %>
-Qty: <%= t.number_field :quantity%>
+Qty: <%= t.number_field :quantity, value: 1, min: 1%>
+<%= t.hidden_field :product_id, value: params[:id] %>
 <%= t.submit "Add to Cart" %>
 <% end %>
 

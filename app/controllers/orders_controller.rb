@@ -86,6 +86,9 @@ class OrdersController < ApplicationController
 
 
   def destroy_orderproduct
+    @orderproduct = Orderproduct.find_by(id: params[:orderproduct_id])
+    @orderproduct.destroy
+    redirect_to order_path(id: params[:order_id])
 
   end
 
@@ -93,9 +96,11 @@ class OrdersController < ApplicationController
 
 
   def update_qty
-    @orderproduct = Orderproduct.find_by(order_id: params[:id])
+    @order = Order.find_by(id: params[:id])
+
+    @orderproduct = Orderproduct.find_by(id: params[:orderproduct][:id])
     @orderproduct.update(orderproduct_params)
-    render 'orders/show'
+    redirect_to order_path(id: params[:id])
   end
 
 

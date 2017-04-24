@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @merchant = Merchant.find(product_params[:merchant_id])
+    @merchant = Merchant.find(params[:merchant_id])
     @product = @merchant.products.build
   end
 

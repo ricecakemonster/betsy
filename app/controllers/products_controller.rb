@@ -8,7 +8,8 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @product = Product.new #Do I need an argument here?
+    @merchant = Merchant.find(product_params[:merchant_id])
+    @product = @merchant.products.build
   end
 
   # rider = Rider.find(params[:rider_id])
@@ -29,7 +30,7 @@ class ProductsController < ApplicationController
 
   def create
     merchant = Merchant.find(params[:merchant_id])
-    @product = Product.new(product_params, merchant_id: :merchant_id)
+    @product = @merchant.products.build(product_params)
     # {
     #   merchant_id :merchant_id
     #   :

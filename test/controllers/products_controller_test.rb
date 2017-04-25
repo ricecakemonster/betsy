@@ -13,12 +13,21 @@ describe ProductsController do
   end
 
   it "should get show" do
-    get product_path
+    get product_path(products(:cat_jacket))
     must_respond_with :success
   end
 
+  it "returns a 404 if the product doesn't exist" do
+    product_id = Product.last.id
+    product_id += 1
+    get product_path(product_id)
+
+    must_respond_with :not_found
+  end
+
   it "should get new" do
-    get new_product_path
+    session[:user_id] = merchants(:merchant_1).id
+    get new_merchant_product_path(session[:user_id])
     must_respond_with :success
   end
 

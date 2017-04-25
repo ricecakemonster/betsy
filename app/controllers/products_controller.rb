@@ -7,19 +7,22 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params[:id])
+
+    if @product.nil?
+      head :not_found
+    end
+
     @orderproduct = Orderproduct.new
     @review = Review.new
     @review_list = Review.where(product_id: params[:id])
   end
 
   def new
-    @merchant = Merchant.find(params[:merchant_id])
-    @product = @merchant.products.build
+    @product = Product.new
   end
 
   def create
-    merchant = Merchant.find(params[:merchant_id])
-    @product = @merchant.products.build(product_params)
+    @product = Product.new(product_params)
     # {
     #   merchant_id :merchant_id
     #   :

@@ -1,11 +1,8 @@
 Rails.application.routes.draw do
   root to: "products#index"
 
-  resources :merchants, except: [:new] do
-    resources :products, except: [:index, :show]
-  end
-
-  resources :products, only: [:index, :show]
+  resources :merchants, except: [:new]
+# changed to remove new_product_path, delete product_path
   resources :products do
     get 'orders/added_to_cart', to: 'orders#added_to_cart'
   end

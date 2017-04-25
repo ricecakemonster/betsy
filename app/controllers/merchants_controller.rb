@@ -1,8 +1,15 @@
 class MerchantsController < ApplicationController
-  before_action :require_login, only: [:index, :show]
+  before_action :require_login, only: [:account]
 
   def index
     @merchants = Merchant.all
+  end
+
+  def account
+    @merchant = Merchant.find_by(id: params[:id])
+    if @merchant.nil?
+      head :not_found
+    end
   end
 
   def show
@@ -10,10 +17,6 @@ class MerchantsController < ApplicationController
     if @merchant.nil?
       head :not_found
     end
-  end
-
-  def new
-    @merchant = Merchant.new
   end
 
   def edit

@@ -1,3 +1,4 @@
+
 <article>
   <h3><%= @product.product_name %></h3>
   <%= image_tag(@product.photo_url) %>
@@ -5,8 +6,42 @@
   <p>$<%= @product.price %></p>
   <p><%= @product.product_description %></p>
   <p>Stock: <%= @product.stock %></p>
+  <p> Average Rating: <%= @product.avg_rating %>
   <section>
     <p>Add to cart</p>
     <%= link_to "Back to all products", products_path %>
   </section>
 </article>
+
+<%= form_for @orderproduct, url: add_to_cart_path(params[:id]) do |t| %>
+Qty: <%= t.number_field :quantity, value: 1, min: 1%>
+<%= t.hidden_field :product_id, value: params[:id] %>
+<%= t.submit "Add to Cart" %>
+<% end %>
+
+
+<%= form_for @review, url: review_path(params[:id]) do |t| %>
+Customer Name
+<%= t.text_field :nickname, value: "" %>
+Rating (1-5)
+<%= t.number_field :rating %>
+Description (Optional)
+<%= t.text_field :review_description%>
+<%= t.submit "Leave Review" %>
+<% end %>
+
+
+<table style="width:50%">
+  <tr>
+    <th>Customer Name</th>
+    <th>Rating</th>
+    <th>Description</th>
+  </tr>
+    <% @review_list.each do |r| %>
+  <tr>
+    <td><%= "#{r.nickname}" %></td>
+    <td><%= "#{r.rating}" %></td>
+    <td><%= "#{r.review_description}" %></td>
+  </tr>
+  <% end %>
+</table>

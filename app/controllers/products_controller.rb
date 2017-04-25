@@ -1,32 +1,21 @@
 class ProductsController < ApplicationController
+  before_action :require_login, only: [:new, :edit, :update, :destroy]
+
   def index
     @products = Product.all
   end
 
   def show
     @product = Product.find_by(id: params[:id])
+    @orderproduct = Orderproduct.new
+    @review = Review.new
+    @review_list = Review.where(product_id: params[:id])
   end
 
   def new
     @merchant = Merchant.find(params[:merchant_id])
     @product = @merchant.products.build
   end
-
-  # rider = Rider.find(params[:rider_id])
-  # trip_info = {
-  #   rider_id: rider.id,
-  #   driver_id: 2,
-  #   date: "Right freaking now",
-  #   rating: trip_params[:rating],
-  #   cost: rand(1.0..50.0)
-  # }
-  #
-  # @trip = rider.trips.build(trip_info)
-  # if @trip.save
-  #   redirect_to trip_path(@trip.id)
-  #   # else
-  #   render :new
-  # end
 
   def create
     merchant = Merchant.find(params[:merchant_id])
@@ -47,6 +36,7 @@ class ProductsController < ApplicationController
     end
   end
 
+
   def edit
   end
 
@@ -56,8 +46,38 @@ class ProductsController < ApplicationController
   def destroy
   end
 
-private
+  def review
+    flash[:status] = :failure
+    product = Product.find_by(id: params[:id])
+    if @current_user.id == product.merchant_id
+      flash[:result_text] = "You cannot review your own product."
+      redirect_to product_path(product.id)
+    else
+      review_info = {
+        product_id: product.id,
+        rating: review_params[:rating],
+        nickname: review_params[:nickname],
+        review_description: review_params[:review_description]
+      }
+      @review = Review.new(review_info)
+      if @review.save
+        flash[:status] = :success
+        flash[:result_text] = "Successfully reviewed!"
+        redirect_to product_path(product.id)
+      else
+        flash[:result_text] = "Could not review"
+        flash[:messages] = review.errors.messages
+        render :new
+      end
+    end
+  end
+
+  private
   def product_params
     params.require(:product).permit(:product_name, :price, :merchant_id, :photo_url, :stock, :product_description)
+  end
+
+  def review_params
+    params.require(:review).permit(:rating, :nickname, :review_description)
   end
 end

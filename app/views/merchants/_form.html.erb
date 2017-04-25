@@ -1,12 +1,13 @@
+
 <%= form_for @merchant do |merchant| %>
-  <%= merchant.label :merchant_name %>
-  <%= merchant.text_field :merchant_name %>
+<%= merchant.label :merchant_name %>
+<%= merchant.text_field :merchant_name %>
 
-  <%= merchant.label :merchant_email %>
-  <%= merchant.text_field :merchant_email %>
+<%= merchant.label :merchant_email %>
+<%= merchant.text_field :merchant_email %>
 
-  <%= merchant.label :username %>
-  <%= merchant.text_field :username %>
+<%= merchant.label :username %>
+<%= merchant.text_field :username %>
 
-  <%= merchant.submit value: "Sign Up" %>
+<%= merchant.submit value: "Submit" %>
 <% end %>

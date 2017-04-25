@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420213033) do
+ActiveRecord::Schema.define(version: 20170424214613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20170420213033) do
     t.string   "username"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.string   "oauth_uid"
+    t.string   "oauth_provider"
   end
 
   create_table "orderproducts", force: :cascade do |t|
@@ -75,8 +77,9 @@ ActiveRecord::Schema.define(version: 20170420213033) do
     t.integer  "product_id"
     t.integer  "rating"
     t.string   "review_description"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.string   "nickname", default: "Anonymous Customer"
     t.index ["product_id"], name: "index_reviews_on_product_id", using: :btree
   end
 

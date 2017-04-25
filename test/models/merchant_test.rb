@@ -8,26 +8,19 @@ describe Merchant do
       merchant.products.count.must_equal 2
     end
 
-    it "can have many products" do
+    it "can have many orders" do
       merchant = merchants(:erica)
       merchant.products.count.must_equal 2
+    end
+    #
+    it "can access orders" do
+      order_count = 1
+      merchant = merchants(:erica)
+      merchant.orders.count.must_equal 1
     end
   end
 
   describe "validations" do
-    it "can create a merchant with a merchant_name" do
-      merchant = Merchant.create(merchant_name: "Isabelle")
-      merchant.errors.messages.wont_include :merchant_name
-    end
-
-    it "is invalid without a merchant_name" do
-      merchant = Merchant.new
-      result = merchant.valid?
-      result.must_equal false
-
-      merchant.errors.messages.must_include :merchant_name
-    end
-
     it "can create a merchant with a merchant_email" do
       merchant = Merchant.create(merchant_email: "TestEmail")
       merchant.errors.messages.wont_include :merchant_email

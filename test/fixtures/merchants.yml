@@ -3,8 +3,7 @@
 # This model initially had no columns defined. If you add columns to the
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
-<<<<<<< HEAD
-#
+
 andrea:
   merchant_name: andrea
   merchant_email: andrea@petsy.com
@@ -18,17 +17,9 @@ erica:
   username: ericapetsy
   oauth_uid: 2222
   oauth_provider: github
-=======
-# #
-# one: {}
-# # column: value
-# #
-# two: {}
-# # column: value
 
 <% 5.times do |n| %>
 merchant_<%= n %>:
   merchant_name: <%= "user#{n}" %>
   merchant_email: <%= "user#{n}@betsy.com" %>
 <% end %>
->>>>>>> master-1

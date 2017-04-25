@@ -12,6 +12,36 @@
 </head>
 
 <body>
+
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <ul class="dropdown menu" data-dropdown-menu>
+        <li class="menu-text">pEtsy</li>
+      </ul>
+    </div>
+    <div class="top-bar-right">
+      <% if @current_user %>
+      <p class="text-right">Logged in as <%= link_to @current_user.username, merchant_path(@current_user) %></p>
+      <%= link_to "Log Out", logout_path, method: :post, class: "button float-right" %>
+      <% else %>
+      <p class="text-right">Not logged in</p>
+      <%= link_to "Login", "/auth/github", class: "button float-right" %>
+      <% end %>
+      <ul class="dropdown menu" data-dropdown-menu>
+        <li>
+          <a href="#">Shop By</a>
+          <ul class="menu vertical">
+            <li><a href="#">Category</a></li>
+            <li><a href="#">Merchant</a></li>
+          </ul>
+        </li>
+        <li><%= link_to "Cart", "" %></li>
+      </ul>
+
+
+    </div>
+  </div>
+
   <header class="page-header row">
     <h2 class="columns large-9 small-12">
       <%= link_to "pEtsy", root_path %>

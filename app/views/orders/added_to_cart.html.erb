@@ -1,6 +1,6 @@
 <h2><%= @product.product_name%> is added to Cart!</h2>
 
-<h3>$<%= '%.02f' % @subtotal %> </h3>
+<h3>$<%= '%.02f' % @order.subtotal %> </h3>
 
 
 <%= link_to "Continue Shopping", products_path %>

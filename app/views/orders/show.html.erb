@@ -37,6 +37,6 @@
   <% end %>
   <div> <%= link_to "Continue Shopping", root_path, class: 'button' %> </div>
 
-  </tbody>
-  <h2>Subtotal: $<%= '%.02f' % @subtotal %></h2>
+</tbody>
+  <h2>Subtotal: $<%= '%.02f' % @order.subtotal %></h2>
 </table>

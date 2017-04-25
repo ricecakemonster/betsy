@@ -22,17 +22,18 @@ class OrdersController < ApplicationController
     @order = Order.find(session[:order_id])
     @product = Product.find_by(id: params[:product_id])
     @order = Order.find_by(id: session[:order_id])
-    quantities = @order.orderproducts.map{|orderproduct| orderproduct[:quantity]}
+    # quantities = @order.orderproducts.map{|orderproduct| orderproduct[:quantity]}
 
-    @subtotal = 0
-    @prices = []
-    @order.orderproducts.each do |orderproduct|
-      @prices << Product.find_by(id: orderproduct.product_id).price
-    end
 
-    @prices.zip(quantities).each do |price, quantity|
-      @subtotal += price * quantity
-    end
+    # @subtotal = 0
+    # @prices = []
+    # @order.orderproducts.each do |orderproduct|
+    #   @prices << Product.find_by(id: orderproduct.product_id).price
+    # end
+
+    # @prices.zip(quantities).each do |price, quantity|
+    #   @subtotal += price * quantity
+    # end
   end
 
   def show
@@ -40,17 +41,17 @@ class OrdersController < ApplicationController
 
     @product = Product.find_by(id: params[:product_id])
     @order = Order.find_by(id: session[:order_id])
-    quantities = @order.orderproducts.map{|orderproduct| orderproduct[:quantity]}
+    # quantities = @order.orderproducts.map{|orderproduct| orderproduct[:quantity]}
 
-    @subtotal = 0
-    @prices = []
-    @order.orderproducts.each do |orderproduct|
-      @prices << Product.find_by(id: orderproduct.product_id).price
-    end
-
-    @prices.zip(quantities).each do |price, quantity|
-      @subtotal += price * quantity
-    end
+    # @subtotal = 0
+    # @prices = []
+    # @order.orderproducts.each do |orderproduct|
+    #   @prices << Product.find_by(id: orderproduct.product_id).price
+    # end
+    #
+    # @prices.zip(quantities).each do |price, quantity|
+    #   @subtotal += price * quantity
+    # end
   end
 
   def update_qty

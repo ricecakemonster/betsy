@@ -17,7 +17,6 @@ class MerchantsController < ApplicationController
   end
 
   def create
-    raise
     @merchant = Merchant.create(merchant_params)
     if @merchant.id != nil
       flash[:success] = "Success, your merchant account is created!"

@@ -1,12 +1,4 @@
 class Review < ApplicationRecord
   belongs_to :product
-
-  # def avg_rating
-  #   avg = reviews.select('avg(reviews.rating) as avg_rating').take&.avg_rating
-  #   unless avg.nil?
-  #     return avg.round(2)
-  #   else
-  #     return nil
-  #   end
-  # end
+  validates :rating, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }
 end

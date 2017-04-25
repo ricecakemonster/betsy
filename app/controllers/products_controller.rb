@@ -49,21 +49,26 @@ class ProductsController < ApplicationController
   def review
     flash[:status] = :failure
     product = Product.find_by(id: params[:id])
-    review_info = {
-      product_id: product.id,
-      rating: review_params[:rating],
-      nickname: review_params[:nickname],
-      review_description: review_params[:review_description]
-    }
-    @review = Review.new(review_info)
-    if @review.save
-      flash[:status] = :success
-      flash[:result_text] = "Successfully reviewed!"
+    if @current_user.id == product.merchant_id
+      flash[:result_text] = "You cannot review your own product."
       redirect_to product_path(product.id)
     else
-      flash[:result_text] = "Could not review"
-      flash[:messages] = review.errors.messages
-      render :new
+      review_info = {
+        product_id: product.id,
+        rating: review_params[:rating],
+        nickname: review_params[:nickname],
+        review_description: review_params[:review_description]
+      }
+      @review = Review.new(review_info)
+      if @review.save
+        flash[:status] = :success
+        flash[:result_text] = "Successfully reviewed!"
+        redirect_to product_path(product.id)
+      else
+        flash[:result_text] = "Could not review"
+        flash[:messages] = review.errors.messages
+        render :new
+      end
     end
   end
 

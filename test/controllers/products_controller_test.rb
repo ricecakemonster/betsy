@@ -49,6 +49,7 @@ describe ProductsController do
         }}
 
         it "should get create" do
+          post "auth/github/callback", params: {}
           @current_user = merchants(:merchant_1)
           post products_path, params: dog_jacket
           must_redirect_to  products_path
@@ -87,22 +88,39 @@ describe ProductsController do
 
       describe "update" do
         it "adds work to database and redirects" do
-          product = Product.find_by(product_name: "Cat Jacket")
-
-          patch product_path(product), params: {product: {product_name: "UPDATED!" } }
-
-          products(:cat_jacket).product_name.must_equal "UPDATED!"
+          product = products(:cat_jacket)
+          patch product_path(product.id), params: {product: {product_name: "UPDATED!" } }
 
           must_respond_with :redirect
+
+          product.reload
+          puts product
+          product.product_name.must_equal "UPDATED!"
 
         end
       end
 
       describe "destroy" do
-        it "should get destroy" do
-          get products_destroy_url
-          must_respond_with :success
+        it "succeeds for an extant work ID" do
+          before = Product.all.size
+          product_id = Product.first.id
+
+          delete product_path(product_id)
+          must_redirect_to merchant_path(@current_user.id)
+
+          # The work should really be gone
+          Product.find_by(id: work_id).must_be_nil
+          Product.all.size.must_equal before - 1
+        end
+
+        it "renders 404 not_found and does not update the DB for a bogus work ID" do
+          before_count = Product.count
+
+          fake_product_id = Product.last.id + 1
+          delete product_path(fake_product_id)
+          must_respond_with :not_found
+
+          Product.count.must_equal start_count
         end
       end
-
     end

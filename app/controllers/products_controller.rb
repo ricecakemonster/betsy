@@ -44,9 +44,27 @@ class ProductsController < ApplicationController
   end
 
   def update
+    @product = Product.find_by(params[:id])
+    @product.update_attributes(product_params)
+
+    if @product.save
+      flash[:status] = :success
+      flash[:result_text] = "Successfully updated #{@product.product_name}"
+      redirect_to products_path
+    else
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Could not update #{@product.product_name}"
+      flash.now[:messages] = @product.errors.messages
+      render :edit, status: :not_found
+    end
   end
 
   def destroy
+  product = Product.find(params[:id])
+  product.destroy
+
+  redirect_to products_path
+
   end
 
   def review

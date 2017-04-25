@@ -49,12 +49,12 @@ describe Merchant do
       merchant.errors.messages.must_include :username
     end
 
-    it "can create a merchant with a oauth_uid" do
+    it "can create a merchant with an oauth_uid" do
       merchant = Merchant.create(oauth_uid: "11111")
       merchant.errors.messages.wont_include :oauth_uid
     end
 
-    it "is invalid without a oauth_uid" do
+    it "is invalid without an oauth_uid" do
       merchant = Merchant.new
       result = merchant.valid?
       result.must_equal false

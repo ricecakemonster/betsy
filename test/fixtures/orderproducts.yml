@@ -3,13 +3,19 @@
 # This model initially had no columns defined. If you add columns to the
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
-#
-opone:
-  order: one
-  product: pone
-  quantity: 1
 
-optwo:
+
+one:
+  order: one
+  product: petsy1
+  quantity: 2
+
+two:
+  order: one
+  product: petsy2
+  quantity: 3
+
+three:
   order: two
-  product: pone
-  quantity: 1
+  product: petsy1
+  quantity: 3

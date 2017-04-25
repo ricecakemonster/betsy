@@ -6,9 +6,6 @@
 #
 one:
   order_email: MyString
-# column: value
-#
 
 two:
   order_email: MyString
-# column: value

@@ -7,52 +7,69 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params[:id])
+
+    if @product.nil?
+      head :not_found
+    end
+
     @orderproduct = Orderproduct.new
     @review = Review.new
     @review_list = Review.where(product_id: params[:id])
   end
 
   def new
-    @merchant = Merchant.find(params[:merchant_id])
-    @product = @merchant.products.build
+    @product = Product.new
   end
 
   def create
-    merchant = Merchant.find(params[:merchant_id])
-    @product = @merchant.products.build(product_params)
-    # {
-    #   merchant_id :merchant_id
-    #   :
-    # }
-    if @product.save
-      flash[:status] = :success
-      flash[:result_text] = "Successfully added #{@product.product_name} to inventory"
-      redirect_to products_path
-    else
-      flash[:status] = :failure
-      flash[:result_text] = "Could not create #{@product.product_name}"
-      flash[:messages] = @product.errors.messages
-      render :new, status: :bad_request
-    end
-  end
-
+     @product = Product.new(product_params)
+     # {
+     #   merchant_id :merchant_id
+     #   :
+     # }
+     if @product.save
+       flash[:status] = :success
+       flash[:result_text] = "Successfully added #{@product.product_name} to inventory"
+       redirect_to products_path
+     else
+       flash[:status] = :failure
+       flash[:result_text] = "Could not create #{@product.product_name}"
+       flash[:messages] = @product.errors.messages
+       render :new, status: :bad_request
+     end
+   end
 
   def edit
   end
 
   def update
+    @product = Product.find_by(params[:id])
+    @product.update_attributes(product_params)
+
+    if @product.save
+      flash[:status] = :success
+      flash[:result_text] = "Successfully updated #{@product.product_name}"
+      redirect_to products_path
+    else
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Could not update #{@product.product_name}"
+      flash.now[:messages] = @product.errors.messages
+      render :edit, status: :not_found
+    end
   end
 
   def destroy
+  product = Product.find(params[:id])
+  product.destroy
+
+  redirect_to products_path
+
   end
 
   def review
     flash[:status] = :failure
     product = Product.find_by(id: params[:id])
-    if @current_user.id == product.merchant_id
-      flash[:result_text] = "You cannot review your own product."
-      redirect_to product_path(product.id)
-    else
+    if @current_user.nil? || @current_user.id != product.merchant_id
       review_info = {
         product_id: product.id,
         rating: review_params[:rating],
@@ -69,6 +86,9 @@ class ProductsController < ApplicationController
         flash[:messages] = review.errors.messages
         render :new
       end
+    else
+      flash[:result_text] = "You cannot review your own product."
+      redirect_to product_path(product.id)
     end
   end
 

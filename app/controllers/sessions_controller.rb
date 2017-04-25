@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
         flash[:result_text] = "Successfully logged in as new merchant: #{merchant.username}"
       else
         flash[:result_text] = "Login unsuccessful"
-
         merchant.errors.messages.each do |field, problem|
           flash[:field] = problem.join(', ')
         end

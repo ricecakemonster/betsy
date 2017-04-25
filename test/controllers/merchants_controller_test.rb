@@ -15,35 +15,37 @@ describe MerchantsController do
     end
   end
 
-  #     describe "album_show" do
-  #       it "shows an album that exists" do
-  #         merchant = merchants(:album)
-  #         get merchant_path(merchant.id)
-  #         must_respond_with :success
-  #       end
-  #
-  #       it "returns a 404 not found status when asked for an album that doesn't exist" do
-  #         merchant_id = Merchant.where(category: "album").last.id
-  #         merchant_id += 1
-  #         get merchant_path(merchant_id)
-  #         must_respond_with :not_found
-  #       end
-  #     end
-  #     end
-  #
-  #     describe "edit" do
-  #       it "should get show" do
-  #         get edit_merchant_path(merchants(:movie).id)
-  #         must_respond_with :success
-  #       end
-  #
-  #       it "should get 404 for merchant that DNE" do
-  #         merchant_id = Merchant.last.id
-  #         merchant_id += 1
-  #         get edit_merchant_path(merchant_id)
-  #         must_respond_with :not_found
-  #       end
-  #     end
+  describe "show" do
+    it "shows a merchant that exists" do
+      merchant = merchants(:andrea)
+      get merchant_path(merchant.id)
+      must_respond_with :success
+    end
+
+    it "returns a 404 not found status when asked for a merchant that doesn't exist" do
+      merchant_id = Merchant.last.id
+      merchant_id += 1
+      get merchant_path(merchant_id)
+      must_respond_with :not_found
+    end
+  end
+
+  describe "edit" do
+    it "should get show" do
+
+      #### Needs Session
+      # m = Merchant.first
+      # get edit_merchant_path(m)
+      # must_respond_with :success
+    end
+
+    # it "should get 404 for merchant that DNE" do
+    #   merchant_id = Merchant.last.id
+    #   merchant_id += 1
+    #   get edit_merchant_path(merchant_id)
+    #   must_respond_with :not_found
+    # end
+  end
   #
   #     describe "update" do
   #       it "should change the merchant details" do

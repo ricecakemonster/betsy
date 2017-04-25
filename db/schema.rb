@@ -21,12 +21,10 @@ ActiveRecord::Schema.define(version: 20170424214613) do
   end
 
   create_table "categories_products", id: false, force: :cascade do |t|
-    t.integer "category_id",    null: false
-    t.integer "product_id",     null: false
-    t.integer "category_id_id"
-    t.integer "product_id_id"
-    t.index ["category_id_id"], name: "index_categories_products_on_category_id_id", using: :btree
-    t.index ["product_id_id"], name: "index_categories_products_on_product_id_id", using: :btree
+    t.integer "category_id"
+    t.integer "product_id"
+    t.index ["category_id"], name: "index_categories_products_on_category_id", using: :btree
+    t.index ["product_id"], name: "index_categories_products_on_product_id", using: :btree
   end
 
   create_table "merchants", force: :cascade do |t|

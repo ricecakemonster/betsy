@@ -4,8 +4,26 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+petsy1:
+  product_name: wetsy classic
+  price: 100
+  merchant: erica
+  stock: 50
+  product_description: This is the best wetsy for your petsy.
+  photo_url: www.petsy.com/petsy1
+
+petsy2:
+  product_name: wetsy classic II
+  price: 75
+  merchant: andrea
+  stock: 50
+  product_description: This is the second best wetsy for your petsy.
+  photo_url: www.petsy.com/petsy2
+
+petsy3:
+  product_name: wetsy classic III
+  price: 50
+  merchant: erica
+  stock: 50
+  product_description: This is the third best wetsy for your petsy.
+  photo_url: www.petsy.com/petsy3

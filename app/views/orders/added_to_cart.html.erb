@@ -3,5 +3,5 @@
 <h3>$<%= '%.02f' % @order.subtotal %> </h3>
 
 
-<%= link_to "Continue Shopping", products_path %>
-<%= link_to "Cart", cart_path(@order.id) %>
+<%= link_to "Continue Shopping", products_path, class: 'button' %>
+<%= link_to "Cart", cart_path(@order.id), class: 'button' %>

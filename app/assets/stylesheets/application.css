@@ -16,9 +16,7 @@
 
 */
 
-h2 {
-  color: pink;
-}
+/* THIS IS THE HEADER CSS */
 
 .page-header {
   max-width: 100%;
@@ -37,4 +35,9 @@ h2 {
 
 .page-header p {
   margin-bottom: 5px;
+}
+
+/* THIS IS THE INDIVIDUAL PAGE CSS */
+h3 {
+
 }

@@ -14,16 +14,19 @@ class ProductsController < ApplicationController
 
   def new
     @merchant = Merchant.find(params[:merchant_id])
-    @product = @merchant.products.build
+    @product = Product.new
   end
 
   def create
     merchant = Merchant.find(params[:merchant_id])
-    @product = @merchant.products.build(product_params)
-    # {
-    #   merchant_id :merchant_id
-    #   :
-    # }
+    product_data = {
+      product_name: product_params[:product_name],
+      price: product_params[:price],
+      merchant_id: merchant.id,
+      photo_url: product_params[:photo_url],
+      product_description: product_params[:product_description]
+    }
+    @product = Product.new(product_data)
     if @product.save
       flash[:status] = :success
       flash[:result_text] = "Successfully added #{@product.product_name} to inventory"
@@ -49,10 +52,7 @@ class ProductsController < ApplicationController
   def review
     flash[:status] = :failure
     product = Product.find_by(id: params[:id])
-    if @current_user.id == product.merchant_id
-      flash[:result_text] = "You cannot review your own product."
-      redirect_to product_path(product.id)
-    else
+    if @current_user.nil? || @current_user.id != product.merchant_id
       review_info = {
         product_id: product.id,
         rating: review_params[:rating],
@@ -69,6 +69,9 @@ class ProductsController < ApplicationController
         flash[:messages] = review.errors.messages
         render :new
       end
+    else
+      flash[:result_text] = "You cannot review your own product."
+      redirect_to product_path(product.id)
     end
   end
 

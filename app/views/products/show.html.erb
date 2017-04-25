@@ -22,7 +22,7 @@ Qty: <%= t.number_field :quantity, value: 1, min: 1%>
 
 <%= form_for @review, url: review_path(params[:id]) do |t| %>
 Customer Name
-<%= t.text_field :nickname, value: "" %>
+<%= t.text_field :nickname %>
 Rating (1-5)
 <%= t.number_field :rating %>
 Description (Optional)

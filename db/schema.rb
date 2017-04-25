@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20170424214613) do
     t.string   "review_description"
     t.datetime "created_at",                                        null: false
     t.datetime "updated_at",                                        null: false
-    t.string   "nickname", default: "Anonymous Customer"
+    t.string   "nickname",           default: "Anonymous Customer"
     t.index ["product_id"], name: "index_reviews_on_product_id", using: :btree
   end
 

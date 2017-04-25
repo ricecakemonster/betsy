@@ -4,6 +4,37 @@ class OrdersController < ApplicationController
 
   end
 
+  def add_to_cart
+
+    if session[:order_id]
+      @order = Order.find_by(id: session[:order_id])
+
+    else
+      @order = Order.create
+      session[:order_id] = @order.id
+
+    end
+    @orderproduct = Orderproduct.create(orderproduct_params)
+    redirect_to product_orders_added_to_cart_path(product_id: params[:id])
+  end
+
+  def added_to_cart
+    @order = Order.find(session[:order_id])
+    @product = Product.find_by(id: params[:product_id])
+    @order = Order.find_by(id: session[:order_id])
+    quantities = @order.orderproducts.map{|orderproduct| orderproduct[:quantity]}
+
+    @subtotal = 0
+    @prices = []
+    @order.orderproducts.each do |orderproduct|
+      @prices << Product.find_by(id: orderproduct.product_id).price
+    end
+
+    @prices.zip(quantities).each do |price, quantity|
+      @subtotal += price * quantity
+    end
+  end
+
   def show
     @order = Order.find(session[:order_id])
 
@@ -20,70 +51,15 @@ class OrdersController < ApplicationController
     @prices.zip(quantities).each do |price, quantity|
       @subtotal += price * quantity
     end
-
-
-
   end
 
-  def new
-    @order = Order.find(session[:order_id])
-    @product = Product.find_by(id: params[:product_id])
-    @order = Order.find_by(id: session[:order_id])
-    quantities = @order.orderproducts.map{|orderproduct| orderproduct[:quantity]}
+  def update_qty
+    @order = Order.find_by(id: params[:id])
 
-    @subtotal = 0
-    @prices = []
-    @order.orderproducts.each do |orderproduct|
-      @prices << Product.find_by(id: orderproduct.product_id).price
-
-    end
-
-
-    #prices = Product.where(id: session[:product_ids]).map{|p| p[:price]}
-    #quantities = Orderproduct.where(id: session[:orderproduct_ids]).map{|o| o[:quantity]}
-
-    @prices.zip(quantities).each do |price, quantity|
-      @subtotal += price * quantity
-    end
-
+    @orderproduct = Orderproduct.find_by(id: params[:orderproduct][:id])
+    @orderproduct.update(orderproduct_params)
+    redirect_to order_path(id: params[:id])
   end
-
-  def update
-
-  end
-
-  def add_to_cart
-
-    if session[:order_id]
-      @order = Order.find_by(id: session[:order_id])
-
-    else
-      @order = Order.create
-      session[:order_id] = @order.id
-
-
-    end
-    @orderproduct = Orderproduct.create(orderproduct_params)
-    redirect_to product_orders_new_path(product_id: params[:id])
-  end
-
-
-  def create #coming from product side
-    @order = Order.new
-    if @order.save
-      flash[:result_text] = "Successfully created a Cart"
-      flash[:status] = :success
-      @orderproduct = Orderproduct.create(order_id: @order.id, product_id: params[:product_id])
-      redirect_to cart_path(@order.id)
-    else
-      flash.now[:status] = :failure
-      flash.now[:result_text] = "Could not create a Cart"
-      flash.now[:messages] = @order.errors.messages
-      render :new, status: :bad_request
-    end
-
-  end
-
 
   def destroy_orderproduct
     @orderproduct = Orderproduct.find_by(id: params[:orderproduct_id])
@@ -95,13 +71,35 @@ class OrdersController < ApplicationController
 
 
 
-  def update_qty
-    @order = Order.find_by(id: params[:id])
+  # def create #coming from product side
+  #   @order = Order.new
+  #   if @order.save
+  #     flash[:result_text] = "Successfully created a Cart"
+  #     flash[:status] = :success
+  #     @orderproduct = Orderproduct.create(order_id: @order.id, product_id: params[:product_id])
+  #     redirect_to cart_path(@order.id)
+  #   else
+  #     flash.now[:status] = :failure
+  #     flash.now[:result_text] = "Could not create a Cart"
+  #     flash.now[:messages] = @order.errors.messages
+  #     render :new, status: :bad_request
+  #   end
+  # end
 
-    @orderproduct = Orderproduct.find_by(id: params[:orderproduct][:id])
-    @orderproduct.update(orderproduct_params)
-    redirect_to order_path(id: params[:id])
+
+
+
+
+  def update
+
   end
+
+
+
+
+
+
+
 
 
 

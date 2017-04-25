@@ -1,5 +1,5 @@
 class MerchantsController < ApplicationController
-    before_action :require_login, only: [:index, :show]
+  before_action :require_login, only: [:index, :show]
 
   def index
     @merchants = Merchant.all
@@ -16,24 +16,26 @@ class MerchantsController < ApplicationController
     @merchant = Merchant.new
   end
 
-  def create
-    @merchant = Merchant.create(merchant_params)
-    if @merchant.id != nil
-      flash[:success] = "Success, your merchant account is created!"
-      redirect_to merchants_path
-    else
-      flash[:failure] = "Sorry, your account was created unsuccessfully. Please try again."
-      render :new, status: :bad_request
-    end
-  end
-
   def edit
+    @merchant = Merchant.find(params[:id])
   end
 
   def update
+    merchant = Merchant.find(params[:id])
+    merchant.update_attributes(merchant_params)
+    merchant.save
+
+    redirect_to merchants_path
   end
 
   def destroy
+    merchant = Merchant.find(params[:id])
+    if @current_user.id == merchant.id
+      merchant.destroy
+    else
+      flash[:result_text] = "Sorry, you can only delete your own account."
+    end
+    redirect_to merchants_path
   end
 
   private

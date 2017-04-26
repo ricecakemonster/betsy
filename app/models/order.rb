@@ -18,5 +18,12 @@ class Order < ApplicationRecord
     return @subtotal
   end
 
+  def tax
+    subtotal * 0.095
+  end
+
+  def total
+    subtotal + tax + 5
+  end
 
 end

@@ -1,72 +1,126 @@
 class OrdersController < ApplicationController
+  before_action :find_order, only: [:added_to_cart, :cart]
+
   def index
 
   end
 
-  def show
-
-  end
-
-  def new
-    @order = Order.new
-  end
-
-  def create #coming from product side
-    @order = Order.create
-
-    @orderproduct = Orderproduct.new(order: @order, product_id: params[:product_id])
-    flash[:result_text] = "Successfully created a Cart"
-    flash[:result_text] = "Continue shopping?"
-     if @answer = "yes"
-       redirect_to root_path
-     else
-       render "payment"
-     end
-
-
-
-    @order.buyer_id = session[:user_id] if session[:user_id] != nil
-
-
-
-      if params[:cc_num] && params[:cc_name] && params [:cc_expiry]
-        @order.status = "paid"
-        redirect_to orders_path
-      else
-        @order.status = "pending"
-        render :payment
-        flash[:result_text] = "Please enter Credit Card info to finalize the purchase!"
-      end
+  def add_to_cart
+    if session[:order_id]
+      @order = Order.find_by(id: session[:order_id])
     else
-      flash[:status] = :failure
-      flash[:result_text] = "Please enter Name and Address"
-      flash[:messages] = @work.errors.messages
-      render :new, status: :bad_request
+      @order = Order.create
+      session[:order_id] = @order.id
     end
 
+    @orderproduct = Orderproduct.create(orderproduct_params)
 
-
+    if @orderproduct
+      flash[:result_text] = "Successfully added to Cart"
+      flash[:status] = :success
+    else
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Could not create a Cart"
+      flash.now[:messages] = @order.errors.messages
+      render :product, status: :bad_request
+    end
+    redirect_to product_orders_added_to_cart_path(product_id: params[:id])
   end
 
-  def edit
+  def added_to_cart
+  end
+
+  def cart
+  end
+
+  def update_qty
+    @order = Order.find_by(id: params[:id])
+    @orderproduct = Orderproduct.find_by(id: params[:orderproduct][:id])
+    @orderproduct.update(orderproduct_params)
+
+    if @orderproduct.save
+      puts "success!!"
+      redirect_to cart_path(id: params[:id])
+    else
+      puts "Failed!!!"
+      render :cart, status: :bad_request
+    end
+  end
+
+  def remove_from_cart
+    @orderproduct = Orderproduct.find_by(id: params[:orderproduct_id])
+    if @orderproduct.nil?
+      head :not_found
+    else
+      @orderproduct.destroy
+      redirect_to cart_path(id: params[:order_id])
+    end
   end
 
   def update
+
   end
 
-  def destroy
+
+    # flash[:result_text] = "Continue shopping?"
+    #  if @answer = "yes"
+    #    redirect_to root_path
+    #  else
+    #    render "payment"
+    #  end
+
+
+
+    #     @order.buyer_id = session[:user_id] if session[:user_id] != nil
+    #
+    #
+    #
+    #       if params[:cc_num] && params[:cc_name] && params [:cc_expiry]
+    #         @order.status = "paid"
+    #         redirect_to orders_path
+    #       else
+    #         @order.status = "pending"
+    #         render :payment
+    #         flash[:result_text] = "Please enter Credit Card info to finalize the purchase!"
+    #       end
+    #     else
+    #       flash[:status] = :failure
+    #       flash[:result_text] = "Please enter Name and Address"
+    #       flash[:messages] = @work.errors.messages
+    #       render :new, status: :bad_request
+    #     end
+    #
+    #
+    #
+
+  #
+  #   def edit
+  #   end
+  #
+  #   def update
+  #   end
+  #
+  #   def destroy
+  #   end
+  #
+  #   def purchase
+  #
+  # end
+  #
+  private
+
+  def order_params
+    return params.require(:order).permit(:status, :cc_num, :cc_name, :order_email, :mailing_address, :cc_expiry, :buyer_id)
   end
 
-  def purchase
+  def orderproduct_params
+    return params.require(:orderproduct).permit(:quantity, :product_id).merge(order_id: @order.id)
+  end
 
-end
+  def find_order
+    @order = Order.find(session[:order_id])
+    @product = Product.find_by(id: params[:product_id])
+    @order = Order.find_by(id: session[:order_id])
+  end
 
-private
-
-def order_params
-  return params.require(:order).permit(:status, :cc_num, :cc_name, :order_email, :mailing_address, :cc_expiry, :buyer_id)
-end
-
-def orderproduct_params
-  return params.require(:orderproduct).permit(:product_id, @order_id, :quantity)
 end

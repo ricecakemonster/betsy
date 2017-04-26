@@ -57,5 +57,6 @@ describe Product do
 
   describe "associations" do
 
+
   end
 end

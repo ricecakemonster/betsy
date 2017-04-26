@@ -11,6 +11,9 @@ describe MerchantsController do
       get auth_callback_path(:github)
 
       must_redirect_to root_path
+
+      session[:user_id].must_equal merchant.id
+      
       Merchant.count.must_equal start_count
     end
   end

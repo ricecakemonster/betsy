@@ -1,7 +1,7 @@
 <section>
 <%= form_for @order, url: purchase_path(id: params[:id]), method: :patch do |f| %>
   Name on card:
-  <%= f.text_field :cc_name %>
+  <%= f.text_field :cc_name, placeholder: "Ada Lovelace" %>
   Billing address:
   <%= f.fields_for :mailing_address do |address| %>
     <li>
@@ -12,13 +12,15 @@
       <%= address.text_field :line2, placeholder: " city, state, zip code " %>
     </li>
   <% end %>
-  Email
-  <%= f.text_field :order_email %>
+  Email:
+  <%= f.text_field :order_email, placeholder: "ada@petsy.com" %>
   Credit card number:
   <%= f.number_field :cc_num %>
   Expiration date:
   <%= f.text_field :cc_expiry, placeholder: "mm/yy" %>
-  <%= f.hidden_field :status, value: "processing" %>
+  cvv number:
+  <%= f.number_field :cvv %>
+  <%= f.hidden_field :status, value: "paid" %>
   <%= f.submit "Purchase", class: 'button'%>
 
 <% end %>

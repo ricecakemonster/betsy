@@ -14,8 +14,6 @@ describe OrdersController do
       must_respond_with :redirect
     end
 
-
-#################working on this one
     it "creates a new orderproduct" do
       start_count = Orderproduct.count
       @order = orders(:one)
@@ -36,14 +34,6 @@ describe OrdersController do
       orderproduct.product_id.must_equal order_data[:orderproduct][:product_id]
     end
   end
-
-
-
-        # Classroom.count.must_equal star_count + 1
-        #
-        # classroom = Classroom.last
-        # classroom.name.must_equal classroom_data[:classroom][:name]
-
 
 
 

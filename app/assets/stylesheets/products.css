@@ -1,6 +1,25 @@
-// Place all the styles related to the products controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
+h3 {
+  margin-bottom: 50px;
+}
+
+h4#review {
+  padding-left: 10px;
+}
+
+.back {
+  margin-top: 20px;
+}
+
+#table-section {
+  margin-top: 100px;
+}
+
+img {
+
+}
+
+
 
 section {
 

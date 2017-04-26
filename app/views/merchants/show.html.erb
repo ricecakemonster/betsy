@@ -4,4 +4,7 @@
   <li><%= "Merchant Name: #{@merchant.merchant_name}" %></li>
   <li><%= "Email: #{@merchant.merchant_email}" %></li>
   <li><%= "Username: #{@merchant.username}" %></li>
+  <% if @current_user && @current_user.id == @merchant.id %>
+    <li><%= link_to "Add Product", new_product_path %> </li>
+  <% end %>
 </ul>

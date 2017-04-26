@@ -17,6 +17,8 @@ class MerchantsController < ApplicationController
     if @merchant.nil?
       head :not_found
     end
+
+    @product = @merchant.products
   end
 
   def edit

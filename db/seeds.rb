@@ -3,8 +3,10 @@ media_file = Rails.root.join('db', 'seeds.csv')
 
 50.times do |i|
   username = "merchant_#{i}"
-  merchant_email = "#{merchant}@betsy.com"
-  Merchant.create!(merchant_name: username, merchant_email: merchant_email)
+  merchant_email = "#{username}@betsy.com"
+  oauth_uid = rand.to_s[2..11].to_i
+  oauth_provider = "github"
+  Merchant.create!(merchant_name: username ,merchant_email: merchant_email, username: username, oauth_uid: oauth_uid, oauth_provider: oauth_provider)
 end
 
 

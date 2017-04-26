@@ -39,6 +39,7 @@ gem 'omniauth-github'
 gem 'omniauth-google-oauth2'
 gem 'simple_form'
 gem 'foundation-rails'
+gem 'faker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -63,7 +64,7 @@ group :development do
   gem 'better_errors'
   gem 'pry-rails'
 
-  gem 'faker'
+
 
   gem 'binding_of_caller'
 

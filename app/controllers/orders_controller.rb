@@ -37,14 +37,24 @@ class OrdersController < ApplicationController
     @order = Order.find_by(id: params[:id])
     @orderproduct = Orderproduct.find_by(id: params[:orderproduct][:id])
     @orderproduct.update(orderproduct_params)
-    redirect_to cart_path(id: params[:id])
+
+    if @orderproduct.save
+      puts "success!!"
+      redirect_to cart_path(id: params[:id])
+    else
+      puts "Failed!!!"
+      render :cart, status: :bad_request
+    end
   end
 
   def remove_from_cart
     @orderproduct = Orderproduct.find_by(id: params[:orderproduct_id])
-    @orderproduct.destroy
-    redirect_to cart_path(id: params[:order_id])
-
+    if @orderproduct.nil?
+      head :not_found
+    else
+      @orderproduct.destroy
+      redirect_to cart_path(id: params[:order_id])
+    end
   end
 
   def update

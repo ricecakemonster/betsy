@@ -13,37 +13,37 @@
 
 <body>
 
-  <div class="top-bar">
-    <div class="top-bar-left">
-      <ul class="dropdown menu" data-dropdown-menu>
-        <li class="menu-text">pEtsy</li>
-        <li>
-          <a href="#">Shop By</a>
-          <ul class="menu vertical">
-            <li><a href="#">Category</a></li>
-            <li><a href="#">Merchant</a></li>
-          </ul>
-        </li>
-        <li><%= link_to "Cart", "" %>
-        </li>
-      </ul>
-    </div>
-    <div class="top-bar-right">
-      <ul class="menu">
-        <% if @current_user %>
+  <div data-sticky-container>
+    <div class="top-bar" data-sticky data-options="marginTop:0;" style="width:100%">
+      <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+          <li class="menu-text">pEtsy</li>
+          <li>
+            <a href="#">Shop By</a>
+            <ul class="menu vertical">
+              <li><a href="#">Category</a></li>
+              <li><a href="#">Merchant</a></li>
+            </ul>
+          </li>
+          <li><%= link_to "Cart", "" %>
+          </li>
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          <% if @current_user %>
           <li>Logged in as</li>
           <li><%= link_to @current_user.username, merchant_path(@current_user) %></li>
           <li><%= link_to "Log Out", logout_path, method: :post, class: "button" %></li>
-        <% else %>
+          <% else %>
           <li>Not logged in</li>
           <li><%= link_to "Login", "/auth/github", class: "button" %></li>
-        <% end %>
-      </ul>
-
-
+          <% end %>
+        </ul>
+      </div>
     </div>
   </div>
-
+<!-- 
   <header class="page-header row">
     <h2 class="columns large-9 small-12">
       <%= link_to "pEtsy", root_path %>
@@ -62,7 +62,7 @@
         <%= link_to "Cart", "" %>
       </section>
     </div>
-  </header>
+  </header> -->
 
   <section class="row status <%= flash[:status] %>">
     <% if flash[:result_text] or flash[:messages] %>

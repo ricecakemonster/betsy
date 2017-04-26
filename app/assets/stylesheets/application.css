@@ -18,6 +18,19 @@
 
 /* THIS IS THE HEADER CSS */
 
+.menu-text {
+  color: yellow;
+}
+
+.top-bar, .top-bar menu-text, .top-bar ul {
+  background-color: darkgray;
+}
+
+.top-bar .button {
+  background-color: red;
+}
+
+
 .page-header {
   max-width: 100%;
   color: green;

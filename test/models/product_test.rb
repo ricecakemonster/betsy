@@ -56,7 +56,37 @@ describe Product do
   end
 
   describe "associations" do
+    it "belongs to a merchant" do
+      product = products(:petsy2)
+      product.merchant = merchants(:andrea)
+      product.must_respond_to :merchant
+      product.merchant.must_be_kind_of Merchant
+    end
 
+    it "has many orderproducts" do
+      product = products(:petsy1)
+
+      product.must_respond_to :orderproducts
+      product.orderproducts.each do |orderproduct|
+        orderproduct.must_be_kind_of Orderproduct
+      end
+    end
+
+    it "has many orders through orderproducts" do
+      product = products(:cat_jacket)
+      product.must_respond_to :orders
+      product.orders.each do |order|
+        order.must_be_kind_of Order
+      end
+    end
+
+    it "has reviews" do
+      product = products(:pup_poncho)
+      product.must_respond_to :reviews
+      product.reviews.each do |review|
+        review.must_be_kind_of Review
+      end
+    end
 
   end
 end

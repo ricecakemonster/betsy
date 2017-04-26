@@ -2,7 +2,7 @@
 <article>
   <h3 class="columns large-12 small-12 text-center"><%= @product.product_name %></h3>
   <%= image_tag(@product.photo_url) %>
-  <p>Sold By: <%= @product.merchant_name %></p>
+  <p>Sold By: <%= @product.merchant.merchant_name %></p>
   <p>$<%= @product.price %></p>
   <p><%= @product.product_description %></p>
   <p>Stock: <%= @product.stock %></p>

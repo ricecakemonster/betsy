@@ -12,33 +12,102 @@
 </head>
 
 <body>
-  <header>
-    <div class="columns large-3 small-12">
-      <section class="user-info">
-        <% if @current_user %>
-        <p class="text-right">Logged in as <%= link_to @current_user.username, merchant_path(@current_user) %></p>
-        <%= link_to "Log Out", logout_path, method: :post, class: "button float-right" %>
-        <% else %>
-        <p class="text-right">Not logged in</p>
-        <%= link_to "Login / Signup", "/auth/github", class: "button float-right" %>
-        <% end %>
-      </section>
+
+  <div data-sticky-container>
+    <div class="top-bar" data-sticky data-options="marginTop:0;" style="width:100%">
+      <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+          <li class="menu-text">pEtsy</li>
+          <li>
+            <a href="#">Shop By</a>
+            <ul class="menu vertical">
+              <li><a href="#">Category</a></li>
+              <li><a href="#">Merchant</a></li>
+            </ul>
+          </li>
+          <li><%= link_to "Cart", "" %>
+          </li>
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          <% if @current_user %>
+          <li>Logged in as</li>
+          <li><%= link_to @current_user.username, merchant_path(@current_user) %></li>
+          <li><%= link_to "Log Out", logout_path, method: :post, class: "button" %></li>
+          <% else %>
+          <li>Not logged in</li>
+          <li></li>
+          <li><%= link_to "Login", "/auth/github", class: "button" %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
-  </header>
+  </div>
+  <!--
+  <header class="page-header row">
+  <h2 class="columns large-9 small-12">
+  <%= link_to "pEtsy", root_path %>
+</h2>
+
+<div class="columns large-3 small-12">
+<section class="user-info">
+<% if @current_user %>
+<p class="text-right">Logged in as <%= link_to @current_user.username, merchant_path(@current_user) %></p>
+<%= link_to "Log Out", logout_path, method: :post, class: "button float-right" %>
+<% else %>
+<p class="text-right">Not logged in</p>
+<%= link_to "Login", "/auth/github", class: "button float-right" %>
+<% end %>
+<%= link_to "Shop By", "" %>
+<%= link_to "Cart", "" %>
+</section>
+</div>
+</header> -->
+
+<section class="row status <%= flash[:status] %>">
   <% if flash[:result_text] or flash[:messages] %>
-  <section class="row status <%= flash[:status] %>">
-    <h3><%= flash[:status] == :failure ? "A problem occurred: " : "" %><%= flash[:result_text] %></h3>
-    <% if flash[:messages] %>
-    <ul>
-      <% flash[:messages].each do |name, problems| %>
-      <% problems.each do |problem| %>
-      <li><%= name %>: <%= problem %></li>
-      <% end %>
-      <% end %>
-    </ul>
+
+  <h3><%= flash[:status] == :failure ? "A problem occurred: " : "" %><%= flash[:result_text] %></h3>
+  <% if flash[:messages] %>
+  <ul>
+    <% flash[:messages].each do |name, problems| %>
+    <% problems.each do |problem| %>
+    <li><%= name %>: <%= problem %></li>
     <% end %>
-  </section>
+    <% end %>
+  </ul>
   <% end %>
-  <%= yield %>
+</section>
+<% end %>
+<%= yield %>
+
+
+<footer>
+
+  <div class="ecommerce-footer">
+    <div class="ecommerce-footer-links row">
+    </div>
+    <div class="ecommerce-footer-bottom-bar row">
+      <div class="small-12 medium-5 columns">
+        <ul class="bottom-links">
+          <li>Contact Us</li>
+          <li>1215 4th Ave #1050, Seattle, WA 98161</li>
+        </ul>
+      </div>
+      <div class="small-12 medium-2 columns ecommerce-footer-logomark">
+        <img src="http://placehold.it/50x50"/>
+      </div>
+      <div class="small-12 medium-5 columns">
+        <div class="bottom-copyright">
+          <span>©2017 pEtsy wEtsy. All rights reserved.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</footer>
 </body>
 </html>

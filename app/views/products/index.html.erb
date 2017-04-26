@@ -1,6 +1,17 @@
-<h1>Products#index</h1>
-<% @products.each do |product| %>
-  <%= image_tag("http://fillmurray.com/200/300") %>
-  <h3><%= link_to product.product_name, product_path(product) %></h3>
-  <h3>$<%= '%.02f' % product.price %></h3>
-<% end %>
+<h3 class="columns large-12 small-12 text-center">
+  All Raincoats
+</h3>
+
+<section>
+  <% @products.each do |product| %>
+  <div class="columns large-3 medium-6 small-12">
+    <% if product.photo_url.nil? %>
+    <%= link_to image_tag("http://www.fillmurray.com/200/200"), product_path(product) %>
+    <% else %>
+    <%= link_to image_tag(product.photo_url, width: 200, height: 200, alt: "Cute animals in raincoats"), product_path(product) %>
+    <% end %>
+    <h3><%#= link_to product.product_name, product_path(product) %></h3>
+    <h3><%#= product.price %></h3>
+  </div>
+  <% end %>
+</section>

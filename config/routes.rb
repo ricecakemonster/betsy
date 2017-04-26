@@ -16,13 +16,11 @@ Rails.application.routes.draw do
   get '/orders/:id/checkout', to: 'orders#checkout', as: 'checkout'
   patch '/orders/:id/purchase', to: 'orders#purchase', as: 'purchase'
   get 'orders/:id/invoice', to: 'orders#invoice', as: 'invoice'
-  
+
   post '/products/:id/review', to: 'products#review', as: 'review'
   resources :reviews
 
-
-
-  get "/auth/:provider/callback", to: "sessions#login"
+  get "/auth/:provider/callback", to: "sessions#login", as: 'auth_callback'
   post '/login', to: 'sessions#login'
   post '/logout', to: 'sessions#logout', as: 'logout'
 end

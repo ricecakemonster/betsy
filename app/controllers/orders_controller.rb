@@ -7,20 +7,30 @@ class OrdersController < ApplicationController
 
   def add_to_cart
     session[:order_id] = nil
+
     if session[:order_id]
       @order = Order.find_by(id: session[:order_id])
     else
+      @products = Product.all
+      @products.each do |product|
+        product.original_stock = product.stock
+        product.save
+      end
       @order = Order.new
       @order.save(validate: false)
       session[:order_id] = @order.id
       @order.status = "pending"
     end
-
     @orderproduct = Orderproduct.create(orderproduct_params)
 
     if @orderproduct
+
       flash[:result_text] = "Successfully added to Cart"
       flash[:status] = :success
+      product = Product.find_by(id: params[:id])
+      product.stock -= @orderproduct.quantity
+      product.save
+
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "Could not create a Cart"
@@ -31,6 +41,7 @@ class OrdersController < ApplicationController
   end
 
   def added_to_cart
+
   end
 
   def cart
@@ -39,8 +50,12 @@ class OrdersController < ApplicationController
   def update_qty
     @order = Order.find_by(id: params[:id])
     @orderproduct = Orderproduct.find_by(id: params[:orderproduct][:id])
+    start_qty = @orderproduct.quantity
     @orderproduct.update(orderproduct_params)
     if @orderproduct.save
+      product = Product.find_by(id: @orderproduct.product_id)
+      product.stock += start_qty - @orderproduct.quantity
+      product.save
       redirect_to cart_path(id: params[:id])
     else
       render :cart, status: :bad_request
@@ -49,10 +64,14 @@ class OrdersController < ApplicationController
 
   def remove_from_cart
     @orderproduct = Orderproduct.find_by(id: params[:orderproduct_id])
+    start_qty = @orderproduct.quantity
     if @orderproduct.nil?
       head :not_found
     else
       @orderproduct.destroy
+      product = Product.find_by(@orderproduct)
+      product.quantity += start_qty - @orderproduct.quantity
+      product.save
       redirect_to cart_path(id: params[:order_id])
     end
   end
@@ -69,18 +88,25 @@ class OrdersController < ApplicationController
     if @order.update(order_params)
       flash[:result_text] = "Successfully Purchased!"
       flash[:status] = :success
+      session[:order_id] = nil
       redirect_to invoice_path
-
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "Fill in the blanks!"
       flash.now[:messages] = @order.errors.messages
       render :checkout, status: :bad_request
-
-
     end
+  end
 
-
+  def cancel
+    @order = Order.find_by(id:params[:id])
+    @order.products.each do |product|
+      product.stock = product.original_stock
+      product.save
+    end
+    @order.orderproducts.destroy_all
+    @order.destroy
+    redirect_to products_path
   end
 
   def invoice

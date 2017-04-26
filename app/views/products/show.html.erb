@@ -3,7 +3,7 @@
   <h3><%= @product.product_name %></h3>
   <%= image_tag(@product.photo_url) %>
   <p>From: <%= @product.merchant_id %></p>
-  <p>$<%= @product.price %></p>
+  <p>$<%= '%.02f' % @product.price %></p>
   <p><%= @product.product_description %></p>
   <p>Stock: <%= @product.stock %></p>
   <p> Average Rating: <%= @product.avg_rating %>

@@ -37,13 +37,14 @@
           <li><%= link_to "Log Out", logout_path, method: :post, class: "button" %></li>
           <% else %>
           <li>Not logged in</li>
+          <li></li>
           <li><%= link_to "Login", "/auth/github", class: "button" %></li>
           <% end %>
         </ul>
       </div>
     </div>
   </div>
-<!-- 
+<!--
   <header class="page-header row">
     <h2 class="columns large-9 small-12">
       <%= link_to "pEtsy", root_path %>

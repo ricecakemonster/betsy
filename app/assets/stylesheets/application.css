@@ -30,24 +30,10 @@
   background-color: red;
 }
 
-
-.page-header {
-  max-width: 100%;
-  color: green;
-  /*background-repeat: no-repeat;*/
-  /*background-color: yellow;*/
-  border-bottom: 1px solid darkgrey;
-  margin-bottom: 10px;
+.top-bar li {
+  padding-right: 10px;
 }
 
-.page-header h2 a {
-  margin-top: 20px;
-  padding-left: 75px;
-  color: pink;
-}
 
-.page-header p {
-  margin-bottom: 5px;
-}
 
 /* THIS IS THE INDIVIDUAL PAGE CSS */

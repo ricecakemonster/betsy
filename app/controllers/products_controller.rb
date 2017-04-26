@@ -1,7 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :require_login, only: [:new, :edit, :update, :destroy]
-
-  before_action :get_default_image, only: [::create, :update, ]
+  before_action :require_login, only: [:new, :edit, :update, :destroy] 
 
   def index
     @products = Product.all

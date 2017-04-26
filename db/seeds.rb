@@ -10,6 +10,6 @@ media_file = Rails.root.join('db', 'seeds.csv')
 end
 
 CSV.foreach(media_file, headers: true, header_converters: :symbol, converters: :all, skip_blanks: false) do |row|
-  data = Hash[row.headers.zip(row.fields)]
+  data = Hash[row.headers.zip(row.fields)]    
   Product.create!(data)
 end

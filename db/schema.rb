@@ -62,14 +62,16 @@ ActiveRecord::Schema.define(version: 20170426173201) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string   "product_name"
-    t.float    "price"
-    t.integer  "merchant_id"
-    t.string   "photo_url",           default: "http://www.rawdogplus.com/wp-content/uploads/2015/05/pic-coming-soon_150x150.jpg"
-    t.integer  "stock"
-    t.string   "product_description"
-    t.datetime "created_at",                                                                                                       null: false
-    t.datetime "updated_at",                                                                                                       null: false
+    t.string  "product_name"
+    t.float   "price"
+    t.integer "merchant_id"
+    t.string  "photo_url",
+    t.integer "stock"
+    t.string  "product_description"
+    t.string  "category"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+
     t.integer  "original_stock"
     t.index ["merchant_id"], name: "index_products_on_merchant_id", using: :btree
   end
@@ -83,5 +85,4 @@ ActiveRecord::Schema.define(version: 20170426173201) do
     t.string   "nickname",           default: "Anonymous Customer"
     t.index ["product_id"], name: "index_reviews_on_product_id", using: :btree
   end
-
 end

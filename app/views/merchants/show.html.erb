@@ -1,4 +1,4 @@
-<h2>Merchants#show</h2>
+<h2>Merchant Store</h2>
 
 <ul>
   <li><%= "Merchant Name: #{@merchant.merchant_name}" %></li>
@@ -6,6 +6,8 @@
   <li><%= "Username: #{@merchant.username}" %></li>
   <% if @current_user && @current_user.id == @merchant.id %>
     <li><%= link_to "Add Product", new_product_path %> </li>
+    <li><%= link_to "Edit Merchant", edit_merchant_path %> </li>
+    <li><%= link_to "Delete Merchant", merchant_path, method: :delete %> </li>
   <% end %>
 </ul>
 

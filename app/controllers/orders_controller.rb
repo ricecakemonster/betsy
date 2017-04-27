@@ -29,6 +29,7 @@ class OrdersController < ApplicationController
       product = Product.find_by(id: params[:id])
       product.stock -= @orderproduct.quantity
       product.save
+      @orderproduct.status = "processing"
 
     else
       flash.now[:status] = :failure
@@ -103,6 +104,7 @@ class OrdersController < ApplicationController
       product.stock = product.original_stock
       product.save
     end
+
     @order.orderproducts.destroy_all
     @order.destroy
     redirect_to products_path
@@ -121,56 +123,30 @@ class OrdersController < ApplicationController
       @orders << order
     end
   end
-   
-  def merchant_order
-    @orderprodcuts = Merchant.orders
+
+  def show
+    @product = Product.find_by(id: params[:product_id])
+    @order = Order.find_by(id: params[:order_id])
+    @orderproduct = Orderproduct.find_by(order_id: @order.id, product_id: @product.id)
   end
 
-    # flash[:result_text] = "Continue shopping?"
-    #  if @answer = "yes"
-    #    redirect_to root_path
-    #  else
-    #    render "payment"
-    #  end
+  def update
+    @product = Product.find_by(id: params[:product_id])
+    @order = Order.find_by(id: params[:order_id])
+    @orderproduct = Orderproduct.find_by(order_id: @order.id, product_id: @product.id)
+    @orderproduct.update(orderproduct_params)
+    if @orderproduct.save
+      flash[:result_text] = "Successfully Updated!"
+      flash[:status] = :success
+      redirect_to product_order_path(params[:product_id], params[:order_id])
+    else
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Select between processing and shipped!"
+      flash.now[:messages] = @order.errors.messages
+      render :product_order, status: :bad_request
+    end
+  end
 
-
-
-    #     @order.buyer_id = session[:user_id] if session[:user_id] != nil
-    #
-    #
-    #
-    #       if params[:cc_num] && params[:cc_name] && params [:cc_expiry]
-    #         @order.status = "paid"
-    #         redirect_to orders_path
-    #       else
-    #         @order.status = "pending"
-    #         render :payment
-    #         flash[:result_text] = "Please enter Credit Card info to finalize the purchase!"
-    #       end
-    #     else
-    #       flash[:status] = :failure
-    #       flash[:result_text] = "Please enter Name and Address"
-    #       flash[:messages] = @work.errors.messages
-    #       render :new, status: :bad_request
-    #     end
-    #
-    #
-    #
-
-  #
-  #   def edit
-  #   end
-  #
-  #   def update
-  #   end
-  #
-  #   def destroy
-  #   end
-  #
-  #   def purchase
-  #
-  # end
-  #
   private
 
   def order_params
@@ -178,7 +154,7 @@ class OrdersController < ApplicationController
   end
 
   def orderproduct_params
-    return params.require(:orderproduct).permit(:quantity, :product_id).merge(order_id: @order.id)
+    return params.require(:orderproduct).permit(:quantity, :product_id, :status).merge(order_id: @order.id)
   end
 
   def find_order

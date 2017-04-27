@@ -2,19 +2,17 @@
 <table>
   <tr>
   <% @orderproducts.each do |orderproduct|%>
-    <td>Order # </td>
-    <td><%= Order.find_by(id: orderproduct.order_id).id%></td>
+    <% order = Order.find_by(id: orderproduct.order_id) %>
+    <td>Order# <%= link_to "#{order.id}", product_order_path(params[:product_id], order_id: order.id)%></td>
+    <td>Purchase Date: <%= order.created_at %>
   </tr>
   <tr>
-    <td>Product</td>
-    <td><%= Product.find_by(id: orderproduct.product_id).product_name%></td>
-  </tr>
-  <tr>
-    <td>Qty </td>
-    <td><%= orderproduct.quantity%> </td>
+    <td>Product: <%= Product.find_by(id: orderproduct.product_id).product_name%></td>
+    <td>Qty: <%= orderproduct.quantity%> </td>
   </tr>
   <tr>
     <td></td>
     <td></td>
   </tr>
   <% end %>
+</table>

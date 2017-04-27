@@ -5,7 +5,8 @@ Rails.application.routes.draw do
 # changed to remove new_product_path, delete product_path
   resources :products do
     get 'orders/added_to_cart', to: 'orders#added_to_cart'
-    get 'orders/order_id', to: 'orders#merchant_order', as: 'order'
+    get 'orders/:order_id', to: 'orders#show', as: 'order'
+    patch 'orders/:order_id', to: 'orders#update', as: 'update'
     get 'orders/', to: 'orders#index', as: 'orders'
   end
   resources :orders, except: [:new, :show]

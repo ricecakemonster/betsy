@@ -47,8 +47,12 @@ h4#review {
   margin-top: 100px;
 }
 
-img {
+
+
+.all_products img {
   padding: 5px;
+  width: 200px;
+  height: 200px;
   backface-visibility: hidden;
 }
 

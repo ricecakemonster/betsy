@@ -22,7 +22,10 @@ class MerchantsController < ApplicationController
   end
 
   def edit
-    @merchant = Merchant.find(params[:id])
+    @merchant = Merchant.find_by(id: params[:id])
+    if @merchant.nil?
+      head :not_found
+    end
   end
 
   def update

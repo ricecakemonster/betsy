@@ -7,12 +7,13 @@ class Merchant < ApplicationRecord
   validates :oauth_provider, presence: true
 
   def self.from_github(auth_hash)
-    merchant = Merchant.new
-    merchant.username = auth_hash["info"]["nickname"]
-    merchant.merchant_name = auth_hash["info"]["name"]
-    merchant.merchant_email = auth_hash["info"]["email"]
-    merchant.oauth_uid = auth_hash["uid"]
-    merchant.oauth_provider = "github"
+    merchant = Merchant.new(
+      username: auth_hash["info"]["nickname"],
+      merchant_name: auth_hash["info"]["name"],
+      merchant_email: auth_hash["info"]["merchant_email"],
+      oauth_uid: auth_hash["uid"],
+      oauth_provider: "github"
+      )
     return merchant
   end
 end

@@ -8,14 +8,14 @@
 one:
   order: one
   product: petsy1
-  quantity: 2
+  quantity: 1
 
 two:
   order: one
   product: petsy2
-  quantity: 3
+  quantity: 2
 
 three:
   order: two
   product: petsy1
-  quantity: 3
+  quantity: 0

@@ -1,9 +1,12 @@
 <h2> List of Merchants </h2>
 
-<ul>
+<section id="merchant" class="columns large-12 large-centered columns">
+<ul class="no-bullet text-center">
   <% @merchants.each do |merchant| %>
-  <li>
+  <li class="text-right">
     <%= link_to merchant.merchant_name, merchant_path(merchant.id) %>
   </li>
+
   <% end %>
 </ul>
+</section>

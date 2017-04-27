@@ -5,13 +5,6 @@ class MerchantsController < ApplicationController
     @merchants = Merchant.all
   end
 
-  def account
-    @merchant = Merchant.find_by(id: params[:id])
-    if @merchant.nil?
-      head :not_found
-    end
-  end
-
   def show
     @merchant = Merchant.find_by(id: params[:id])
     if @merchant.nil?
@@ -22,7 +15,10 @@ class MerchantsController < ApplicationController
   end
 
   def edit
-    @merchant = Merchant.find(params[:id])
+    @merchant = Merchant.find_by(id: params[:id])
+    if @merchant.nil?
+      head :not_found
+    end
   end
 
   def update
@@ -42,6 +38,36 @@ class MerchantsController < ApplicationController
     end
     redirect_to merchants_path
   end
+
+  def login
+    auth_hash = request.env['omniauth.auth']
+
+        merchant = Merchant.find_by(oauth_provider: params[:provider], oauth_uid: auth_hash["uid"])
+
+    if merchant.nil?
+      merchant = Merchant.from_github(auth_hash)
+      if merchant.save
+        session[:user_id] = merchant.id
+        flash[:result_text] = "Successfully logged in as new merchant: #{merchant.username}"
+      else
+        flash[:result_text] = "Login unsuccessful"
+        merchant.errors.messages.each do |field, problem|
+          flash[:field] = problem.join(', ')
+        end
+      end
+    else
+      session[:user_id] = merchant.id
+    end
+    redirect_to root_path
+  end
+
+  def logout
+    session[:user_id] = nil
+    flash[:status] = :success
+    flash[:result_text] = "Successfully logged out"
+    redirect_to root_path
+  end
+
 
   private
   def merchant_params

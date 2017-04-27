@@ -1,0 +1,11 @@
+
+<h2> Find My Order </h2>
+
+<div> Enter order number:
+<% form_tag('orders/find') do  %>
+  <%#= number_field(object_name, method, options = {}) public %>
+  <%= submit_tag 'Find my order', class: 'button', method: :post%>
+<% end %>
+</div>
+post 'orders/find', to: 'orders#find', as: 'find'
+get 'orders/:id', to: 'orders#show', as: 'view_order'

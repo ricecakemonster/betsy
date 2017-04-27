@@ -8,3 +8,5 @@
     <li><%= link_to "Add Product", new_product_path %> </li>
   <% end %>
 </ul>
+
+<div><%= link_to "Order List", product_orders_path(product_id: ), class: "button" %></div>

@@ -1,9 +1,8 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: [:added_to_cart, :cart]
+  before_action :find_order_merchant, only: [:show, :update]
 
-  def index
-
-  end
+#### Making an order
 
   def add_to_cart
     # session[:order_id] = nil
@@ -114,8 +113,10 @@ class OrdersController < ApplicationController
     @order = Order.find_by(id: params[:id])
   end
 
+
+#### Managing orders (Merchant side)
+
   def index
-    # @orders = Order.where()
     @orderproducts = Orderproduct.where(product_id: params[:product_id])
     @orders = []
     @orderproducts.each do |orderproduct|
@@ -125,15 +126,15 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @product = Product.find_by(id: params[:product_id])
-    @order = Order.find_by(id: params[:order_id])
-    @orderproduct = Orderproduct.find_by(order_id: @order.id, product_id: @product.id)
+    # @product = Product.find_by(id: params[:product_id])
+    # @order = Order.find_by(id: params[:order_id])
+    # @orderproduct = Orderproduct.find_by(order_id: @order.id, product_id: @product.id)
   end
 
-  def update
-    @product = Product.find_by(id: params[:product_id])
-    @order = Order.find_by(id: params[:order_id])
-    @orderproduct = Orderproduct.find_by(order_id: @order.id, product_id: @product.id)
+  def update # update status (processing / shipped)
+    # @product = Product.find_by(id: params[:product_id])
+    # @order = Order.find_by(id: params[:order_id])
+    # @orderproduct = Orderproduct.find_by(order_id: @order.id, product_id: @product.id)
     @orderproduct.update(orderproduct_params)
     if @orderproduct.save
       flash[:result_text] = "Successfully Updated!"
@@ -146,6 +147,13 @@ class OrdersController < ApplicationController
       render :product_order, status: :bad_request
     end
   end
+
+  #### Checking order status (customer)
+
+  def find_order
+
+  end
+
 
   private
 
@@ -161,6 +169,12 @@ class OrdersController < ApplicationController
     @order = Order.find(session[:order_id])
     @product = Product.find_by(id: params[:product_id])
     @order = Order.find_by(id: session[:order_id])
+  end
+
+  def find_order_merchant
+  @order = Order.find_by(id: params[:order_id])
+  @product = Product.find_by(id: params[:product_id])
+  @orderproduct = Orderproduct.find_by(order_id: @order.id, product_id: @product.id)
   end
 
 end

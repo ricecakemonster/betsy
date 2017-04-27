@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   patch 'orders/:id/purchase', to: 'orders#purchase', as: 'purchase'
   get 'orders/:id/invoice', to: 'orders#invoice', as: 'invoice'
   patch 'orders/:id/cancel', to: 'orders#cancel', as: 'cancel'
+  get 'orders/find_order', to: 'orders#find_order', as: 'find_order'
+  # post 'orders/find', to: 'orders#find', as: 'find'
+  get 'orders/:id', to: 'orders#show', as: 'view_order'
+
 
   post '/products/:id/review', to: 'products#review', as: 'review'
   resources :reviews

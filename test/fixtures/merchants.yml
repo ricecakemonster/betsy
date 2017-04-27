@@ -18,6 +18,18 @@ erica:
   oauth_uid: 2222
   oauth_provider: github
 
+ada:
+  oauth_provider: github
+  oauth_uid: 12345
+  merchant_email: ada@adadevelopersacademy.org
+  username: countess_ada
+
+grace:
+  oauth_provider: github
+  oauth_uid: 13371337
+  merchant_email: grace@hooper.net
+  username: graceful_hoops
+
 <% 5.times do |n| %>
 merchant_<%= n %>:
   merchant_name: <%= "user#{n}" %>

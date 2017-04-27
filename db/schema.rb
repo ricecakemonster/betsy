@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20170426173201) do
   end
 
   create_table "products", force: :cascade do |t|
-<<<<<<< HEAD
+
     t.string  "product_name"
     t.float   "price"
     t.integer "merchant_id"
@@ -60,17 +60,9 @@ ActiveRecord::Schema.define(version: 20170426173201) do
     t.integer "stock"
     t.string  "product_description"
     t.string  "category"
-=======
-    t.string   "product_name"
-    t.float    "price"
-    t.integer  "merchant_id"
-    t.string   "photo_url"
-    t.integer  "stock"
-    t.string   "product_description"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.integer  "original_stock"
->>>>>>> 5cc8ad0e13a6653c9a5939fe5ad6be207c048421
     t.index ["merchant_id"], name: "index_products_on_merchant_id", using: :btree
   end
 

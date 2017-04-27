@@ -7,7 +7,6 @@ class OrdersController < ApplicationController
 
   def add_to_cart
     # session[:order_id] = nil
-
     if session[:order_id]
       @order = Order.find_by(id: session[:order_id])
     else
@@ -111,10 +110,11 @@ class OrdersController < ApplicationController
 
   def invoice
     @order = Order.find_by(id: params[:id])
-
   end
 
-
+  def show
+    @order = 
+  end
 
     # flash[:result_text] = "Continue shopping?"
     #  if @answer = "yes"

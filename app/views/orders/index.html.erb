@@ -1,17 +1,16 @@
-<h1>Orders#index</h1>
-
-<% 5.times do |n| %>
-<tr>
-  <td><%= @product_names[n] %></td>
-  <td>$<%= @prices[n] %></td>
-  <td>
-    <%= form_tag "/orders/:id/show", method: :patch do %>
-      <%= text_number_field :session[:quantities][n]%>
-      <%= submit_tag "Update Quantity", class: "    " %>
-    <% end %>
-  </td>
-</tr>
-  <% n += 1 %>
-<% end %>
-
-<p>Find me in app/views/orders/index.html.erb</p>
+<h1>Order list <h2>
+<table>
+  <tr>
+  <% @orderproducts.each do |orderproduct|%>
+    <td>Order # </td>
+    <td><%= Order.find_by(id: orderproduct.order_id).id%></td>
+  </tr>
+  <tr>
+    <td>Product</td>
+    <td><%= Product.find_by(id: orderproduct.product_id).name%></td>
+  </tr>
+  <tr>
+    <td>Qty </td>
+    <td>orderproduct.quantity </td>
+  </tr>
+  <% end %>

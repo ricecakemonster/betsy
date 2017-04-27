@@ -1,7 +1,7 @@
 require "test_helper"
 #
 describe MerchantsController do
-#
+  # gen
   describe "auth_callback" do
     it "registers a new user" do
       start_count = Merchant.count
@@ -20,11 +20,10 @@ describe MerchantsController do
 
     end
 
-
     it "accepts a returning user" do
       start_count = Merchant.count
 
-      merchant = merchants(:grace)
+      merchant = merchants(:erica)
       login(merchant)
 
       must_redirect_to root_path
@@ -38,6 +37,9 @@ describe MerchantsController do
 
     end
   end
+end
+
+
 
 #   # describe "index" do
 #   #   it "responds successfully" do
@@ -163,4 +165,3 @@ describe MerchantsController do
 #   #   get merchants_destroy_url
 #   #   value(response).must_be :success?
 #   # end
-end

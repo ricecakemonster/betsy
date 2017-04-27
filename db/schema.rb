@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20170426173201) do
     t.string  "product_name"
     t.float   "price"
     t.integer "merchant_id"
-    t.string  "photo_url",           default: "http://www.rawdogplus.com/wp-content/uploads/2015/05/pic-coming-soon_150x150.jpg"
+    t.string  "photo_url",           
     t.integer "stock"
     t.string  "product_description"
     t.string  "category"

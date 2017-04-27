@@ -154,6 +154,22 @@ class OrdersController < ApplicationController
 
   end
 
+  def find
+    order = Order.find_by(id: params[:order_id])
+    if order.nil?
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Wrong order number!"
+      render :find_order, status: :bad_request
+    else
+      flash[:result_text] = "Welcome #{order.cc_name}!"
+      redirect_to view_order_path(id: params[:order_id])
+    end
+  end
+
+  def view_order
+    @order = Order.find_by(id: params[:order_id])
+  
+  end
 
   private
 

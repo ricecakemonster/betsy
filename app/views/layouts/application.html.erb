@@ -25,10 +25,19 @@
               <li><a href="#">Merchant</a></li>
             </ul>
           </li>
-          <li><%#= link_to "Cart", cart_path(params[:order_id]), class: 'button' %>
-
-
+          <% if session[:order_id] != nil%>
+          <%# @order = Order.find_by(id: params[:order_id]) %>
+            <% link = cart_path(session[:order_id]) %>
+          <% else %>
+            <% link = root_path %>
+          <% end %>
+          <li>
+            <%= link_to "Cart", link, class: 'button' %>
           </li>
+          <li>
+            <%= link_to "Find My Order", find_order_path, class: 'button' %>
+          </li>
+
         </ul>
       </div>
       <div class="top-bar-right">

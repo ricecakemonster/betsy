@@ -6,11 +6,14 @@ class OrdersController < ApplicationController
   end
 
   def add_to_cart
+    session[:order_id] = nil
     if session[:order_id]
       @order = Order.find_by(id: session[:order_id])
     else
-      @order = Order.create
+      @order = Order.new
+      @order.save(validate: false)
       session[:order_id] = @order.id
+      @order.status = "pending"
     end
 
     @orderproduct = Orderproduct.create(orderproduct_params)
@@ -37,12 +40,9 @@ class OrdersController < ApplicationController
     @order = Order.find_by(id: params[:id])
     @orderproduct = Orderproduct.find_by(id: params[:orderproduct][:id])
     @orderproduct.update(orderproduct_params)
-
     if @orderproduct.save
-      puts "success!!"
       redirect_to cart_path(id: params[:id])
     else
-      puts "Failed!!!"
       render :cart, status: :bad_request
     end
   end
@@ -57,9 +57,37 @@ class OrdersController < ApplicationController
     end
   end
 
-  def update
+  def checkout
+    @order = Order.find_by(id: params[:id])
+  end
+
+  def purchase
+    @order = Order.find_by(id: params[:id])
+      address1 = params[:order][:mailing_address][:line1]
+      address2 = params[:order][:mailing_address][:line2]
+      @address = address1 + " " + address2
+    if @order.update(order_params)
+      flash[:result_text] = "Successfully Purchased!"
+      flash[:status] = :success
+      redirect_to invoice_path
+
+    else
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Fill in the blanks!"
+      flash.now[:messages] = @order.errors.messages
+      render :checkout, status: :bad_request
+
+
+    end
+
 
   end
+
+  def invoice
+    @order = Order.find_by(id: params[:id])
+
+  end
+
 
 
     # flash[:result_text] = "Continue shopping?"
@@ -110,7 +138,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    return params.require(:order).permit(:status, :cc_num, :cc_name, :order_email, :mailing_address, :cc_expiry, :buyer_id)
+    return params.require(:order).permit(:status, :cc_num, :cc_name, :order_email, :cc_expiry, :buyer_id, :cvv).merge(mailing_address: @address)
   end
 
   def orderproduct_params

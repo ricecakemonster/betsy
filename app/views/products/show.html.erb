@@ -8,6 +8,7 @@
 </section>
 <section class="columns large-6">
   <p>$<%= @product.price %></p>
+  <p>$<%= '%.02f' % @product.price %></p>
   <p>Sold By: <%= @product.merchant.merchant_name %></p>
   <p><%= @product.product_description %></p>
 </section>
@@ -50,16 +51,16 @@
 <section class="columns large-8 large-centered columns">
   <h4 id="review"> Leave a Review </h4>
   <section class="columns large-2" style="width:40%">
-  <%= form_for @review, url: review_path(params[:id]) do |t| %>
-  Customer Name
-  <%= t.text_field :nickname %>
-  Rating (1-5)
-  <%= t.number_field :rating %>
-</section>
-<section class="columns large-6">
-  Description (Optional)
-  <%= t.text_field :review_description%>
-  <%= t.submit "Leave Review" %>
-  <% end %>
-</section>
+    <%= form_for @review, url: review_path(params[:id]) do |t| %>
+    Customer Name
+    <%= t.text_field :nickname %>
+    Rating (1-5)
+    <%= t.number_field :rating %>
+  </section>
+  <section class="columns large-6">
+    Description (Optional)
+    <%= t.text_field :review_description%>
+    <%= t.submit "Leave Review" %>
+    <% end %>
+  </section>
 </section>

@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
   end
 
   def add_to_cart
-    session[:order_id] = nil
+    # session[:order_id] = nil
 
     if session[:order_id]
       @order = Order.find_by(id: session[:order_id])

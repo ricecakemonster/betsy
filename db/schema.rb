@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20170426155809) do
 
   create_table "orders", force: :cascade do |t|
     t.string   "status"
-    t.integer  "cc_num"
+    t.string   "cc_num"
     t.string   "cc_name"
     t.string   "order_email"
     t.string   "mailing_address"

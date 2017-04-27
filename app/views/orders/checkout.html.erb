@@ -19,7 +19,7 @@
   Expiration date:
   <%= f.text_field :cc_expiry, placeholder: "mm/yy" %>
   cvv number:
-  <%= f.number_field :cvv %>
+  <%= f.number_field :cvv, placeholder: "3 digits" %>
   <%= f.hidden_field :status, value: "paid" %>
   <%= f.submit "Purchase", class: 'button'%>
 

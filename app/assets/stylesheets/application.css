@@ -31,6 +31,9 @@
   color: #89C4F4;
 }
 
+.top-bar-right a {
+  color: white;
+}
 .top-bar .button {
   background-color: #EF4836;
 }

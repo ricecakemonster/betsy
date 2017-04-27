@@ -14,12 +14,22 @@
     <% @products.each do |product| %>
     <div class="columns large-3 medium-6 small-12">
       <% if product.photo_url.nil? %>
-      <%= link_to image_tag("http://www.fillmurray.com/200/200"), product_path(product) %>
+      <div class="all_products">
+        <%= link_to image_tag("http://www.fillmurray.com/200/200"), product_path(product) %>
+        <div class="product_info">
+          <h5><%= product.product_name %></h5>
+          <h5><%= product.price %></h5>
+        </div>
+      </div>
       <% else %>
-      <%= link_to image_tag(product.photo_url, width: 200, height: 200, alt: "Cute animals in raincoats"), product_path(product) %>
+      <div class="all_products">
+        <%= link_to image_tag(product.photo_url, width: 200, height: 200, alt: "Cute animals in raincoats"), product_path(product) %>
+        <div class="product_info">
+          <h5><%= product.product_name %></h5>
+          <h5><%= product.price %></h5>
+        </div>
+      </div>
       <% end %>
-      <h3><%#= link_to product.product_name, product_path(product) %></h3>
-      <h3><%#= product.price %></h3>
     </div>
     <% end %>
   </section>

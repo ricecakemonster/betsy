@@ -19,15 +19,23 @@
 /* THIS IS THE HEADER CSS */
 
 .menu-text {
-  color: yellow;
+  font-size: 2em;
+  color: #F7CA18;
 }
 
 .top-bar, .top-bar menu-text, .top-bar ul {
-  background-color: darkgray;
+  background-color: #446CB3;
 }
 
+.top-bar-left a, .top-bar-right li {
+  color: #89C4F4;
+}
+
+.top-bar-right a {
+  color: white;
+}
 .top-bar .button {
-  background-color: red;
+  background-color: #EF4836;
 }
 
 .top-bar li {

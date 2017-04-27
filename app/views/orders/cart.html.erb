@@ -69,7 +69,7 @@
 <div> <%= link_to "Continue Shopping", root_path, class: 'button' %> </div>
 <div> <%= link_to "Checkout", checkout_path(params[:id]), class: 'button' %> </div>
 <div> <%= link_to "Cancel My Cart", cancel_path(params[:id]),method: :patch, class: 'button' %> </div>
-<%= Product.find_by(id: 28).stock %>
+
 
 <%#= link_to( 'Checkout'.html_safe,
             "/orders/:id/checkout",

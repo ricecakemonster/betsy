@@ -112,8 +112,18 @@ class OrdersController < ApplicationController
     @order = Order.find_by(id: params[:id])
   end
 
-  def show
-    @order = 
+  def index
+    # @orders = Order.where()
+    @orderproducts = Orderproduct.where(product_id: params[:product_id])
+    @orders = []
+    @orderproducts.each do |orderproduct|
+      order = Order.find_by(id: orderproduct.order_id)
+      @orders << order
+    end
+  end
+   
+  def merchant_order
+    @orderprodcuts = Merchant.orders
   end
 
     # flash[:result_text] = "Continue shopping?"

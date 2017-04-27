@@ -27,11 +27,18 @@ class ProductsController < ApplicationController
   end
 
   def create
+
     @product = Product.new(product_params)
     # {
     #   merchant_id :merchant_id
     #   :
     # }
+
+    if @product.photo_url.nil?
+      @product.photo_url = DEFAULT_IMAGE
+      @product.save
+    end
+
     if @product.save
       flash[:status] = :success
       flash[:result_text] = "Successfully added #{@product.product_name} to inventory"
@@ -45,11 +52,16 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    @product = Product.find_by(id: params[:id])
   end
 
   def update
-    @product = Product.find_by(params[:id])
+    @product = Product.find_by(id: params[:id])
     @product.update_attributes(product_params)
+    if @product.photo_url.nil?
+      @product.photo_url = DEFAULT_IMAGE
+      @product.save
+    end
 
     if @product.save
       flash[:status] = :success
@@ -99,9 +111,6 @@ class ProductsController < ApplicationController
 
   private
   def product_params
-    if product.photo_url.nil?
-      product.photo_url = DEFAULT_IMAGE
-    end
     params.require(:product).permit(:product_name, :price, :merchant_id, :photo_url, :stock, :product_description)
   end
 

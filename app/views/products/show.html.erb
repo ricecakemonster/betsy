@@ -1,47 +1,67 @@
 
-<article>
-  <h3><%= @product.product_name %></h3>
+<section>
+  <p class="columns large-2 small-12 back"><%= link_to "Back to all products", products_path %></p>
+  <h3 class="columns large-12 small-12 text-center"><%= @product.product_name %></h3>
+</section>
+<section class= "columns large-6">
   <%= image_tag(@product.photo_url) %>
-  <p>From: <%= @product.merchant_id %></p>
+</section>
+<section class="columns large-6">
   <p>$<%= @product.price %></p>
+  <p>$<%= '%.02f' % @product.price %></p>
+  <p>Sold By: <%= @product.merchant.merchant_name %></p>
   <p><%= @product.product_description %></p>
-  <p>Stock: <%= @product.stock %></p>
-  <p> Average Rating: <%= @product.avg_rating %>
-  <section>
-    <p>Add to cart</p>
-    <%= link_to "Back to all products", products_path %>
-  </section>
-</article>
+</section>
 
-<%= form_for @orderproduct, url: add_to_cart_path(params[:id]) do |t| %>
-Qty: <%= t.number_field :quantity, value: 1, min: 1%>
-<%= t.hidden_field :product_id, value: params[:id] %>
-<%= t.submit "Add to Cart" %>
-<% end %>
-
-
-<%= form_for @review, url: review_path(params[:id]) do |t| %>
-Customer Name
-<%= t.text_field :nickname %>
-Rating (1-5)
-<%= t.number_field :rating %>
-Description (Optional)
-<%= t.text_field :review_description%>
-<%= t.submit "Leave Review" %>
-<% end %>
-
-
-<table style="width:50%">
-  <tr>
-    <th>Customer Name</th>
-    <th>Rating</th>
-    <th>Description</th>
-  </tr>
-    <% @review_list.each do |r| %>
-  <tr>
-    <td><%= "#{r.nickname}" %></td>
-    <td><%= "#{r.rating}" %></td>
-    <td><%= "#{r.review_description}" %></td>
-  </tr>
+<section class="columns large-3">
+  <p>Add to cart</p>
+  <%= form_for @orderproduct, url: add_to_cart_path(params[:id]) do |t| %>
+  Qty: <%= t.number_field :quantity, value: 1, min: 1, max: @product.stock%>
+  <%= t.hidden_field :product_id, value: params[:id] %>
+  <%= t.submit "Add to Cart" %>
   <% end %>
-</table>
+</section>
+<section class="columns large-3">
+  <p> Average Rating: <%= @product.avg_rating %>
+</section>
+
+
+  <section class="columns large-8 large-centered columns" id="table-section">
+    <table class="expanded">
+      <thead>
+        <tr>
+          <th width="150">Customer Name</th>
+          <th width="50">Rating</th>
+          <th width="200">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @review_list.each do |r| %>
+      </thead>
+      <tr>
+        <td><%= "#{r.nickname}" %></td>
+        <td><%= "#{r.rating}" %></td>
+        <td><%= "#{r.review_description}" %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
+
+
+<section class="columns large-8 large-centered columns">
+  <h4 id="review"> Leave a Review </h4>
+  <section class="columns large-2" style="width:40%">
+    <%= form_for @review, url: review_path(params[:id]) do |t| %>
+    Customer Name
+    <%= t.text_field :nickname %>
+    Rating (1-5)
+    <%= t.number_field :rating %>
+  </section>
+  <section class="columns large-6">
+    Description (Optional)
+    <%= t.text_field :review_description%>
+    <%= t.submit "Leave Review" %>
+    <% end %>
+  </section>
+</section>

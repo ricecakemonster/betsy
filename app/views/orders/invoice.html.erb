@@ -1,0 +1,61 @@
+
+<h2> Thank you for shopping at Petsy! </h2>
+
+<h4> Order <%= @order.id %> Summary </h4>
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Unit Price</th>
+      <th>Quantity</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order.orderproducts.each do |orderproduct| %>
+    <% product = Product.find_by(id: orderproduct.product_id)%>
+
+    <tr>
+      <td><%= product.product_name %>  <%= image_tag(product.photo_url)%></td>
+
+      <td>$<%= product.price %></td>
+      <td><%= orderproduct.quantity %></td>
+      <% new_price = product.price.to_f * orderproduct.quantity.to_f %>
+      <td>$<%= '%.02f' % new_price %></td>
+    <% end %>
+    </tr>
+    <%# subtotal = @order.subtotal%>
+    <%# tax = @order.subtotal * 0.095%>
+    <%# total = tax.to_f + subtotal.to_f %>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Subotal:</td>
+      <td>$<%= '%.02f' % @order.subtotal %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Tax:</td>
+      <td>$<%= '%.02f' % @order.tax %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Shipping:</td>
+      <td>$5.00</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Total:</td>
+      <td>$<%= '%.02f' % @order.total %></td>
+    </tr>
+  </tbody>
+</table>
+
+<h5> Order number : <%= @order.id %>  </h5>
+<h5> $<%= '%.02f' % @order.total%> was charged to your card. </h5>
+
+
+<%= link_to "See more products!", products_path, class: 'button' %>

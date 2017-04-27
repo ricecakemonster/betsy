@@ -5,3 +5,4 @@
 
 <%= link_to "Continue Shopping", products_path, class: 'button' %>
 <%= link_to "Cart", cart_path(@order.id), class: 'button' %>
+<%= Product.find_by(id: 28).stock %>

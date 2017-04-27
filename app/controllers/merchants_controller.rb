@@ -5,13 +5,6 @@ class MerchantsController < ApplicationController
     @merchants = Merchant.all
   end
 
-  def account
-    @merchant = Merchant.find_by(id: params[:id])
-    if @merchant.nil?
-      head :not_found
-    end
-  end
-
   def show
     @merchant = Merchant.find_by(id: params[:id])
     if @merchant.nil?

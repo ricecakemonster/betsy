@@ -1,6 +1,38 @@
+.hero-section {
+  background: url("https://s-media-cache-ak0.pinimg.com/originals/25/20/91/252091494cb31bd6bbab6e0459c2b72d.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  text-align: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.hero-section .hero-section-text {
+  color: #fefefe;
+  text-shadow: 1px 1px 2px #0a0a0a;
+  line-height: 100vh;
+  text-align: center;
+  vertical-align: middle;
+  justify-content: center;
+  align-items: center;
+}
+
+.zero-margin {
+  margin-left: 0;
+  margin-right: 0;
+}
 
 h3 {
-  margin-bottom: 50px;
+  padding: 50px;
+  background-color: #F7CA18;
+  color: #446CB3;
+  width: 100vw;
 }
 
 h4#review {
@@ -15,10 +47,35 @@ h4#review {
   margin-top: 100px;
 }
 
-img {
 
+
+.all_products img {
+  padding: 5px;
+  width: 200px;
+  height: 200px;
+  backface-visibility: hidden;
 }
 
+.all_products {
+    position: relative;
+}
+
+.all_products:hover {
+  opacity: 0.3;
+}
+
+.product_info {
+  position: absolute;
+  opacity: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.product_info:hover {
+  opacity: 1;
+  background-color: red;
+}
 
 
 section {

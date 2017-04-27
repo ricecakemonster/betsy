@@ -1,0 +1,27 @@
+section#merchant li:nth-child(odd) {
+  border: transparent;
+  background: pink;
+  width: 20%;
+  height: 10%;
+  display: inline-block;
+  margin: 2em;
+  padding: 2em;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1em;
+  color: #FF4E50;
+}
+
+section#merchant li:nth-child(even) {
+  border: transparent;
+  background: #ABF9DC;
+  width: 20%;
+  height: 10%;
+  display: inline-block;
+  margin: 2em;
+  padding: 2em;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1em;
+  color: #FF4E50;
+}

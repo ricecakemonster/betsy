@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170424214613) do
+ActiveRecord::Schema.define(version: 20170426155809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,18 +28,13 @@ ActiveRecord::Schema.define(version: 20170424214613) do
   end
 
   create_table "merchants", force: :cascade do |t|
-    t.string "merchant_name"
-    t.string "merchant_email"
-    t.string "username"
-    t.string "oauth_uid"
-    t.string "oauth_provider"
-  end
-
-  create_table "merchants_orders", id: false, force: :cascade do |t|
-    t.integer "merchant_id", null: false
-    t.integer "order_id",    null: false
-    t.index ["merchant_id"], name: "index_merchants_orders_on_merchant_id", using: :btree
-    t.index ["order_id"], name: "index_merchants_orders_on_order_id", using: :btree
+    t.string   "merchant_name"
+    t.string   "merchant_email"
+    t.string   "username"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "oauth_uid"
+    t.string   "oauth_provider"
   end
 
   create_table "orderproducts", force: :cascade do |t|
@@ -48,43 +43,44 @@ ActiveRecord::Schema.define(version: 20170424214613) do
     t.integer  "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "status"
     t.index ["order_id"], name: "index_orderproducts_on_order_id", using: :btree
     t.index ["product_id"], name: "index_orderproducts_on_product_id", using: :btree
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string  "status"
-    t.integer "cc_num"
-    t.string  "cc_name"
-    t.string  "order_email"
-    t.string  "mailing_address"
-    t.string  "cc_expiry"
-    t.integer "buyer_id"
-  end
-
-  create_table "orders_products", id: false, force: :cascade do |t|
-    t.integer "order_id",   null: false
-    t.integer "product_id", null: false
-    t.index ["order_id"], name: "index_orders_products_on_order_id", using: :btree
-    t.index ["product_id"], name: "index_orders_products_on_product_id", using: :btree
+    t.string   "status"
+    t.integer  "cc_num"
+    t.string   "cc_name"
+    t.string   "order_email"
+    t.string   "mailing_address"
+    t.string   "cc_expiry"
+    t.integer  "buyer_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "cvv"
   end
 
   create_table "products", force: :cascade do |t|
-    t.string  "product_name"
-    t.float   "price"
-    t.integer "merchant_id"
-    t.string  "photo_url"
-    t.integer "stock"
-    t.string  "product_description"
-    t.string  "category"
+    t.string   "product_name"
+    t.float    "price"
+    t.integer  "merchant_id"
+    t.string   "photo_url"
+    t.integer  "stock"
+    t.string   "product_description"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "original_stock"
     t.index ["merchant_id"], name: "index_products_on_merchant_id", using: :btree
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "rating"
-    t.string  "review_description"
-    t.string  "nickname",           default: "Anonymous Customer"
+    t.integer  "product_id"
+    t.integer  "rating"
+    t.string   "review_description"
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.string   "nickname",           default: "Anonymous Customer"
     t.index ["product_id"], name: "index_reviews_on_product_id", using: :btree
   end
 

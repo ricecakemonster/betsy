@@ -33,10 +33,46 @@
 
 
       </td>
+      <% new_price = product.price.to_f * orderproduct.quantity.to_f %>
+      <td>$<%= '%.02f' % new_price %></td>
     </tr>
   <% end %>
-  <div> <%= link_to "Continue Shopping", root_path, class: 'button' %> </div>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Total:</td>
+    <td>$<%= '%.02f' % @order.subtotal %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Tax:</td>
+    <td>$<%= '%.02f' % @order.tax %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Shipping:</td>
+    <td>$5.00</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Total:</td>
+    <td>$<%= '%.02f' % @order.total %></td>
+  </tr>
 
 </tbody>
-  <h2>Subtotal: $<%= '%.02f' % @order.subtotal %></h2>
 </table>
+<h2>Total: $<%= '%.02f' % @order.total %></h2>
+
+<div> <%= link_to "Continue Shopping", root_path, class: 'button' %> </div>
+<div> <%= link_to "Checkout", checkout_path(params[:id]), class: 'button' %> </div>
+
+<%#= link_to( 'Checkout'.html_safe,
+            "/orders/:id/checkout",
+            'data-popup' => true,
+            class: "button",
+            onclick: "window.open(this.href,'checkout', 'height=500, width=500');
+                                        return false;"
+   ) %>

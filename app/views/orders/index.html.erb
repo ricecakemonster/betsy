@@ -7,10 +7,14 @@
   </tr>
   <tr>
     <td>Product</td>
-    <td><%= Product.find_by(id: orderproduct.product_id).name%></td>
+    <td><%= Product.find_by(id: orderproduct.product_id).product_name%></td>
   </tr>
   <tr>
     <td>Qty </td>
-    <td>orderproduct.quantity </td>
+    <td><%= orderproduct.quantity%> </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
   </tr>
   <% end %>

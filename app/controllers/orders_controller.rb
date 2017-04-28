@@ -29,6 +29,7 @@ class OrdersController < ApplicationController
       product.stock -= @orderproduct.quantity
       product.save
       @orderproduct.status = "processing"
+      @orderproduct.save
 
     else
       flash.now[:status] = :failure
@@ -168,7 +169,7 @@ class OrdersController < ApplicationController
 
   def view_order
     @order = Order.find_by(id: params[:order_id])
-  
+
   end
 
   private

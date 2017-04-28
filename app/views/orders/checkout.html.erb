@@ -1,4 +1,4 @@
-<h4>Enter credit card info</h4>
+<h4 class = "order_title">Enter credit card info</h4>
 <section class = "purchase_width">
 <%= form_for @order, url: purchase_path(id: params[:id]), method: :patch do |f| %>
   Name on card:
@@ -22,13 +22,14 @@
   cvv number:
   <%= f.number_field :cvv, placeholder: "3 digits" %>
   <%= f.hidden_field :status, value: "paid" %>
-</section>
-<section class = "center">
-  <ul>
-  <li class = "link_buttons"><%= f.submit "Purchase", class: 'button'%></li>
+  <section class = "center">
+    <ul>
+      <li class = "link_buttons"><%= f.submit "Purchase", class: 'button'%></li>
+      <li class = "link_buttons"><%= link_to "Cancel My Cart", cancel_path(params[:id]), class: 'button' %></li>
+    </ul>
+  </section>
 
 <% end %>
 
-  <li class = "link_buttons"><%= link_to "Cancel My Cart", cancel_path(params[:id]), class: 'button' %></li>
-</ul>
+
 </section>

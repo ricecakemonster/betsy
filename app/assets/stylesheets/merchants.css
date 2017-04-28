@@ -12,6 +12,16 @@ section#merchant li:nth-child(odd) {
   color: #F7CA18;
 }
 
+#merchant-form {
+  margin-left: 125px;
+  margin-top: 15%;
+}
+
+#submit-button input {
+  margin-top: 3%;
+  margin-left: 33%;
+}
+
 section#merchant li:nth-child(even) {
   border: transparent;
   background: #446CB3;

@@ -18,7 +18,7 @@ class MerchantsController < ApplicationController
       head :not_found
     end
 
-    @product = @merchant.products
+    @products = @merchant.products
   end
 
   def edit

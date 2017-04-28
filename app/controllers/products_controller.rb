@@ -1,18 +1,12 @@
 class ProductsController < ApplicationController
   before_action :require_login, only: [:new, :edit, :update, :destroy]
 
-  DEFAULT_IMAGE = "http://www.rawdogplus.com/wp-content/uploads/2015/05/pic-coming-soon_150x150.jpg"
-
   def index
     @products = Product.all
   end
 
   def show
     @product = Product.find_by(id: params[:id])
-    if @product.photo_url.nil? || @product.photo_url == ""
-      @product.photo_url = DEFAULT_IMAGE
-    end
-
     if @product.nil?
       head :not_found
     end
@@ -99,9 +93,6 @@ class ProductsController < ApplicationController
 
   private
   def product_params
-    if product.photo_url.nil?
-      product.photo_url = DEFAULT_IMAGE
-    end
     params.require(:product).permit(:product_name, :price, :merchant_id, :photo_url, :stock, :product_description)
   end
 

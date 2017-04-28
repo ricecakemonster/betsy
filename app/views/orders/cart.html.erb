@@ -14,8 +14,10 @@
     <% @order.orderproducts.each do |orderproduct| %>
     <% product = Product.find_by(id: orderproduct.product_id)%>
 
+
     <tr>
       <td><div id = "order_image" class = "sidexside" ><%= image_tag(product.photo_url)%></div>  <div class = "sidexside"><%= product.product_name %></div></td>
+
 
       <td>$<%= product.price %></td>
       <td>

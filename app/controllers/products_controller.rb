@@ -52,11 +52,7 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find_by(id: params[:id])
     @product.update_attributes(product_params)
-    if @product.photo_url.nil?
-      @product.photo_url = DEFAULT_IMAGE
-      @product.save
-    end
-
+    
     if @product.save
       flash[:status] = :success
       flash[:result_text] = "Successfully updated #{@product.product_name}"

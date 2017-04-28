@@ -128,3 +128,15 @@
     text-align: center;
   }
 }
+
+.table {
+    margin: auto;
+    width: 80%;
+    border-collapse: separate;
+    empty-cells: hide;
+}
+.table, th, td {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+
+}

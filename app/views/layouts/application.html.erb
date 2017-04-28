@@ -18,12 +18,11 @@
     <div class="top-bar" data-sticky data-options="marginTop:0;" style="width:100%">
       <div class="top-bar-left">
         <ul class="dropdown menu" data-dropdown-menu>
-          <li class="menu-text">pEtsy</li>
+          <li class="menu-text"><%= link_to "pEtsy", root_path %></li>
           <li>
             <a href="#">Shop By</a>
             <ul class="menu vertical">
-              <li><a href="#">Category</a></li>
-              <li><a href="#">Merchant</a></li>
+              <li><%= link_to "Merchant", merchants_path %></li>
             </ul>
           </li>
           <% if session[:order_id] != nil%>
@@ -77,7 +76,7 @@
 </div>
 </header> -->
 
-<section class="row status <%= flash[:status] %>">
+<section class="status <%= flash[:status] %>">
   <% if flash[:result_text] or flash[:messages] %>
 
     <h3><%= flash[:status] == :failure ? "A problem occurred: " : "" %><%= flash[:result_text] %></h3>

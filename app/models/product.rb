@@ -6,7 +6,7 @@ class Product < ApplicationRecord
   validates :product_name, presence: true
   validates :price, presence: true
   validates :merchant_id, presence: true
-  # validates :stock, presence: true
+  validates :stock, presence: true
 
   def default_image
     if photo_url

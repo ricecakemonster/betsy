@@ -10,14 +10,13 @@
     All Raincoats
   </h3>
 
-<section, class="row">
-<% @products.each do |product| %>
+  <section, class="row">
+  <% @products.each do |product| %>
   <div class="orange columns large-3 medium-6 small-12" "all_products">
     <%= link_to image_tag(product.default_image, alt: "Cute animals in raincoats"), product_path(product) %>
-    <div class="product_info">
-      <h5><%= product.product_name %></h5>
-      <h5><%= product.price %></h5>
-    </div>
+
+    <%= product.product_name %>
+    <h5%>product.price %></h5>
   </div>
-<% end %>
+  <% end %>
 </section>

@@ -1,0 +1,13 @@
+<table>
+  <tr>
+  <% @orderproducts.each do |orderproduct|%>
+    <% order = Order.find_by(id: orderproduct.order_id) %>
+    <td>Order# <%= link_to "#{order.id}", product_order_path(params[:product_id], order_id: order.id)%></td>
+    <td>Purchase Date: <%= order.created_at.strftime("%D") %>
+  </tr>
+  <tr>
+    <td>Product: <%= Product.find_by(id: orderproduct.product_id).product_name%></td>
+    <td>Qty: <%= orderproduct.quantity%> </td>
+  </tr>
+  <% end %>
+</table>

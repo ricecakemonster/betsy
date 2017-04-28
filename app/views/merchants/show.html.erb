@@ -5,15 +5,13 @@
   <li><%= "Email: #{@merchant.merchant_email}" %></li>
   <li><%= "Username: #{@merchant.username}" %></li>
   <% if @current_user && @current_user.id == @merchant.id %>
-  <<<<<<< HEAD
   <li><%= link_to "Add Product", new_product_path %> </li>
   <li><%= link_to "Change Account Details", edit_merchant_path %> </li>
   <li><%= link_to "Delete Account", merchant_path, method: :delete %> </li>
   <% end %>
 </ul>
 
-
-<% @product.each do |product| %>
+<% @products.each do |product| %>
 <div class="columns large-3 medium-6 small-12">
   <%= link_to image_tag(product.default_image, width: 200, height: 200, alt: "Cute animals in raincoats"), product_path(product) %>
 <% end %>

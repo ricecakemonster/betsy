@@ -71,8 +71,7 @@ describe MerchantsController do
 
     describe "edit" do
       it "should get show" do
-        m = Merchant.first
-        get edit_merchant_path(m)
+        get edit_merchant_path(merchant)
         must_respond_with :success
       end
 

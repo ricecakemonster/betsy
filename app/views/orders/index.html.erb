@@ -3,7 +3,7 @@
   <tr class = "morder_th_td">
   <% @orderproducts.each do |orderproduct|%>
     <% order = Order.find_by(id: orderproduct.order_id) %>
-    <th class = "morder_th_td"><%= link_to "Order# #{order.id}", product_order_path(params[:product_id], order_id: order.id)%></th>
+    <th class = "morder_th_td"><%= link_to "Order# #{orderproduct.id}", product_order_path(params[:product_id], order_id: order.id)%></th>
     <th class = "morder_th_td">Purchase Date: <%= order.created_at.strftime("%D") %></th>
   </tr>
   <tr class = "morder_th_td">

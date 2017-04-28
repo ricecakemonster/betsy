@@ -58,15 +58,15 @@
   <section class="columns large-2" style="width:40%">
     <%= form_for @review, url: review_path(params[:id]) do |t| %>
     Customer Name
-    <%= t.text_field :nickname %>
+    <%= t.text_field :nickname, placeholder: "Customer Name" %>
     Rating (1 to 5)
     <section id="rating">
-    <%= t.number_field :rating, value:5, min: 1, max: 5 %>
+    <%= t.number_field :rating, placeholder: "5", min: 1, max: 5 %>
   </section>
   </section>
   <section class="columns large-6">
-    Description (Optional)
-    <%= t.text_field :review_description%>
+    Description
+    <%= t.text_field :review_description, placeholder: "Description (Optional)"%>
     <%= t.submit "Leave Review" %>
     <% end %>
   </section>

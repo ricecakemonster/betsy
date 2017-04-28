@@ -23,8 +23,14 @@
   color: #F7CA18;
 }
 
+#logo a {
+  color: #F7CA18;
+  /*font-size: 20px;*/
+}
+
 .top-bar, .top-bar menu-text, .top-bar ul {
   background-color: #446CB3;
+  /*height: 70px;*/
 }
 
 .top-bar-left a, .top-bar-right li {
@@ -34,12 +40,25 @@
 .top-bar-right a {
   color: white;
 }
+
+.top-bar-left .button {
+  color: white;
+}
 .top-bar .button {
   background-color: #EF4836;
 }
 
 .top-bar li {
   padding-right: 10px;
+}
+
+.top-bar-right {
+  padding-top: 20px;
+}
+
+h3 {
+  background-color: #F7CA18;
+  padding: 10px;
 }
 
 /* THIS IS THE INDIVIDUAL PAGE CSS */

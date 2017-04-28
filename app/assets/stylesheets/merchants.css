@@ -1,6 +1,6 @@
 section#merchant li:nth-child(odd) {
   border: transparent;
-  background: pink;
+  background: #F7CA18;
   width: 20%;
   height: 10%;
   display: inline-block;
@@ -9,12 +9,22 @@ section#merchant li:nth-child(odd) {
   text-decoration: none;
   font-weight: bold;
   font-size: 1em;
-  color: #FF4E50;
+  color: #F7CA18;
+}
+
+#merchant-form {
+  margin-left: 125px;
+  margin-top: 15%;
+}
+
+#submit-button input {
+  margin-top: 3%;
+  margin-left: 33%;
 }
 
 section#merchant li:nth-child(even) {
   border: transparent;
-  background: #ABF9DC;
+  background: #446CB3;
   width: 20%;
   height: 10%;
   display: inline-block;
@@ -23,9 +33,12 @@ section#merchant li:nth-child(even) {
   text-decoration: none;
   font-weight: bold;
   font-size: 1em;
-  color: #FF4E50;
+  color: #F7CA18;
 }
 
+section#merchant li a {
+  color: #89C4F4;
+}
 
 .morder_table {
     margin: auto;
@@ -34,16 +47,12 @@ section#merchant li:nth-child(even) {
     empty-cells: hide;
 }
 
-
-
 .morder_th_td {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
     text-align: center;
     background-color: #F0F8FF;
     color: black;
-
-
 
 .breadcrumbs li{
   font-size: 15px

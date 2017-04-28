@@ -21,8 +21,7 @@
           <li>
             <a href="#">Shop By</a>
             <ul class="menu vertical">
-              <li><a href="#">Category</a></li>
-              <li><a href="#">Merchant</a></li>
+              <li><%= link_to "Merchant", merchants_path %></li>
             </ul>
           </li>
           <% if session[:order_id] != nil%>

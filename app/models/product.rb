@@ -3,6 +3,7 @@ class Product < ApplicationRecord
   has_many :orders, through: :orderproducts
   has_many :orderproducts
   has_many :reviews
+  has_and_belongs_to_many :categories
   validates :product_name, presence: true
   validates :price, presence: true
   validates :merchant_id, presence: true

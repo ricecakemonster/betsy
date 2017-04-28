@@ -1,3 +1,4 @@
+
 <h3 class="columns large-12 small-12 text-center">
 <%= @merchant.username%>'s Wonder Emporium
 </h3>
@@ -12,6 +13,8 @@
   <li><%= link_to "Delete Account", merchant_path, method: :delete %> </li>
   <% end %>
 </ul>
+
+
 
 <% @products.each do |product| %>
 <div class="columns large-3 medium-6 small-12">

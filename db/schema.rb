@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428161114) do
+ActiveRecord::Schema.define(version: 20170428171119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,13 +65,13 @@ ActiveRecord::Schema.define(version: 20170428161114) do
     t.string   "product_name"
     t.float    "price"
     t.integer  "merchant_id"
-    t.string   "photo_url"
+    t.string   "photo_url",           default: "http://www.rawdogplus.com/wp-content/uploads/2015/05/pic-coming-soon_150x150.jpg"
     t.integer  "stock"
     t.string   "product_description"
-    t.string   "category"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                                                                                                       null: false
+    t.datetime "updated_at",                                                                                                       null: false
     t.integer  "original_stock"
+    t.string   "category"
     t.index ["merchant_id"], name: "index_products_on_merchant_id", using: :btree
   end
 

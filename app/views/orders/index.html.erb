@@ -1,18 +1,18 @@
-<h2>Order list </h2>
-<table>
-  <tr>
+<h4 class = "order_title">Order list </h4>
+<table class = "morder_table">
+  <tr class = "morder_th_td">
   <% @orderproducts.each do |orderproduct|%>
     <% order = Order.find_by(id: orderproduct.order_id) %>
-    <td>Order# <%= link_to "#{order.id}", product_order_path(params[:product_id], order_id: order.id)%></td>
-    <td>Purchase Date: <%= order.created_at.strftime("%D") %>
+    <th class = "morder_th_td"><%= link_to "Order# #{order.id}", product_order_path(params[:product_id], order_id: order.id)%></th>
+    <th class = "morder_th_td">Purchase Date: <%= order.created_at.strftime("%D") %></th>
+  </tr>
+  <tr class = "morder_th_td">
+    <td class = "morder_th_td">Product: <%= Product.find_by(id: orderproduct.product_id).product_name%></td>
+    <td class = "morder_th_td">Qty: <%= orderproduct.quantity%> </td>
   </tr>
   <tr>
-    <td>Product: <%= Product.find_by(id: orderproduct.product_id).product_name%></td>
-    <td>Qty: <%= orderproduct.quantity%> </td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
+    <td class = "morder_th_td"></td>
+    <td class = "morder_th_td"></td>
   </tr>
   <% end %>
 </table>

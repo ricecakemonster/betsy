@@ -30,6 +30,25 @@ section#merchant li a {
   color: #89C4F4;
 }
 
+
+.morder_table {
+    margin: auto;
+    width: 80%;
+    border-collapse: separate;
+    empty-cells: hide;
+}
+
+
+
+.morder_th_td {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    text-align: center;
+    background-color: #F0F8FF;
+    color: black;
+
+
+
 .breadcrumbs li{
   font-size: 15px
 }
@@ -52,6 +71,7 @@ section#merchant li a {
 
 .all_products:hover {
   opacity: 0.3;
+
 }
 
   .product_info {

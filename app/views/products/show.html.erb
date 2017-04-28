@@ -13,10 +13,12 @@
   <p><%= @product.product_description %></p>
 </section>
 
-<section class="columns large-3">
+<section class="columns large-2">
   <p>Add to cart</p>
   <%= form_for @orderproduct, url: add_to_cart_path(params[:id]) do |t| %>
+  <section id="quantity">
   Qty: <%= t.number_field :quantity, value: 1, min: 1, max: @product.stock%>
+</section>
   <%= t.hidden_field :product_id, value: params[:id] %>
   <%= t.submit "Add to Cart" %>
   <% end %>
@@ -56,7 +58,9 @@
     Customer Name
     <%= t.text_field :nickname %>
     Rating (1-5)
-    <%= t.number_field :rating %>
+    <section id="rating">
+    <%= t.number_field :rating, min: 1, max: 5 %>
+  </section>
   </section>
   <section class="columns large-6">
     Description (Optional)

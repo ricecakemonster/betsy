@@ -83,3 +83,11 @@ h4#review {
   height: 400px;
   margin-left: 10em;
 }
+
+#quantity {
+  width: 60px;
+}
+
+#rating {
+  width: 60px;
+}

@@ -67,7 +67,9 @@
   <section class="columns large-6">
     Description
     <%= t.text_field :review_description, placeholder: "Description (Optional)"%>
-    <%= t.submit "Leave Review" %>
+    <div id="submit-button-show">
+    <%= t.submit "Leave Review", class:"button" %>
+  </div>
     <% end %>
   </section>
 </section>

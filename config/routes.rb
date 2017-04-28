@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   post '/products/:id/review', to: 'products#review', as: 'review'
   resources :reviews
 
-  get "/auth/:provider/callback", to: "sessions#login", as: 'auth_callback'
+  get "/auth/:provider/callback", to: "merchants#login", as: 'auth_callback'
   post '/login', to: 'merchants#login'
   post '/logout', to: 'merchants#logout', as: 'logout'
 end

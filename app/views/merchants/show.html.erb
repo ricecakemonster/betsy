@@ -15,8 +15,13 @@
 </ul>
 
 
+
 <% @products.each do |product| %>
 <div class="columns large-3 medium-6 small-12">
   <%= link_to image_tag(product.default_image, alt: "Cute animals in raincoats"), product_orders_path(product_id: product.id), class: "merchant_products" %>
+  <div class="product_info">
+    <h5><%= product.product_name %></h5>
+    <h5><%= product.price %></h5>
+  </div>
 </div>
 <% end %>

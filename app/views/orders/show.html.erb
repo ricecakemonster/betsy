@@ -1,4 +1,5 @@
-<table>
+<h2 class = "order_title">Order Details</h2>
+<table class = "morder_table">
 
   <tr>
     <td>Order number </td>
@@ -30,9 +31,11 @@
     <td>
       <%= form_for @orderproduct, url: product_update_path(@product.id, @order.id) do |f| %>
         <%= f.select :status, [ 'processing', 'shipped' ], prompt: @orderproduct.status %>
-        <%= f.submit "Update", class: 'button', method: :patch%>
+        <%= f.submit "Update", method: :patch%>
       <% end %>
     </td>
   </tr>
 </table>
-<div><%= link_to "Order List", product_orders_path(id: params[:id]), class: "button" %></div>
+<section class = "center">
+<%= link_to "Order List", product_orders_path(id: params[:id]), class: "button" %>
+</section>

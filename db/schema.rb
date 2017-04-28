@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170426173201) do
+ActiveRecord::Schema.define(version: 20170428050348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,11 +28,11 @@ ActiveRecord::Schema.define(version: 20170426173201) do
   end
 
   create_table "merchants", force: :cascade do |t|
-    t.string   "merchant_name"
+    t.string   "merchant_name",  default: "username"
     t.string   "merchant_email"
     t.string   "username"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "oauth_uid"
     t.string   "oauth_provider"
   end
@@ -62,16 +62,15 @@ ActiveRecord::Schema.define(version: 20170426173201) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string  "product_name"
-    t.float   "price"
-    t.integer "merchant_id"
-    t.string  "photo_url"
-    t.integer "stock"
-    t.string  "product_description"
-    t.string  "category"
+    t.string   "product_name"
+    t.float    "price"
+    t.integer  "merchant_id"
+    t.string   "photo_url"
+    t.integer  "stock"
+    t.string   "product_description"
+    t.string   "category"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-
     t.integer  "original_stock"
     t.index ["merchant_id"], name: "index_products_on_merchant_id", using: :btree
   end
@@ -85,4 +84,5 @@ ActiveRecord::Schema.define(version: 20170426173201) do
     t.string   "nickname",           default: "Anonymous Customer"
     t.index ["product_id"], name: "index_reviews_on_product_id", using: :btree
   end
+
 end

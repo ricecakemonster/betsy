@@ -1,6 +1,6 @@
-<h1>Cart</h1>
+<h4 class = "order_title">Cart</h4>
 <%= session[:order_ids] %>
-<table>
+<table class = "order_table">
   <thead>
     <tr>
       <th>Product</th>
@@ -14,8 +14,10 @@
     <% @order.orderproducts.each do |orderproduct| %>
     <% product = Product.find_by(id: orderproduct.product_id)%>
 
-    <tr class="columns large-6">
-      <td><%= product.product_name %>  <%= image_tag(product.photo_url)%></td>
+
+    <tr>
+      <td><div id = "order_image" class = "sidexside" ><%= image_tag(product.photo_url)%></div>  <div class = "sidexside"><%= product.product_name %></div></td>
+
 
       <td>$<%= product.price %></td>
       <td>
@@ -64,12 +66,14 @@
 
 </tbody>
 </table>
-<h2>Total: $<%= '%.02f' % @order.total %></h2>
 
-<div> <%= link_to "Continue Shopping", root_path, class: 'button' %> </div>
-<div> <%= link_to "Checkout", checkout_path(params[:id]), class: 'button' %> </div>
-<div> <%= link_to "Cancel My Cart", cancel_path(params[:id]),method: :patch, class: 'button' %> </div>
-
+<section class = "center">
+<ul>
+  <li class = "link_buttons"> <%= link_to "Continue Shopping", root_path, class: 'button' %> </li>
+  <li class = "link_buttons"> <%= link_to "Checkout", checkout_path(params[:id]), class: 'button' %> </li>
+  <li class = "link_buttons"> <%= link_to "Cancel My Cart", cancel_path(params[:id]),method: :patch, class: 'button' %> </li>
+</ul>
+</section>
 
 <%#= link_to( 'Checkout'.html_safe,
             "/orders/:id/checkout",

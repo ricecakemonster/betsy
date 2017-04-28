@@ -29,6 +29,7 @@ class OrdersController < ApplicationController
       product.stock -= @orderproduct.quantity
       product.save
       @orderproduct.status = "processing"
+      @orderproduct.save
 
     else
       flash.now[:status] = :failure
@@ -126,15 +127,10 @@ class OrdersController < ApplicationController
   end
 
   def show
-    # @product = Product.find_by(id: params[:product_id])
-    # @order = Order.find_by(id: params[:order_id])
-    # @orderproduct = Orderproduct.find_by(order_id: @order.id, product_id: @product.id)
   end
 
   def update # update status (processing / shipped)
-    # @product = Product.find_by(id: params[:product_id])
-    # @order = Order.find_by(id: params[:order_id])
-    # @orderproduct = Orderproduct.find_by(order_id: @order.id, product_id: @product.id)
+
     @orderproduct.update(orderproduct_params)
     if @orderproduct.save
       flash[:result_text] = "Successfully Updated!"

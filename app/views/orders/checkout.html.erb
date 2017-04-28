@@ -1,10 +1,11 @@
-<section>
+<h4 class = "order_title">Enter credit card info</h4>
+<section class = "purchase_width">
 <%= form_for @order, url: purchase_path(id: params[:id]), method: :patch do |f| %>
   Name on card:
   <%= f.text_field :cc_name, placeholder: "Ada Lovelace" %>
   Billing address:
   <%= f.fields_for :mailing_address do |address| %>
-    <li>
+    <li class = "list_no_button">
       <%= address.label :line1 %>
       <%= address.text_field :line1, placeholder: " streets "%>
 
@@ -21,10 +22,14 @@
   cvv number:
   <%= f.number_field :cvv, placeholder: "3 digits" %>
   <%= f.hidden_field :status, value: "paid" %>
-  <%= f.submit "Purchase", class: 'button'%>
+  <section class = "center">
+    <ul>
+      <li class = "link_buttons"><%= f.submit "Purchase", class: 'button'%></li>
+      <li class = "link_buttons"><%= link_to "Cancel My Cart", cancel_path(params[:id]), class: 'button' %></li>
+    </ul>
+  </section>
 
 <% end %>
+
+
 </section>
-<%#= submit_tag "Go!", {:onClick => "window.close()"} %>
-<div> <%#= link_to_if( some_boolean, "Link Title", <url etc..>) {link_to "Checkout", checkout_path(params[:id]), class: 'button' }%> </div>
-<div> <%= link_to "Cancel My Cart", cancel_path(params[:id]), class: 'button' %> </div>

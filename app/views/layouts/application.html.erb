@@ -65,7 +65,7 @@
 </div>
 </header> -->
 
-<section class="row status <%= flash[:status] %>">
+<section class="status <%= flash[:status] %>">
   <% if flash[:result_text] or flash[:messages] %>
 
     <h3><%= flash[:status] == :failure ? "A problem occurred: " : "" %><%= flash[:result_text] %></h3>

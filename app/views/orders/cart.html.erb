@@ -1,4 +1,4 @@
-<h2>Cart</h2>
+<h4 class = "order_title">Cart</h4>
 <%= session[:order_ids] %>
 <table class = "order_table">
   <thead>
@@ -72,3 +72,11 @@
   <li class = "link_buttons"> <%= link_to "Cancel My Cart", cancel_path(params[:id]),method: :patch, class: 'button' %> </li>
 </ul>
 </section>
+
+<%#= link_to( 'Checkout'.html_safe,
+            "/orders/:id/checkout",
+            'data-popup' => true,
+            class: "button",
+            onclick: "window.open(this.href,'checkout', 'height=500, width=500');
+                                        return false;"
+   ) %>

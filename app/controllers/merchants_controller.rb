@@ -23,10 +23,10 @@ class MerchantsController < ApplicationController
   end
 
   def update
-    merchant = Merchant.find(params[:id])
-    merchant.update_attributes(merchant_params)
-    if merchant.save
-      redirect_to merchant_path(merchant)
+    @merchant = Merchant.find(params[:id])
+    @merchant.update_attributes(merchant_params)
+    if @merchant.save
+      redirect_to merchant_path(@merchant)
     else
       render :edit, status: :bad_request
     end

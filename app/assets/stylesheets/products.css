@@ -47,8 +47,6 @@ h4#review {
   margin-top: 100px;
 }
 
-
-
 .all_products img {
   padding: 5px;
   width: 200px;
@@ -90,4 +88,14 @@ h4#review {
 
 #rating {
   width: 60px;
+}
+
+#submit-button {
+  /*display: block;*/
+}
+
+#product-form img {
+  width: 400px;
+  height: 400px;
+  text-align: center;
 }

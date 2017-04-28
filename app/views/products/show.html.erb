@@ -57,9 +57,9 @@
     <%= form_for @review, url: review_path(params[:id]) do |t| %>
     Customer Name
     <%= t.text_field :nickname %>
-    Rating (1-5)
+    Rating (1 to 5)
     <section id="rating">
-    <%= t.number_field :rating, min: 1, max: 5 %>
+    <%= t.number_field :rating, value:5, min: 1, max: 5 %>
   </section>
   </section>
   <section class="columns large-6">

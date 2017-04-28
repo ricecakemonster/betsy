@@ -1,4 +1,7 @@
-<section>
+<section id="product-form">
+  <section class="columns large-6 text-center" id="product-image">
+  <%= image_tag(@product.photo_url) %>
+</section>
   <form>
     <div class="row">
       <%= form_for @product do |f| %>
@@ -23,7 +26,7 @@
           <%= f.text_field :stock%>
         </label>
       </div>
-      <div class="columns large-1 text-center">
+      <div class="large-12 columns" id="submit-button">
         <%= f.submit class: "button" %>
       </div>
     </div>

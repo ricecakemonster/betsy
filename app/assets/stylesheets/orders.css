@@ -65,3 +65,12 @@
 .vertical_middle {
     margin-top: 8%
 }
+
+#product-hero-image {
+  height: 400px;
+  width: 400px;
+}
+
+#purchased-product-details {
+  margin-top: 9em;
+}

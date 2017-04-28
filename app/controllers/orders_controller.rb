@@ -167,11 +167,9 @@ class OrdersController < ApplicationController
   end
 
   def view_order
-    @order = Order.find_by(id: params[:order_id])
-    # find orderproducts
-    @orderproduct = Orderproduct.find_by(id: params[:order_id])
-    @product = Product.find_by(id: params[:order_id])
-
+    @product = Product.find_by(id: params[:id])
+    @order = Order.find_by(id: params[:id])
+    @orderproduct = Orderproduct.find_by(order_id: @order_id, product_id: @product_id)
   end
 
   private

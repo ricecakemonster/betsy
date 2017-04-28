@@ -1,25 +1,22 @@
-<h3 class="columns large-12 small-12 text-center">Merchant Store</h3>
 
-<ul>
+<h3 class="columns large-12 small-12 text-center">
+<%= @merchant.username%>'s Wonder Emporium
+</h3>
+
+<ul class = "breadcrumbs columns large-12 small-12 align-center">
   <li><%= "Merchant Name: #{@merchant.merchant_name}" %></li>
   <li><%= "Email: #{@merchant.merchant_email}" %></li>
   <li><%= "Username: #{@merchant.username}" %></li>
-
-  <section id="merchant" class="columns large-12 large-centered columns">
-  <ul class="no-bullet text-center">
-    <% @merchant.products.each do |product| %>
-    <li class="text-right">
-      <%= link_to product.product_name,  product_orders_path(product_id: product.id) %>
-    </li>
-
-    <% end %>
-  </ul>
-  </section>
-
-
   <% if @current_user && @current_user.id == @merchant.id %>
-    <li><%= link_to "Add Product", new_product_path, class: "button"%> </li>
-    <li><%= link_to "Edit Merchant", edit_merchant_path, class: "button" %> </li>
-    <li><%= link_to "Delete Merchant", merchant_path, method: :delete, class: "button" %> </li>
+  <li><%= link_to "Add Product", new_product_path %> </li>
+  <li><%= link_to "Change Account Details", edit_merchant_path %> </li>
+  <li><%= link_to "Delete Account", merchant_path, method: :delete %> </li>
   <% end %>
 </ul>
+
+
+<% @products.each do |product| %>
+<div class="columns large-3 medium-6 small-12">
+  <%= link_to image_tag(product.default_image, alt: "Cute animals in raincoats"), product_orders_path(product_id: product.id), class: "merchant_products" %>
+</div>
+<% end %>

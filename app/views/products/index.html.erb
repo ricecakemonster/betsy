@@ -10,27 +10,14 @@
     All Raincoats
   </h3>
 
-  <section class="row">
-    <% @products.each do |product| %>
-    <div class="orange columns large-3 medium-6 small-12">
-      <% if product.photo_url.nil? %>
-        <div class="all_products">
-          <%= link_to image_tag("http://www.fillmurray.com/200/200"), product_path(product) %>
-          <div class="product_info">
-            <h5><%= product.product_name %></h5>
-            <h5><%= product.price %></h5>
-          </div>
-        </div>
-      <% else %>
-        <div class="all_products">
-          <%= link_to image_tag(product.photo_url, alt: "Cute animals in raincoats"), product_path(product) %>
-          <div class="product_info">
-            <h5><%= product.product_name %></h5>
-            <h5><%= product.price %></h5>
-          </div>
-        </div>
-      <% end %>
+<section, class="row">
+<% @products.each do |product| %>
+  <div class="orange columns large-3 medium-6 small-12" "all_products">
+    <%= link_to image_tag(product.default_image, alt: "Cute animals in raincoats"), product_path(product) %>
+    <div class="product_info">
+      <h5><%= product.product_name %></h5>
+      <h5><%= product.price %></h5>
     </div>
-    <% end %>
-  </section>
-</div>
+  </div>
+<% end %>
+</section>

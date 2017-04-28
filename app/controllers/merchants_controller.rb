@@ -11,7 +11,7 @@ class MerchantsController < ApplicationController
       head :not_found
     end
 
-    @product = @merchant.products
+    @products = @merchant.products
   end
 
   def edit
@@ -50,6 +50,7 @@ class MerchantsController < ApplicationController
         session[:user_id] = merchant.id
         flash[:result_text] = "Successfully logged in as new merchant: #{merchant.username}"
       else
+        raise
         flash[:result_text] = "Login unsuccessful"
         merchant.errors.messages.each do |field, problem|
           flash[:field] = problem.join(', ')

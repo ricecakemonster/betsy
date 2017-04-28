@@ -8,6 +8,14 @@ class Product < ApplicationRecord
   validates :merchant_id, presence: true
   validates :stock, presence: true
 
+  def default_image
+    if photo_url
+      return photo_url
+    else
+      return "http://www.rawdogplus.com/wp-content/uploads/2015/05/pic-coming-soon_150x150.jpg"
+    end
+  end
+
 
   def avg_rating
     avg = reviews.select('avg(reviews.rating) as avg_rating').take&.avg_rating

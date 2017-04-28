@@ -7,11 +7,12 @@ class MerchantsController < ApplicationController
 
   def show
     @merchant = Merchant.find_by(id: params[:id])
-    if @merchant.nil?
+
+    if @merchant
+      @products = @merchant.products
+    else
       head :not_found
     end
-
-    @product = @merchant.products
   end
 
   def edit
@@ -24,9 +25,11 @@ class MerchantsController < ApplicationController
   def update
     merchant = Merchant.find(params[:id])
     merchant.update_attributes(merchant_params)
-    merchant.save
-
-    redirect_to merchants_path
+    if merchant.save
+      redirect_to merchant_path(merchant)
+    else
+      render :edit, status: :bad_request
+    end
   end
 
   def destroy
@@ -42,7 +45,7 @@ class MerchantsController < ApplicationController
   def login
     auth_hash = request.env['omniauth.auth']
 
-        merchant = Merchant.find_by(oauth_provider: params[:provider], oauth_uid: auth_hash["uid"])
+    merchant = Merchant.find_by(oauth_provider: params[:provider], oauth_uid: auth_hash["uid"])
 
     if merchant.nil?
       merchant = Merchant.from_github(auth_hash)
@@ -50,6 +53,7 @@ class MerchantsController < ApplicationController
         session[:user_id] = merchant.id
         flash[:result_text] = "Successfully logged in as new merchant: #{merchant.username}"
       else
+        raise
         flash[:result_text] = "Login unsuccessful"
         merchant.errors.messages.each do |field, problem|
           flash[:field] = problem.join(', ')

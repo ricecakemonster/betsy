@@ -28,4 +28,3 @@
 <%#= submit_tag "Go!", {:onClick => "window.close()"} %>
 <div> <%#= link_to_if( some_boolean, "Link Title", <url etc..>) {link_to "Checkout", checkout_path(params[:id]), class: 'button' }%> </div>
 <div> <%= link_to "Cancel My Cart", cancel_path(params[:id]), class: 'button' %> </div>
-<%= Product.find_by(id: 28).stock %>

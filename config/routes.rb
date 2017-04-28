@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 # changed to remove new_product_path, delete product_path
   resources :products do
     get 'orders/added_to_cart', to: 'orders#added_to_cart'
-    get 'orders/order_id', to: 'orders#merchant_order'
+    get 'orders/:order_id', to: 'orders#show', as: 'order'
+    patch 'orders/:order_id', to: 'orders#update', as: 'update'
+    get 'orders/', to: 'orders#index', as: 'orders'
   end
   resources :orders, except: [:new, :show]
 
@@ -18,6 +20,10 @@ Rails.application.routes.draw do
   patch 'orders/:id/purchase', to: 'orders#purchase', as: 'purchase'
   get 'orders/:id/invoice', to: 'orders#invoice', as: 'invoice'
   patch 'orders/:id/cancel', to: 'orders#cancel', as: 'cancel'
+  get 'orders/find_order', to: 'orders#find_order', as: 'find_order'
+  # post 'orders/find', to: 'orders#find', as: 'find'
+  get 'orders/:id', to: 'orders#show', as: 'view_order'
+
 
   post '/products/:id/review', to: 'products#review', as: 'review'
   resources :reviews

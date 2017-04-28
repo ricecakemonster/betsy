@@ -1,13 +1,23 @@
-<h3 class="columns large-12 small-12 text-center">
-  All Raincoats
-</h3>
-
-<section>
-  <% @products.each do |product| %>
-  <div class="columns large-3 medium-6 small-12">
-    <%= link_to image_tag(product.default_image, width: 200, height: 200, alt: "Cute animals in raincoats"), product_path(product) %>
-    <h3><%#= link_to product.product_name, product_path(product) %></h3>
-    <h3><%#= product.price %></h3>
+<div class="container">
+  <div class="hero-section zero-margin">
+    <div class="hero-section-text">
+      <h1>pEtsy</h1>
+      <h5>Keeping your pEtsy from getting wEtsy</h5>
+    </div>
   </div>
-  <% end %>
+
+  <h3 class="columns large-12 small-12 text-center">
+    All Raincoats
+  </h3>
+
+<section, class="row">
+<% @products.each do |product| %>
+  <div class="orange columns large-3 medium-6 small-12" "all_products">
+    <%= link_to image_tag(product.default_image, width: 200, height: 200, alt: "Cute animals in raincoats"), product_path(product) %>
+    <div class="product_info">
+      <h5><%= product.product_name %></h5>
+      <h5><%= product.price %></h5>
+    </div>
+  </div>
+<% end %>
 </section>

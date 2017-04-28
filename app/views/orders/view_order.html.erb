@@ -22,12 +22,14 @@
     <td><%= @order.mailing_address%></td>
   </tr>
   <tr>
-    <td>Status</td>
+    <td>Order Status</td>
     <td><%= @order.status%></td>
   </tr>
+
+<% @order.orderproducts.each do |orderproduct| %>
   <tr>
-    <td>Order Fulfillment Status</td>
-    <td><%= @order.status %></td>
-    </td>
+        <td><%= Product.find_by(id: orderproduct.product_id).product_name %></td>
+        <td><%= orderproduct.status %></td>
+    <% end %>
   </tr>
 </table>

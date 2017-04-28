@@ -40,18 +40,6 @@ describe MerchantsController do
 
     describe "functionality blocked for guests" do
       describe "edit" do
-        it "redirects new to index" do
-          get new_merchants_path(merchant)
-          must_respond_with :redirect
-          must_redirect_to root_path
-        end
-
-        it "redirects create to index" do
-          post edit_merchants_path
-          must_respond_with :redirect
-          must_redirect_to root_path
-        end
-
         it "redirects edit to index" do
           get edit_merchant_path(merchant)
           must_respond_with :redirect
@@ -59,7 +47,7 @@ describe MerchantsController do
         end
 
         it "redirects update to index" do
-          post merchant_path(merchant)
+          patch merchant_path(merchant)
           must_respond_with :redirect
           must_redirect_to root_path
         end
@@ -67,19 +55,14 @@ describe MerchantsController do
 
         it "redirects destroy to index" do
           delete merchant_path(merchant)
-          must_respond_with :redirect_to
+          must_respond_with :redirect
           must_redirect_to root_path
         end
       end
     end
+  end
 
-    describe "edit" do
-      it "should get generate form" do
-        get edit_merchant_path(merchant)
-        must_respond_with :success
-      end
-    end
-
+  describe "login" do
     describe "auth_callback" do
       it "registers a new user" do
         start_count = Merchant.count
@@ -110,9 +93,7 @@ describe MerchantsController do
     end
   end
 
-
-
-  describe "pages merchant can only view of own product" do
+  describe "pages only the store owner can access work" do
     before do
       login(merchant)
     end
@@ -136,49 +117,41 @@ describe MerchantsController do
       it "should change the merchant details" do
         merchant_data = {merchant:{
           merchant_name: "UPDATED_NAME",
-          merchant_email: "email@test.com"
+          merchant_email: "email@test.com"}
         }
-      }
-      patch merchant_path(merchant.id), params: merchant_data
+        patch merchant_path(merchant.id), params: merchant_data
 
-      merchant2 = Merchant.find(merchant.id)
+        merchant2 = Merchant.find(merchant.id)
 
-      merchant_data[:merchant][:merchant_email].must_equal merchant2.merchant_email
+        merchant_data[:merchant][:merchant_email].must_equal merchant2.merchant_email
 
-      merchant_data[:merchant][:merchant_name].must_equal merchant2.merchant_name
+        merchant_data[:merchant][:merchant_name].must_equal merchant2.merchant_name
 
+        must_respond_with :redirect
+        must_redirect_to merchant_path(merchant.id)
+      end
 
-      must_respond_with :redirect
-      must_redirect_to merchant_path(merchant.id)
+      it "responds with bad_request for bogus data" do
+        merchant_data = {
+          merchant: {
+            merchant_email: ""
+          }
+        }
+        patch merchant_path(merchant.id), params: merchant_data
+        must_respond_with :bad_request
+      end
     end
 
-    it "responds with bad_request for bogus data" do
-      merchant_data = {
-        merchant: {
-          merchant_email: ""
-        }
-      }
-      patch merchant_path(merchant.id), params: merchant_data
-      must_respond_with :bad_request
+
+    describe "delete/destroy" do
+      it "should remove a row from the database" do
+        proc {
+          delete merchant_path(merchant.id)
+        }.must_change 'Merchant.count', -1
+
+        must_respond_with :redirect
+        must_redirect_to merchants_path
+      end
     end
   end
-
-  # describe "delete/destroy" do
-  #   it "should remove a row from the database" do
-  #     proc {
-  #       merchant = merchants(:movie)
-  #       delete merchant_path(merchant.id)
-  #     }.must_change 'Merchant.count', -1
-  #
-  #     must_respond_with :redirect
-  #     must_redirect_to merchants_path
-  #   end
-  #
-  #   it "should return a 404 for a merchant that DNE" do
-  #     merchant = Merchant.last.id + 1
-  #     delete merchant_path(merchant)
-  #
-  #     must_respond_with :not_found
-  #   end
-end
 end

@@ -19,11 +19,12 @@
       <div class="top-bar-left">
         <ul class="dropdown menu" data-dropdown-menu>
           <li class="menu-text" id="logo"><%= link_to "pEtsy", root_path %></li>
-          <li>
+          <!-- <li>
             <a href="#">Shop By</a>
             <ul class="menu vertical">
               <li><%= link_to "Merchant", merchants_path %></li>
-            </ul>
+            </ul> -->
+            <li><%= link_to "Browse by Merchant", merchants_path %></li>
           </li>
           <% if session[:order_id] != nil%>
           <%# @order = Order.find_by(id: params[:order_id]) %>

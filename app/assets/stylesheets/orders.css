@@ -46,7 +46,8 @@
 }
 
 .order_title{
-    margin-left: 10%;
+    margin-left: 4%;
+    margin-top: 1%;
     color: #3366cc;
 
 }
@@ -72,5 +73,9 @@
 }
 
 #purchased-product-details {
-  margin-top: 9em;
+  margin-top: 4em;
+}
+
+#submit-button-payment-form  {
+  margin-top: 1em;
 }

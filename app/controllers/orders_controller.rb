@@ -150,10 +150,6 @@ class OrdersController < ApplicationController
 
   #### Checking order status (customer)
 
-  def find_order
-
-  end
-
   def find
     order = Order.find_by(id: params[:order_id])
     if order.nil?

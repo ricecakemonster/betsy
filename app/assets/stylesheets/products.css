@@ -80,6 +80,7 @@ h4#review {
   width: 400px;
   height: 400px;
   margin-left: 10em;
+  margin-bottom: 5em;
 }
 
 #quantity {
@@ -92,6 +93,14 @@ h4#review {
 
 #submit-button {
   margin-right: 5em;
+}
+
+#table-section th {
+  margin-top: 30px;
+}
+
+h4#review {
+  margin-top: 3em;
 }
 
 #product-form img {

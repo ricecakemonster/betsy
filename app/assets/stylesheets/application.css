@@ -23,8 +23,14 @@
   color: #F7CA18;
 }
 
+#logo a {
+  color: #F7CA18;
+  /*font-size: 20px;*/
+}
+
 .top-bar, .top-bar menu-text, .top-bar ul {
   background-color: #446CB3;
+  /*height: 70px;*/
 }
 
 .top-bar-left a, .top-bar-right li {
@@ -131,4 +137,16 @@
   .ecommerce-footer-bottom-bar .bottom-copyright {
     text-align: center;
   }
+}
+
+.table {
+    margin: auto;
+    width: 80%;
+    border-collapse: separate;
+    empty-cells: hide;
+}
+.table, th, td {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+
 }

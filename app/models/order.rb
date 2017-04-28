@@ -1,9 +1,10 @@
 class Order < ApplicationRecord
+  validates :status, presence: true, inclusion: { in: %w(pending paid complete cancelled), message: "%{value} is not a valid status."}
   has_many :products, through: :orderproducts
   has_many :orderproducts
   has_many :merchants, through: :products
   validates :cc_name, presence: true
-  validates :cc_num, presence: true, numericality: { only_integer: true, greater_than: 0, message: "Please enter valid credit card number" }
+  validates :cc_num, presence: true, format: { with: /[0-9]/, message: "please enter numbers only"}
   validates :order_email, presence: true
   validates :mailing_address, presence: true
   validates :cc_expiry, presence: true

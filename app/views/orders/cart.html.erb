@@ -1,6 +1,6 @@
-<h1>Cart</h1>
+<h4 class = "order_title">Cart</h4>
 <%= session[:order_ids] %>
-<table>
+<table class = "order_table">
   <thead>
     <tr>
       <th>Product</th>
@@ -15,14 +15,14 @@
     <% product = Product.find_by(id: orderproduct.product_id)%>
 
     <tr>
-      <td><%= product.product_name %>  <%= image_tag(product.photo_url)%></td>
+      <td><div id = "order_image" class = "sidexside" ><%= image_tag(product.photo_url)%></div>  <div class = "sidexside"><%= product.product_name %></div></td>
 
       <td>$<%= product.price %></td>
       <td>
 
 
         <%= form_for orderproduct, url: update_quantity_path(id: params[:id]) do |f| %>
-          <%= f.number_field :quantity, min: 1, placeholder: orderproduct.quantity%>
+          <%= f.number_field :quantity, min: 1, max: product.original_stock, placeholder: orderproduct.quantity%>
           <%= f.hidden_field :product_id, value: product.id%>
           <%= f.hidden_field :id, value: orderproduct.id%>
           <%= f.submit "Update", class: 'button'%>
@@ -40,7 +40,7 @@
   <tr>
     <td></td>
     <td></td>
-    <td>Total:</td>
+    <td>Subtotal:</td>
     <td>$<%= '%.02f' % @order.subtotal %></td>
   </tr>
   <tr>
@@ -64,10 +64,14 @@
 
 </tbody>
 </table>
-<h2>Total: $<%= '%.02f' % @order.total %></h2>
 
-<div> <%= link_to "Continue Shopping", root_path, class: 'button' %> </div>
-<div> <%= link_to "Checkout", checkout_path(params[:id]), class: 'button' %> </div>
+<section class = "center">
+<ul>
+  <li class = "link_buttons"> <%= link_to "Continue Shopping", root_path, class: 'button' %> </li>
+  <li class = "link_buttons"> <%= link_to "Checkout", checkout_path(params[:id]), class: 'button' %> </li>
+  <li class = "link_buttons"> <%= link_to "Cancel My Cart", cancel_path(params[:id]),method: :patch, class: 'button' %> </li>
+</ul>
+</section>
 
 <%#= link_to( 'Checkout'.html_safe,
             "/orders/:id/checkout",

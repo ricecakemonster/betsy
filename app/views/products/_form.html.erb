@@ -1,19 +1,36 @@
-<section>
-  <%= form_for @product do |f| %>
-    <%= f.hidden_field :merchant_id, value: @current_user.id %>
+<section id="product-form">
+  <section class="columns large-6 text-center" id="product-image">
+  <%= image_tag(@product.photo_url) %>
+</section>
+  <form>
+    <div class="row">
+      <%= form_for @product do |f| %>
+      <%= f.hidden_field :merchant_id, value: @current_user.id %>
+      <div class="large-6 columns">
+        <label>Product Name
+          <%= f.text_field :product_name %>
+        </label>
+      </div>
+      <div class="large-2 columns">
+        <label>Price
+          <%= f.text_field :price%>
+        </label>
+      </div>
+      <div class="large-6 columns">
+        <label>Photo URL
+          <%= f.text_field :photo_url%>
+        </label>
+      </div>
+      <div class="large-2 columns">
+        <label>Stock
+          <%= f.text_field :stock%>
+        </label>
+      </div>
+      <div class = "large-6 columns" id="submit-button">
+        <%= f.submit class: "button" %>
+      </div>
+    </div>
+    <% end %>
 
-    <%= f.label :product_name%>
-    <%= f.text_field :product_name %>
-
-    <%= f.label :price %>
-    <%= f.text_field :price%>
-
-    <%= f.label :photo_url %>
-    <%= f.text_area :photo_url %>
-
-    <%= f.label :stock %>
-    <%= f.text_field :stock %>
-
-    <%= f.submit class: "button" %>
-  <% end %>
+  </form>
 </section>

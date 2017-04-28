@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170426155809) do
+ActiveRecord::Schema.define(version: 20170428171119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,11 +28,11 @@ ActiveRecord::Schema.define(version: 20170426155809) do
   end
 
   create_table "merchants", force: :cascade do |t|
-    t.string   "merchant_name"
+    t.string   "merchant_name",  default: "username"
     t.string   "merchant_email"
     t.string   "username"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "oauth_uid"
     t.string   "oauth_provider"
   end
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20170426155809) do
 
   create_table "orders", force: :cascade do |t|
     t.string   "status"
-    t.integer  "cc_num"
+    t.string   "cc_num"
     t.string   "cc_name"
     t.string   "order_email"
     t.string   "mailing_address"
@@ -65,12 +65,13 @@ ActiveRecord::Schema.define(version: 20170426155809) do
     t.string   "product_name"
     t.float    "price"
     t.integer  "merchant_id"
-    t.string   "photo_url"
+    t.string   "photo_url",           default: "http://www.rawdogplus.com/wp-content/uploads/2015/05/pic-coming-soon_150x150.jpg"
     t.integer  "stock"
     t.string   "product_description"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                                                                                                       null: false
+    t.datetime "updated_at",                                                                                                       null: false
     t.integer  "original_stock"
+    t.string   "category"
     t.index ["merchant_id"], name: "index_products_on_merchant_id", using: :btree
   end
 
@@ -78,9 +79,9 @@ ActiveRecord::Schema.define(version: 20170426155809) do
     t.integer  "product_id"
     t.integer  "rating"
     t.string   "review_description"
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
-    t.string   "nickname",           default: "Anonymous Customer"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "nickname"
     t.index ["product_id"], name: "index_reviews_on_product_id", using: :btree
   end
 

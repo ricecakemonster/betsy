@@ -116,4 +116,54 @@ describe OrdersController do
       end_count.must_equal start_count
     end
   end
+
+  # describe "checkout" do
+  #   it "runs successfully" do
+  #   end
+  # end
+  #
+  # describe "purchase" do
+  #   it "runs successfully" do
+  #   end
+  # end
+  #
+  # describe "cancel" do
+  #   it "runs successfully" do
+  #   end
+  # end
+  #
+  # describe "invoice" do
+  #   it "runs successfully" do
+  #   end
+  # end
+  #
+  # describe "index" do
+  #   it "runs successfully" do
+  #   end
+  # end
+  #
+  # describe "show" do
+  #   it "runs successfully" do
+  #   end
+  # end
+  #
+  # describe "update" do
+  #   it "runs successfully" do
+  #   end
+  # end
+  #
+  # describe "find_order" do
+  #   it "runs successfully" do
+  #   end
+  # end
+  #
+  # describe "find" do
+  #   it "runs successfully" do
+  #   end
+  # end
+  #
+  # describe "view_order" do
+  #   it "runs successfully" do
+  #   end
+  # end
 end

@@ -1,26 +1,36 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: [:added_to_cart, :cart]
+  before_action :find_order_merchant, only: [:show, :update]
 
-  def index
-
-  end
+#### Making an order
 
   def add_to_cart
-    session[:order_id] = nil
+    # session[:order_id] = nil
     if session[:order_id]
       @order = Order.find_by(id: session[:order_id])
     else
+      @products = Product.all
+      @products.each do |product|
+        product.original_stock = product.stock
+        product.save
+      end
       @order = Order.new
       @order.save(validate: false)
       session[:order_id] = @order.id
       @order.status = "pending"
     end
-
     @orderproduct = Orderproduct.create(orderproduct_params)
 
     if @orderproduct
+
       flash[:result_text] = "Successfully added to Cart"
       flash[:status] = :success
+      product = Product.find_by(id: params[:id])
+      product.stock -= @orderproduct.quantity
+      product.save
+      @orderproduct.status = "processing"
+      @orderproduct.save
+
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "Could not create a Cart"
@@ -31,6 +41,7 @@ class OrdersController < ApplicationController
   end
 
   def added_to_cart
+
   end
 
   def cart
@@ -39,8 +50,12 @@ class OrdersController < ApplicationController
   def update_qty
     @order = Order.find_by(id: params[:id])
     @orderproduct = Orderproduct.find_by(id: params[:orderproduct][:id])
+    start_qty = @orderproduct.quantity
     @orderproduct.update(orderproduct_params)
     if @orderproduct.save
+      product = Product.find_by(id: @orderproduct.product_id)
+      product.stock += start_qty - @orderproduct.quantity
+      product.save
       redirect_to cart_path(id: params[:id])
     else
       render :cart, status: :bad_request
@@ -49,10 +64,14 @@ class OrdersController < ApplicationController
 
   def remove_from_cart
     @orderproduct = Orderproduct.find_by(id: params[:orderproduct_id])
+    start_qty = @orderproduct.quantity
     if @orderproduct.nil?
       head :not_found
     else
       @orderproduct.destroy
+      product = Product.find_by(@orderproduct)
+      product.quantity += start_qty - @orderproduct.quantity
+      product.save
       redirect_to cart_path(id: params[:order_id])
     end
   end
@@ -69,72 +88,85 @@ class OrdersController < ApplicationController
     if @order.update(order_params)
       flash[:result_text] = "Successfully Purchased!"
       flash[:status] = :success
+      session[:order_id] = nil
       redirect_to invoice_path
-
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "Fill in the blanks!"
       flash.now[:messages] = @order.errors.messages
       render :checkout, status: :bad_request
+    end
+  end
 
-
+  def cancel
+    @order = Order.find_by(id:params[:id])
+    @order.products.each do |product|
+      product.stock = product.original_stock
+      product.save
     end
 
-
+    @order.orderproducts.destroy_all
+    @order.destroy
+    redirect_to products_path
   end
 
   def invoice
     @order = Order.find_by(id: params[:id])
-
   end
 
 
+#### Managing orders (Merchant side)
 
-    # flash[:result_text] = "Continue shopping?"
-    #  if @answer = "yes"
-    #    redirect_to root_path
-    #  else
-    #    render "payment"
-    #  end
+  def index
+    @orderproducts = Orderproduct.where(product_id: params[:product_id])
+    @orders = []
+    @orderproducts.each do |orderproduct|
+      order = Order.find_by(id: orderproduct.order_id)
+      @orders << order
+    end
+  end
 
+  def show
+  end
 
+  def update # update status (processing / shipped)
 
-    #     @order.buyer_id = session[:user_id] if session[:user_id] != nil
-    #
-    #
-    #
-    #       if params[:cc_num] && params[:cc_name] && params [:cc_expiry]
-    #         @order.status = "paid"
-    #         redirect_to orders_path
-    #       else
-    #         @order.status = "pending"
-    #         render :payment
-    #         flash[:result_text] = "Please enter Credit Card info to finalize the purchase!"
-    #       end
-    #     else
-    #       flash[:status] = :failure
-    #       flash[:result_text] = "Please enter Name and Address"
-    #       flash[:messages] = @work.errors.messages
-    #       render :new, status: :bad_request
-    #     end
-    #
-    #
-    #
+    @orderproduct.update(orderproduct_params)
+    if @orderproduct.save
+      flash[:result_text] = "Successfully Updated!"
+      flash[:status] = :success
+      redirect_to product_order_path(params[:product_id], params[:order_id])
+    else
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Select between processing and shipped!"
+      flash.now[:messages] = @order.errors.messages
+      render :product_order, status: :bad_request
+    end
+  end
 
-  #
-  #   def edit
-  #   end
-  #
-  #   def update
-  #   end
-  #
-  #   def destroy
-  #   end
-  #
-  #   def purchase
-  #
-  # end
-  #
+  #### Checking order status (customer)
+
+  def find_order
+
+  end
+
+  def find
+    order = Order.find_by(id: params[:order_id])
+    if order.nil?
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Wrong order number!"
+      render :find_order, status: :bad_request
+    else
+      flash[:result_text] = "Welcome #{order.cc_name}!"
+      redirect_to view_order_path(id: params[:order_id])
+    end
+  end
+
+  def view_order
+    @order = Order.find_by(id: params[:order_id])
+
+  end
+
   private
 
   def order_params
@@ -142,13 +174,19 @@ class OrdersController < ApplicationController
   end
 
   def orderproduct_params
-    return params.require(:orderproduct).permit(:quantity, :product_id).merge(order_id: @order.id)
+    return params.require(:orderproduct).permit(:quantity, :product_id, :status).merge(order_id: @order.id)
   end
 
   def find_order
     @order = Order.find(session[:order_id])
     @product = Product.find_by(id: params[:product_id])
     @order = Order.find_by(id: session[:order_id])
+  end
+
+  def find_order_merchant
+  @order = Order.find_by(id: params[:order_id])
+  @product = Product.find_by(id: params[:product_id])
+  @orderproduct = Orderproduct.find_by(order_id: @order.id, product_id: @product.id)
   end
 
 end

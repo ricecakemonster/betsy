@@ -7,7 +7,6 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params[:id])
-
     if @product.nil?
       head :not_found
     end
@@ -22,30 +21,38 @@ class ProductsController < ApplicationController
   end
 
   def create
-     @product = Product.new(product_params)
-     # {
-     #   merchant_id :merchant_id
-     #   :
-     # }
-     if @product.save
-       flash[:status] = :success
-       flash[:result_text] = "Successfully added #{@product.product_name} to inventory"
-       redirect_to products_path
-     else
-       flash[:status] = :failure
-       flash[:result_text] = "Could not create #{@product.product_name}"
-       flash[:messages] = @product.errors.messages
-       render :new, status: :bad_request
-     end
-   end
+
+    @product = Product.new(product_params)
+    # {
+    #   merchant_id :merchant_id
+    #   :
+    # }
+
+    if @product.photo_url.nil?
+      @product.photo_url = DEFAULT_IMAGE
+      @product.save
+    end
+
+    if @product.save
+      flash[:status] = :success
+      flash[:result_text] = "Successfully added #{@product.product_name} to inventory"
+      redirect_to products_path
+    else
+      flash[:status] = :failure
+      flash[:result_text] = "Could not create #{@product.product_name}"
+      flash[:messages] = @product.errors.messages
+      render :new, status: :bad_request
+    end
+  end
 
   def edit
+    @product = Product.find_by(id: params[:id])
   end
 
   def update
-    @product = Product.find_by(params[:id])
+    @product = Product.find_by(id: params[:id])
     @product.update_attributes(product_params)
-
+    
     if @product.save
       flash[:status] = :success
       flash[:result_text] = "Successfully updated #{@product.product_name}"
@@ -59,10 +66,10 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-  product = Product.find(params[:id])
-  product.destroy
+    product = Product.find(params[:id])
+    product.destroy
 
-  redirect_to products_path
+    redirect_to products_path
 
   end
 

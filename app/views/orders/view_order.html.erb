@@ -1,13 +1,25 @@
 <table>
+
   <tr>
-  <% @orderproducts.each do |orderproduct|%>
-    <% order = Order.find_by(id: orderproduct.order_id) %>
-    <td>Order# <%= link_to "#{order.id}", product_order_path(params[:product_id], order_id: order.id)%></td>
-    <td>Purchase Date: <%= order.created_at.strftime("%D") %>
+    <td>Order number </td>
+    <td> <%= @order.id %></td>
   </tr>
   <tr>
-    <td>Product: <%= Product.find_by(id: orderproduct.product_id).product_name%></td>
-    <td>Qty: <%= orderproduct.quantity%> </td>
+  <tr>
+    <td>Purchase Date </td>
+    <td> <%= @order.created_at %></td>
   </tr>
-  <% end %>
+  <tr>
+    <td>Address </td>
+    <td><%= @order.mailing_address%></td>
+  </tr>
+  <tr>
+    <td>Status</td>
+    <td><%= @order.status%></td>
+  </tr>
+  <tr>
+    <td>Order Fulfillment Status</td>
+    <td><%= @orderproduct.status %></td>
+  </tr>
 </table>
+<div><%= link_to "Order List", product_orders_path(id: params[:id]), class: "button" %></div>

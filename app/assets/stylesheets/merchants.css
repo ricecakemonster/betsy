@@ -12,6 +12,16 @@ section#merchant li:nth-child(odd) {
   color: #F7CA18;
 }
 
+#merchant-form {
+  margin-left: 125px;
+  margin-top: 15%;
+}
+
+#submit-button input {
+  margin-top: 3%;
+  margin-left: 33%;
+}
+
 section#merchant li:nth-child(even) {
   border: transparent;
   background: #446CB3;
@@ -30,7 +40,6 @@ section#merchant li a {
   color: #89C4F4;
 }
 
-
 .morder_table {
     margin: auto;
     width: 80%;
@@ -38,16 +47,12 @@ section#merchant li a {
     empty-cells: hide;
 }
 
-
-
 .morder_th_td {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
     text-align: center;
     background-color: #F0F8FF;
     color: black;
-
-
 
 .breadcrumbs li{
   font-size: 15px

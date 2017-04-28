@@ -5,7 +5,7 @@
   <li><%= "Email: #{@merchant.merchant_email}" %></li>
   <li><%= "Username: #{@merchant.username}" %></li>
   <% if @current_user && @current_user.id == @merchant.id %>
-<<<<<<< HEAD
+  <<<<<<< HEAD
   <li><%= link_to "Add Product", new_product_path %> </li>
   <li><%= link_to "Change Account Details", edit_merchant_path %> </li>
   <li><%= link_to "Delete Account", merchant_path, method: :delete %> </li>
@@ -16,16 +16,5 @@
 <% @product.each do |product| %>
 <div class="columns large-3 medium-6 small-12">
   <%= link_to image_tag(product.default_image, width: 200, height: 200, alt: "Cute animals in raincoats"), product_path(product) %>
-  <h3><%#= link_to product.product_name, product_path(product) %></h3>
-  <h3><%#= product.price %></h3>
-</div>
 <% end %>
-=======
-    <li><%= link_to "Add Product", new_product_path %> </li>
-    <li><%= link_to "Edit Merchant", edit_merchant_path %> </li>
-    <li><%= link_to "Delete Merchant", merchant_path, method: :delete %> </li>
-  <% end %>
-</ul>
-
-<div><%= link_to "Order List", product_orders_path(product_id: ), class: "button" %></div>
->>>>>>> master-1
+</div>

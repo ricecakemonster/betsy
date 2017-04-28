@@ -21,14 +21,14 @@ Rails.application.routes.draw do
   get 'orders/:id/invoice', to: 'orders#invoice', as: 'invoice'
   patch 'orders/:id/cancel', to: 'orders#cancel', as: 'cancel'
   get 'orders/find_order', to: 'orders#find_order', as: 'find_order'
-  # post 'orders/find', to: 'orders#find', as: 'find'
-  get 'orders/:id', to: 'orders#show', as: 'view_order'
+  post 'orders/find_order', to: 'orders#find'
+  get 'orders/:id', to: 'orders#view_order', as: 'view_order'
 
 
   post '/products/:id/review', to: 'products#review', as: 'review'
   resources :reviews
 
-  get "/auth/:provider/callback", to: "merchants#login", as: 'auth_callback'
-  post '/login', to: 'merchants#login'
-  post '/logout', to: 'merchants#logout', as: 'logout'
+  get "/auth/:provider/callback", to: "sessions#login", as: 'auth_callback'
+  post '/login', to: 'sessions#login'
+  post '/logout', to: 'sessions#logout', as: 'logout'
 end

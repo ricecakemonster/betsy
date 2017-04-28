@@ -1,17 +1,18 @@
-<h1>Orders#index</h1>
-
-<% 5.times do |n| %>
-<tr>
-  <td><%= @product_names[n] %></td>
-  <td>$<%= @prices[n] %></td>
-  <td>
-    <%= form_tag "/orders/:id/show", method: :patch do %>
-      <%= text_number_field :session[:quantities][n]%>
-      <%= submit_tag "Update Quantity", class: "    " %>
-    <% end %>
-  </td>
-</tr>
-  <% n += 1 %>
-<% end %>
-
-<p>Find me in app/views/orders/index.html.erb</p>
+<h4 class = "order_title">Order list </h4>
+<table class = "morder_table">
+  <tr class = "morder_th_td">
+  <% @orderproducts.each do |orderproduct|%>
+    <% order = Order.find_by(id: orderproduct.order_id) %>
+    <th class = "morder_th_td"><%= link_to "Order# #{order.id}", product_order_path(params[:product_id], order_id: order.id)%></th>
+    <th class = "morder_th_td">Purchase Date: <%= order.created_at.strftime("%D") %></th>
+  </tr>
+  <tr class = "morder_th_td">
+    <td class = "morder_th_td">Product: <%= Product.find_by(id: orderproduct.product_id).product_name%></td>
+    <td class = "morder_th_td">Qty: <%= orderproduct.quantity%> </td>
+  </tr>
+  <tr>
+    <td class = "morder_th_td"></td>
+    <td class = "morder_th_td"></td>
+  </tr>
+  <% end %>
+</table>

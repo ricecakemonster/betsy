@@ -1,34 +1,35 @@
 class MerchantsController < ApplicationController
-  before_action :require_login, only: [:account]
+  before_action :require_login, only: [:edit, :update, :destroy]
 
   def index
     @merchants = Merchant.all
   end
 
-  def account
-    @merchant = Merchant.find_by(id: params[:id])
-    if @merchant.nil?
-      head :not_found
-    end
-  end
-
   def show
     @merchant = Merchant.find_by(id: params[:id])
-    if @merchant.nil?
+
+    if @merchant
+      @products = @merchant.products
+    else
       head :not_found
     end
   end
 
   def edit
-    @merchant = Merchant.find(params[:id])
+    @merchant = Merchant.find_by(id: params[:id])
+    if @merchant.nil?
+      head :not_found
+    end
   end
 
   def update
-    merchant = Merchant.find(params[:id])
-    merchant.update_attributes(merchant_params)
-    merchant.save
-
-    redirect_to merchants_path
+    @merchant = Merchant.find(params[:id])
+    @merchant.update_attributes(merchant_params)
+    if @merchant.save
+      redirect_to merchant_path(@merchant)
+    else
+      render :edit, status: :bad_request
+    end
   end
 
   def destroy
@@ -40,6 +41,48 @@ class MerchantsController < ApplicationController
     end
     redirect_to merchants_path
   end
+
+  def login
+    auth_hash = request.env['omniauth.auth']
+
+    merchant = Merchant.find_by(oauth_provider: params[:provider], oauth_uid: auth_hash["uid"])
+
+    if merchant.nil?
+      merchant = Merchant.from_github(auth_hash)
+      if merchant.save
+        session[:user_id] = merchant.id
+        flash[:result_text] = "Successfully logged in as new merchant: #{merchant.username}"
+      else
+        raise
+        flash[:result_text] = "Login unsuccessful"
+        merchant.errors.messages.each do |field, problem|
+          flash[:field] = problem.join(', ')
+        end
+      end
+    else
+      session[:user_id] = merchant.id
+    end
+    redirect_to root_path
+  end
+
+  def logout
+    @order = Order.find_by(id: session[:order_id])
+    @order.products.each do |product|
+      product.stock = product.original_stock
+      product.save
+    end
+
+    @order.orderproducts.destroy_all
+    @order.destroy
+
+    session[:user_id] = nil
+
+    session[:order_id] = nil
+    flash[:status] = :success
+    flash[:result_text] = "Successfully logged out"
+    redirect_to root_path
+  end
+
 
   private
   def merchant_params

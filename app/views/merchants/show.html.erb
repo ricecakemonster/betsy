@@ -22,5 +22,6 @@
 <h5><%= product.product_name %></h5>
 $<%= product.price %><br>
 <%= link_to "Edit Product Details", edit_product_path(product)%>
+<br><%= link_to "My Orders", product_orders_path(product) %>
 </div>
 <% end %>

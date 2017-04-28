@@ -66,18 +66,20 @@ class MerchantsController < ApplicationController
   end
 
   def logout
-    @order = Order.find_by(id: session[:order_id])
-    @order.products.each do |product|
-      product.stock = product.original_stock
-      product.save
+    if session[:order_id].nil?
+      session[:user_id] = nil
+    else
+      @order = Order.find_by(id: session[:order_id])
+      @order.products.each do |product|
+        product.stock = product.original_stock
+        product.save
+      end
+
+      @order.orderproducts.destroy_all
+      @order.destroy
+
+      session[:user_id] = nil
     end
-
-    @order.orderproducts.destroy_all
-    @order.destroy
-
-    session[:user_id] = nil
-
-    session[:order_id] = nil
     flash[:status] = :success
     flash[:result_text] = "Successfully logged out"
     redirect_to root_path

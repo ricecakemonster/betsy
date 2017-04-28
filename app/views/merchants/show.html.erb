@@ -19,9 +19,11 @@
 <% @products.each do |product| %>
 <div class="columns large-3 medium-6 small-12">
   <%= link_to image_tag(product.default_image, alt: "Cute animals in raincoats"), product_path(product), class: "merchant_products" %>
-<h5><%= product.product_name %></h5>
-$<%= product.price %><br>
-<%= link_to "Edit Product Details", edit_product_path(product)%>
-<br><%= link_to "My Orders", product_orders_path(product) %>
-</div>
-<% end %>
+  <h5><%= product.product_name %></h5>
+  $<%= product.price %><br>
+  <% if @current_user && @current_user.id == @merchant.id %>
+    <%= link_to "Edit Product Details", edit_product_path(product)%>
+    <br><%= link_to "My Orders", product_orders_path(product) %>
+    <% end %>
+  </div>
+  <% end %>

@@ -146,10 +146,6 @@ class OrdersController < ApplicationController
 
   #### Checking order status (customer)
 
-  def find_order
-
-  end
-
   def find
     order = Order.find_by(id: params[:order_id])
     if order.nil?
@@ -163,8 +159,9 @@ class OrdersController < ApplicationController
   end
 
   def view_order
-    @order = Order.find_by(id: params[:order_id])
-
+    @product = Product.find_by(id: params[:id])
+    @order = Order.find_by(id: params[:id])
+    @orderproduct = Orderproduct.find_by(order_id: @order_id, product_id: @product_id)
   end
 
   private

@@ -2,6 +2,7 @@ require "test_helper"
 
 describe ProductsController do
 
+
   describe "Guest User" do
     describe "show" do
       it "should get show" do

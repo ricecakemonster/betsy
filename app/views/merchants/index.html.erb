@@ -4,7 +4,12 @@
 <ul class="no-bullet text-center">
   <% @merchants.each do |merchant| %>
   <li class="text-right">
-    <%= link_to merchant.merchant_name, merchant_path(merchant.id) %>
+    <% if merchant.merchant_name.nil? %>
+      <% name = merchant.username %>
+    <% else %>
+      <% name = merchant.merchant_name %>
+    <% end %>
+    <%= link_to name, merchant_path(merchant.id) %>
   </li>
 
   <% end %>

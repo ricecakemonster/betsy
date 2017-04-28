@@ -20,7 +20,7 @@
   Qty: <%= t.number_field :quantity, value: 1, min: 1, max: @product.stock%>
 </section>
   <%= t.hidden_field :product_id, value: params[:id] %>
-  <%= t.submit "Add to Cart" %>
+  <%= t.submit "Add to Cart", class:"button " %>
   <% end %>
 </section>
 <section class="columns large-3">
@@ -66,7 +66,9 @@
   <section class="columns large-6">
     Description
     <%= t.text_field :review_description, placeholder: "Description (Optional)"%>
-    <%= t.submit "Leave Review" %>
+    <div id="submit-button-show">
+    <%= t.submit "Leave Review", class:"button" %>
+  </div>
     <% end %>
   </section>
 </section>

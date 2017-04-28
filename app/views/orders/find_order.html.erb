@@ -1,13 +1,10 @@
 
-<h2> Find My Order </h2>
-
-<h4>Enter order number:
+<section class = "vertical_middle">
+<h4 class = "left_more_margin"> Enter order number </h4>
 <%= form_tag url: find_order_path, method: :post do  %>
-  <%= label_tag :order_id%>
-  <%= text_field_tag :order_id %>
-  <%= submit_tag 'Find my order', class: 'button' %>
-<% end %></h4>
-
-
-post 'orders/find', to: 'orders#find', as: 'find'
-get 'orders/:id', to: 'orders#show', as: 'view_order'
+  <div class ="width_50"><%= text_field_tag :order_id %></div>
+  <section class = "center">
+    <%= submit_tag 'Find my order', class: 'button' %>
+  </section>
+<% end %>
+</section>

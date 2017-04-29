@@ -20,6 +20,9 @@
 <div class="columns large-3 medium-6 small-12">
   <%= link_to image_tag(product.default_image, alt: "Cute animals in raincoats"), product_path(product), class: "merchant_products" %>
   <h5><%= product.product_name %></h5>
+  <% if product.stock = 0 %>
+  <%= "** Retired **" %>
+  <% end %>
   $<%= product.price %><br>
   <% if @current_user && @current_user.id == @merchant.id %>
     <%= link_to "Edit Product Details", edit_product_path(product)%>

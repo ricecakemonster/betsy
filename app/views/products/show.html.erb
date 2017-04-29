@@ -54,21 +54,21 @@
 
 <section class="columns large-8 large-centered columns">
   <h4 id="review"> Leave a Review </h4>
-  <section class="columns large-2" style="width:40%">
+  <!-- <div class="columns large-2" style="width:40%"> -->
     <%= form_for @review, url: review_path(params[:id]) do |t| %>
     Customer Name
     <%= t.text_field :nickname, placeholder: "Customer Name" %>
     Rating (1 to 5)
-    <section id="rating">
+    <!-- <div id="rating"> -->
       <%= t.number_field :rating, placeholder: "5", min: 1, max: 5 %>
-    </section>
-  </section>
-  <section class="columns large-6">
+    <!-- </div> -->
+  <!-- </div> -->
+  <!-- <div class="columns large-6"> -->
     Description
     <%= t.text_field :review_description, placeholder: "Description (Optional)"%>
-    <div id="submit-button-show">
-      <%= t.submit "Leave Review", class:"button" %>
+
+      <%= t.submit "Leave Review", class:"button"%>
       <% end %>
-    </div>
-  </section>
+
+  <!-- </div> -->
 </section>

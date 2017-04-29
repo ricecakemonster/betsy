@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     patch 'orders/:order_id', to: 'orders#update', as: 'update'
     get 'orders/', to: 'orders#index', as: 'orders'
   end
-  resources :orders, except: [:new, :show]
+  # resources :orders, except: [:new, :show]
 
 
   post 'products/:id/add_to_cart', to: 'orders#add_to_cart', as: 'add_to_cart'

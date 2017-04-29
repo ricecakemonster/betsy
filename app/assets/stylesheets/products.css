@@ -114,3 +114,6 @@ h4#review {
   height: 400px;
   text-align: center;
 }
+.product-bold {
+  font-weight: 600;
+}

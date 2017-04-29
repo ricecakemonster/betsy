@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   root to: "products#index"
 
+  get 'products/category', to: 'products#category', as: 'category'
+  get 'products/category/dog', to: 'products#dog', as: 'dog'
+  get 'products/category/cat', to: 'products#cat', as: 'cat'
+  get 'products/category/other', to: 'products#other', as: 'other'
+
   resources :merchants, except: [:new]
 # changed to remove new_product_path, delete product_path
   resources :products do

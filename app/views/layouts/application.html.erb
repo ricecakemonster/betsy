@@ -25,6 +25,8 @@
               <li><%= link_to "Merchant", merchants_path %></li>
             </ul> -->
             <li><%= link_to "Browse by Merchant", merchants_path %></li>
+            <li><%= link_to "Browse by Category", category_path %></li>
+
           </li>
           <% if session[:order_id] != nil%>
           <%# @order = Order.find_by(id: params[:order_id]) %>
@@ -32,12 +34,6 @@
           <% else %>
             <% link = root_path %>
           <% end %>
-          <li>
-            <%= link_to "Cart", link, class: 'button' %>
-          </li>
-          <li>
-            <%= link_to "Find My Order", find_order_path, class: 'button' %>
-          </li>
 
         </ul>
       </div>
@@ -52,6 +48,14 @@
           <li></li>
           <li><%= link_to "Login", "/auth/github", class: "button" %></li>
           <% end %>
+
+          <li>
+            <%= link_to "Find My Order", find_order_path, class: 'button' %>
+          </li>
+          <li>
+            <%= link_to "Cart", link, class: 'button' %>
+          </li>
+
         </ul>
       </div>
     </div>

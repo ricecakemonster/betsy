@@ -99,13 +99,14 @@ class OrdersController < ApplicationController
   end
 
   def cancel
-    @order = Order.find_by(id:params[:id])
+    @order = Order.find_by(id: session[:order_id])
     @order.products.each do |product|
       product.stock = product.original_stock
       product.save
     end
 
     @order.orderproducts.destroy_all
+    session[:order_id] = nil
     @order.destroy
     redirect_to products_path
   end

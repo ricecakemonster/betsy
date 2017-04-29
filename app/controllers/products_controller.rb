@@ -28,7 +28,8 @@ class ProductsController < ApplicationController
     #   :
     # }
 
-    if @product.photo_url.nil?
+
+    if @product.photo_url = ""
       @product.photo_url = "http://www.rawdogplus.com/wp-content/uploads/2015/05/pic-coming-soon_150x150.jpg"
       @product.save
     end
@@ -68,9 +69,7 @@ class ProductsController < ApplicationController
   def destroy
     product = Product.find(params[:id])
     product.destroy
-
-    redirect_to products_path
-
+    redirect_to merchant_path(id: product.merchant.id)
   end
 
   def review

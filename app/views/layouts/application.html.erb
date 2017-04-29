@@ -25,6 +25,8 @@
               <li><%= link_to "Merchant", merchants_path %></li>
             </ul> -->
             <li><%= link_to "Browse by Merchant", merchants_path %></li>
+            <li><%= link_to "Browse by Categry", category_path %></li>
+
           </li>
           <% if session[:order_id] != nil%>
           <%# @order = Order.find_by(id: params[:order_id]) %>

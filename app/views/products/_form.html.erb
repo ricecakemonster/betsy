@@ -1,6 +1,7 @@
 <section id="product-form">
   <section class="columns large-6 text-center" id="product-image">
-  <%= image_tag(@product.photo_url) %>
+  <%= image = image_tag "/pic-coming-soon_150x150.jpg"%>
+  <%#= image_tag(@product.image) %>
 </section>
     <div class="row">
       <%= form_for @product do |f| %>

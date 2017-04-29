@@ -77,7 +77,7 @@ class MerchantsController < ApplicationController
 
       @order.orderproducts.destroy_all
       @order.destroy
-
+      session[:order_id] = nil
       session[:user_id] = nil
     end
     flash[:status] = :success

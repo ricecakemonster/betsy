@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :require_login, only: [:new, :edit, :update, :destroy] 
+  before_action :require_login, only: [:new, :edit, :update, :destroy]
 
   def index
     @products = Product.all
@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
     if @product.nil?
       head :not_found
     end
-    
+
     @orderproduct = Orderproduct.new
     @review = Review.new
     @review_list = Review.where(product_id: params[:id])
@@ -28,8 +28,9 @@ class ProductsController < ApplicationController
     #   :
     # }
 
-    if @product.photo_url.nil?
-      @product.photo_url = DEFAULT_IMAGE
+
+    if @product.photo_url = ""
+      @product.photo_url = "http://www.rawdogplus.com/wp-content/uploads/2015/05/pic-coming-soon_150x150.jpg"
       @product.save
     end
 
@@ -68,9 +69,7 @@ class ProductsController < ApplicationController
   def destroy
     product = Product.find(params[:id])
     product.destroy
-
-    redirect_to products_path
-
+    redirect_to merchant_path(id: product.merchant.id)
   end
 
   def review

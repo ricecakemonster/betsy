@@ -88,6 +88,7 @@ describe Merchant do
       result = merchant.valid?
       result.must_equal false
 
+
       merchant.errors.messages.must_include :oauth_provider
     end
   end

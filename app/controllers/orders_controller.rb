@@ -68,10 +68,10 @@ class OrdersController < ApplicationController
     if @orderproduct.nil?
       head :not_found
     else
-      @orderproduct.destroy
-      product = Product.find_by(@orderproduct)
-      product.quantity += start_qty - @orderproduct.quantity
+      product = Product.find_by(id: @orderproduct.product_id)
+      product.stock += start_qty - @orderproduct.quantity
       product.save
+      @orderproduct.destroy
       redirect_to cart_path(id: params[:order_id])
     end
   end

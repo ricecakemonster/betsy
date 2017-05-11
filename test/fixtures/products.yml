@@ -1,9 +1,12 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
+cat_jacket:
+  product_name: Cat Jacket
+  price: 19.99
+  merchant_id: Merchant.first.id
+  photo_url: http://pinxpets.com/cat-rain-jacket/
+  stock: 5
+  product_description: soooo waterproof but not breathable; mild activity only
+
 petsy1:
   product_name: wetsy classic
   price: 100
@@ -27,3 +30,11 @@ petsy3:
   stock: 50
   product_description: This is the third best wetsy for your petsy.
   photo_url: www.petsy.com/petsy3
+
+pup_poncho:
+  product_name: Pup Poncho
+  price: 29.99
+  merchant_id: 1
+  photo_url: http://pinxpets.com/cat-rain-jacket/
+  stock: 2
+  product_description: has no arm holes because it's a poncho

@@ -7,26 +7,33 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params[:id])
+    if @product.nil?
+      head :not_found
+    end
+
     @orderproduct = Orderproduct.new
     @review = Review.new
     @review_list = Review.where(product_id: params[:id])
   end
 
   def new
-    @merchant = Merchant.find(params[:merchant_id])
     @product = Product.new
   end
 
   def create
-    merchant = Merchant.find(params[:merchant_id])
-    product_data = {
-      product_name: product_params[:product_name],
-      price: product_params[:price],
-      merchant_id: merchant.id,
-      photo_url: product_params[:photo_url],
-      product_description: product_params[:product_description]
-    }
-    @product = Product.new(product_data)
+
+    @product = Product.new(product_params)
+    # {
+    #   merchant_id :merchant_id
+    #   :
+    # }
+
+
+    if @product.photo_url = ""
+      @product.photo_url = "http://www.rawdogplus.com/wp-content/uploads/2015/05/pic-coming-soon_150x150.jpg"
+      @product.save
+    end
+
     if @product.save
       flash[:status] = :success
       flash[:result_text] = "Successfully added #{@product.product_name} to inventory"
@@ -39,14 +46,30 @@ class ProductsController < ApplicationController
     end
   end
 
-
   def edit
+    @product = Product.find_by(id: params[:id])
   end
 
   def update
+    @product = Product.find_by(id: params[:id])
+    @product.update_attributes(product_params)
+
+    if @product.save
+      flash[:status] = :success
+      flash[:result_text] = "Successfully updated #{@product.product_name}"
+      redirect_to products_path
+    else
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Could not update #{@product.product_name}"
+      flash.now[:messages] = @product.errors.messages
+      render :edit, status: :not_found
+    end
   end
 
   def destroy
+    product = Product.find(params[:id])
+    product.destroy
+    redirect_to merchant_path(id: product.merchant.id)
   end
 
   def review

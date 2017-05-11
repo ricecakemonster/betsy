@@ -4,6 +4,7 @@ describe Merchant do
 
   describe "relationships" do
     it "can have many products" do
+
       merchant = merchants(:erica)
       merchant.products.count.must_equal 2
     end
@@ -34,6 +35,7 @@ describe Merchant do
       merchant.errors.messages.must_include :merchant_email
     end
 
+
     it "is invalid with a duplicate merchant_email" do
       merchant1 = Merchant.create(username: "TestUser", merchant_name: "Test", merchant_email: "test@petsy.com", oauth_uid: "1234", oauth_provider: "github")
       merchant2 = Merchant.new(username: "Lala", merchant_name: "TestTwo", merchant_email: "test@petsy.com", oauth_uid: "5678", oauth_provider: "github")
@@ -56,6 +58,7 @@ describe Merchant do
       merchant.errors.messages.must_include :username
     end
 
+
     it "is invalid with a duplicate username" do
       merchant1 = Merchant.create(username: "TestUser", merchant_name: "Test", merchant_email: "test@petsy.com", oauth_uid: "1234", oauth_provider: "github")
       merchant2 = Merchant.new(username: "TestUser", merchant_name: "TestTwo", merchant_email: "testtest@petsy.com", oauth_uid: "5678", oauth_provider: "github")
@@ -69,6 +72,7 @@ describe Merchant do
       merchant = Merchant.create(oauth_uid: "11111")
       merchant.errors.messages.wont_include :oauth_uid
     end
+
 
     it "is invalid without an oauth_uid" do
       merchant = Merchant.new

@@ -159,3 +159,24 @@ h3 {
     border-bottom: 1px solid black;
 
 }
+
+/* THIS IS THE FOOTER */
+
+.page-footer {
+  max-width: 100%;
+  color: green;
+  /*background-repeat: no-repeat;*/
+  /*background-color: yellow;*/
+  border-bottom: 1px solid darkgrey;
+  margin-bottom: 10px;
+}
+
+.page-footer h2 a {
+  margin-top: 20px;
+  padding-left: 75px;
+  color: pink;
+}
+
+.page-footer p {
+  margin-bottom: 5px;
+}

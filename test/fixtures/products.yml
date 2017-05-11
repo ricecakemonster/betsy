@@ -1,29 +1,41 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-apple:
-  product_name: apple
-  price: 0.5
-  merchant: a
-  photo_url:
-  stock: 30
-  product_description: It's delicious and nutritious!
 
-dragonfruit:
-  product_name: dragonfruit
-  price: 2
-  merchant: b
-  photo_url:
-  stock: 100
-  product_description: It's fuschia and good for ya!
+cat_jacket:
+  product_name: Cat Jacket
+  price: 19.99
+  merchant_id: Merchant.first.id
+  photo_url: http://pinxpets.com/cat-rain-jacket/
+  stock: 5
+  product_description: soooo waterproof but not breathable; mild activity only
 
-pear:
-  product_name: pear
-  price: 1
-  merchant: a
-  photo_url:
-  stock: 175
-  product_description: Eat pears without a care!
+petsy1:
+  product_name: wetsy classic
+  price: 100
+  merchant: erica
+  stock: 50
+  product_description: This is the best wetsy for your petsy.
+  photo_url: www.petsy.com/petsy1
+
+petsy2:
+  product_name: wetsy classic II
+  price: 75
+  merchant: andrea
+  stock: 50
+  product_description: This is the second best wetsy for your petsy.
+  photo_url: www.petsy.com/petsy2
+
+petsy3:
+  product_name: wetsy classic III
+  price: 50
+  merchant: erica
+  stock: 50
+  product_description: This is the third best wetsy for your petsy.
+  photo_url: www.petsy.com/petsy3
+
+pup_poncho:
+  product_name: Pup Poncho
+  price: 29.99
+  merchant_id: 1
+  photo_url: http://pinxpets.com/cat-rain-jacket/
+  stock: 2
+  product_description: has no arm holes because it's a poncho
